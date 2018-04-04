@@ -22,15 +22,6 @@ Android Architecture Blueprints项目演示了帮助解决或避免这些常见�
 | [todo‑mvvm‑databinding](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-databinding/) | 基于 todo-databinding 示例, 此版本包含 [Model‑View‑ViewModel](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) 模式。|
 | [todo‑mvvm‑live](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live/) | 使用 [Architecture Components](http://developer.android.com/arch) 中的ViewModels和LiveData以及MVVM体系结构的Data Binding库。|
 
-### 正在进行的样品
-
-| 样品 | 描述 |
-| ------------- | ------------- |
-| [dev‑todo‑mvp‑tablet](https://github.com/googlesamples/android-architecture/tree/dev-todo-mvp-tablet/) | 添加平板电脑的主视图和详细视图。|
-| [dev‑todo‑mvvm‑rxjava](https://github.com/googlesamples/android-architecture/tree/dev-todo-mvvm-rxjava/) | 基于 todo-rxjava 样品, 此版本包含 [Model‑View‑ViewModel](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) 模式。|
-| [dev-todo-mvp-kotlin](https://github.com/googlesamples/android-architecture/tree/dev-todo-mvp-kotlin/) | 将 todo-mvp 转换成 Kotlin。|
-| [dev-todo-mvvm-live-kotlin](https://github.com/googlesamples/android-architecture/tree/dev-todo-mvvm-live-kotlin/) | 将 todo-mvvm-live 转换成 Kotlin。|
-
 有关计划样本的信息，请参阅[“新样本”问题](https://github.com/googlesamples/android-architecture/issues?q=is%3Aissue+is%3Aopen+label%3A%22New+sample%22)。
 
 ## Why a to-do app?
