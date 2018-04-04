@@ -25,8 +25,8 @@ Android Architecture Blueprints项目演示了帮助解决或避免这些常见�
 ### Stable samples - Kotlin
 | Sample | Description |
 | ------------- | ------------- |
-| [todo-mvp-kotlin](https://github.com/googlesamples/android-architecture/tree/todo-mvp-kotlin/) | Conversion of todo-mvp to Kotlin. |
-| [todo-mvvm-live-kotlin](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live-kotlin/) | Conversion of todo-mvvm-live to Kotlin. |
+| [todo-mvp-kotlin](https://github.com/googlesamples/android-architecture/tree/todo-mvp-kotlin/) | todo-mvp 转换到 Kotlin. |
+| [todo-mvvm-live-kotlin](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live-kotlin/) | todo-mvvm-live 转换到 Kotlin. |
 
 
 ## Why a to-do app?
