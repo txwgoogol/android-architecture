@@ -12,7 +12,7 @@ Android Architecture Blueprints项目演示了帮助解决或避免这些常见�
 
 该项目将每个示例应用程序托管在单独的存储库分支中 有关更多信息，请参阅每个分支中的`README.md`文件。
 
-### 稳定的样品
+### Stable samples - Java
 | 样品 | 描述 |
 | ------------- | ------------- |
 | [todo‑mvp](https://github.com/googlesamples/android-architecture/tree/todo-mvp/) | 演示了一个基本的 [Model‑View‑Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) (MVP) 体系结构并为其他示例提供了基础。这个样本也可以作为比较和对照本项目其他样本的参考点。 |
@@ -22,7 +22,12 @@ Android Architecture Blueprints项目演示了帮助解决或避免这些常见�
 | [todo‑mvvm‑databinding](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-databinding/) | 基于 todo-databinding 示例, 此版本包含 [Model‑View‑ViewModel](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) 模式。|
 | [todo‑mvvm‑live](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live/) | 使用 [Architecture Components](http://developer.android.com/arch) 中的ViewModels和LiveData以及MVVM体系结构的Data Binding库。|
 
-有关计划样本的信息，请参阅[“新样本”问题](https://github.com/googlesamples/android-architecture/issues?q=is%3Aissue+is%3Aopen+label%3A%22New+sample%22)。
+### Stable samples - Kotlin
+| Sample | Description |
+| ------------- | ------------- |
+| [todo-mvp-kotlin](https://github.com/googlesamples/android-architecture/tree/todo-mvp-kotlin/) | Conversion of todo-mvp to Kotlin. |
+| [todo-mvvm-live-kotlin](https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live-kotlin/) | Conversion of todo-mvvm-live to Kotlin. |
+
 
 ## Why a to-do app?
 
