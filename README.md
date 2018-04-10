@@ -67,3 +67,6 @@ git checkout todo-mvp
 最后在Android Studio中打开`todoapp /`目录。
 
 仿照googlesamples android-architecture 开发一个天气应用
+
+仿照googlesamples android-architecture 开发一个天气应用  
+
