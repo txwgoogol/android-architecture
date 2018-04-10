@@ -1,0 +1,100 @@
+package com.example.android.architecture.blueprints.todoapp.weather;
+
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.android.architecture.blueprints.todoapp.data.Weather;
+import com.example.weather.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.bumptech.glide.util.Preconditions.checkNotNull;
+
+public class MainActivity extends AppCompatActivity implements WeatherContact.View {
+
+    @BindView(R.id.button)
+    Button button;
+    @BindView(R.id.text)
+    TextView text;
+
+    private WeatherContact.Presenter mPresenter;
+    private WeatherPresenter mWeatherPresenter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        mWeatherPresenter = new WeatherPresenter(this);
+    }
+
+    @Override
+    public void loadProgress() {
+        showProgressDialog();
+    }
+
+    @Override
+    public void hideProgress() {
+        dismissProgressDialog();
+    }
+
+    @Override
+    public void onSuccess(Weather weather) {
+        dataSuccess(weather);
+    }
+
+    @Override
+    public void onFailure() {
+        dismissProgressDialog();
+    }
+
+    @Override
+    public void setPresenter(WeatherContact.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
+    }
+
+    private void dataSuccess(Weather model) {
+        Weather.WeatherinfoBean weatherinfo = model.getWeatherinfo();
+        String showData = getResources().getString(R.string.city) + weatherinfo.getCity()
+                + getResources().getString(R.string.wd) + weatherinfo.getWD()
+                + getResources().getString(R.string.ws) + weatherinfo.getWS()
+                + getResources().getString(R.string.time) + weatherinfo.getTime();
+        text.setText(showData);
+    }
+
+    @OnClick(R.id.button)
+    public void onViewClicked() {
+        mPresenter.start();
+    }
+
+    //----------加载对话框 start -------------
+    public ProgressDialog progressDialog;
+
+    public ProgressDialog showProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("加载中");
+        progressDialog.show();
+        return progressDialog;
+    }
+
+    public ProgressDialog showProgressDialog(CharSequence message) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(message);
+        progressDialog.show();
+        return progressDialog;
+    }
+
+    public void dismissProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            // progressDialog.hide();会导致android.view.WindowLeaked
+            progressDialog.dismiss();
+        }
+    }
+    //----------加载对话框 end -------------
+
+}
