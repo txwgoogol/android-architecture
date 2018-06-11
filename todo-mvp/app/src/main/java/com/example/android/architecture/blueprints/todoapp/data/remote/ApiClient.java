@@ -49,7 +49,7 @@ public class ApiClient {
         return SingleHolder.INSTANCE;
     }
 
-    //获取对应的接口 映射？
+    //获取对应的接口 反射！[Java 反射和映射](https://blog.csdn.net/qq_33023933/article/details/78710753)  
     public <T> T create(Class<T> cls) {
         return mRetrofit.create(cls);
     }
