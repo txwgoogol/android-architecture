@@ -1,10 +1,9 @@
 package com.example.android.architecture.blueprints.todoapp.data.remote;
 
-import com.example.android.architecture.blueprints.todoapp.data.Weather;
+import com.example.android.architecture.blueprints.todoapp.data.Now;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 /**
  * 接口
@@ -12,10 +11,10 @@ import retrofit2.http.Path;
  */
 public interface ApiStores {
 
-    String BASE_URL = "http://www.weather.com.cn/";
+    String BASE_URL = "https://api.seniverse.com/v3/";
 
-    //加载天气
-    @GET("adat/sk/{cityId}.html")
-    Call<Weather> loadDataByRetrofit(@Path("cityId") String cityId);
+    //天气实况
+    @GET("weather/now.json?key=52zpuzgswyulc0w6&location=beijing&language=zh-Hans&unit=c")
+    Call<Now> getNow();
 
 }

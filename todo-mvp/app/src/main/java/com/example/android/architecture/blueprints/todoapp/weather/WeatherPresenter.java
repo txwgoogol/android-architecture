@@ -1,6 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.weather;
 
-import com.example.android.architecture.blueprints.todoapp.data.Weather;
+import com.example.android.architecture.blueprints.todoapp.data.Now;
 import com.example.android.architecture.blueprints.todoapp.data.remote.ApiClient;
 import com.example.android.architecture.blueprints.todoapp.data.remote.ApiStores;
 
@@ -23,15 +23,15 @@ public class WeatherPresenter implements WeatherContact.Presenter {
     @Override
     public void start() {
         mWeatherView.loadProgress();
-        ApiClient.getInstance().create(ApiStores.class).loadDataByRetrofit("101190201").enqueue(new Callback<Weather>() {
+        ApiClient.getInstance().create(ApiStores.class).getNow().enqueue(new Callback<Now>() {
             @Override
-            public void onResponse(Call<Weather> call, Response<Weather> response) {
+            public void onResponse(Call<Now> call, Response<Now> response) {
                 mWeatherView.onSuccess(response.body());
                 mWeatherView.hideProgress();
             }
 
             @Override
-            public void onFailure(Call<Weather> call, Throwable t) {
+            public void onFailure(Call<Now> call, Throwable t) {
                 mWeatherView.onFailure();
             }
         });

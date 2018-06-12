@@ -2,9 +2,9 @@
     <string name="app_name">Weather</string>
 
     <string name="city">城市:</string>
-    <string name="wd">\n风向:</string>
-    <string name="ws">\n风级:</string>
-    <string name="time">\n发布时间:</string>
+    <string name="text">\n 天气:</string>
+    <string name="wind_direction">\n 风向:</string>
+    <string name="temperature">\n 温度:</string>
 
     <string name="text0">获取天气信息</string>
 </resources>

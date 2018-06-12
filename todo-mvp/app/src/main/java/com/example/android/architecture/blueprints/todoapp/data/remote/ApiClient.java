@@ -35,7 +35,7 @@ public class ApiClient {
         // 创建Retrofit
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .client(builder.build())
+                //.client(builder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

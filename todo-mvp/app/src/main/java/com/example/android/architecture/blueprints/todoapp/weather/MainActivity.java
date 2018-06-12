@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.android.architecture.blueprints.todoapp.data.Weather;
+import com.example.android.architecture.blueprints.todoapp.data.Now;
 import com.example.weather.R;
 
 import butterknife.BindView;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements WeatherContact.Vi
     }
 
     @Override
-    public void onSuccess(Weather weather) {
+    public void onSuccess(Now weather) {
         dataSuccess(weather);
     }
 
@@ -58,13 +58,14 @@ public class MainActivity extends AppCompatActivity implements WeatherContact.Vi
         mPresenter = checkNotNull(presenter);
     }
 
-    private void dataSuccess(Weather model) {
-        Weather.WeatherinfoBean weatherinfo = model.getWeatherinfo();
-        String showData = getResources().getString(R.string.city) + weatherinfo.getCity()
-                + getResources().getString(R.string.wd) + weatherinfo.getWD()
-                + getResources().getString(R.string.ws) + weatherinfo.getWS()
-                + getResources().getString(R.string.time) + weatherinfo.getTime();
-        text.setText(showData);
+    private void dataSuccess(Now model) {
+        if (!model.equals("") && model != null) {
+            String showData = getResources().getString(R.string.city) + model.getResults().get(0).getLocation().getName()
+                    + getResources().getString(R.string.text) + model.getResults().get(0).getNow().getText()
+                    + getResources().getString(R.string.wind_direction) + model.getResults().get(0).getNow().getWind_direction()
+                    + getResources().getString(R.string.temperature) + model.getResults().get(0).getNow().getTemperature();
+            text.setText(showData);
+        }
     }
 
     @OnClick(R.id.button)
