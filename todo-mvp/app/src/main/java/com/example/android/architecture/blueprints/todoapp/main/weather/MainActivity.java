@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.weather;
+package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;

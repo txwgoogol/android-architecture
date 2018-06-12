@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.data.remote;
+package com.example.android.architecture.blueprints.todoapp.data.source.remote;
 
 import java.util.concurrent.TimeUnit;
 
@@ -6,8 +6,6 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.android.architecture.blueprints.todoapp.data.remote.ApiStores.BASE_URL;
 
 /**
  * 网络请求客户端
@@ -34,7 +32,7 @@ public class ApiClient {
 //        builder.addInterceptor(commonInterceptor);
         // 创建Retrofit
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(ApiStores.BASE_URL)
                 //.client(builder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

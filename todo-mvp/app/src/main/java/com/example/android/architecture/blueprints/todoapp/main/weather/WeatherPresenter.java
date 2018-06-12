@@ -1,8 +1,8 @@
-package com.example.android.architecture.blueprints.todoapp.weather;
+package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import com.example.android.architecture.blueprints.todoapp.data.Now;
-import com.example.android.architecture.blueprints.todoapp.data.remote.ApiClient;
-import com.example.android.architecture.blueprints.todoapp.data.remote.ApiStores;
+import com.example.android.architecture.blueprints.todoapp.data.source.remote.ApiClient;
+import com.example.android.architecture.blueprints.todoapp.data.source.remote.ApiStores;
 
 import retrofit2.Call;
 import retrofit2.Callback;

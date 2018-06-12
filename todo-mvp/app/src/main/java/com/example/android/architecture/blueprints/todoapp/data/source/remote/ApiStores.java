@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.data.remote;
+package com.example.android.architecture.blueprints.todoapp.data.source.remote;
 
 import com.example.android.architecture.blueprints.todoapp.data.Now;
 
