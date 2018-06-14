@@ -1,7 +1,5 @@
 package com.example.android.architecture.blueprints.todoapp.data;
 
-import java.util.List;
-
 /**
  * 实体类基类
  *
