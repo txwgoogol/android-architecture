@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp;
+package com.example.android.architecture.blueprints.todoapp.base;
 
 /**
  * Created by txw on 2018/4/3.

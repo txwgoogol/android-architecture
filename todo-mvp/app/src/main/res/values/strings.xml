@@ -1,10 +1,28 @@
 <resources>
     <string name="app_name">Weather</string>
 
-    <string name="city">城市:</string>
-    <string name="text">\n 天气:</string>
-    <string name="wind_direction">\n 风向:</string>
-    <string name="temperature">\n 温度:</string>
+    <string name="author_mail">txwgoogol@gmail.com</string>
+    <string name="author_site">http://txwgoogol.top</string>
 
-    <string name="text0">获取天气信息</string>
+    <string name="title_activity_select_city">select city</string>
+    <string name="title_activity_city_manager">city manger</string>
+
+    <string name="title_activity_fabric_test">@string/action_fabric_test</string>
+
+    <string name="action_settings">settings</string>
+    <string name="action_about">about</string>
+    <string name="action_feedback">feedback</string>
+    <string name="action_fabric_test">Fabric Test</string>
+    <string name="cities_importing">cities importing</string>
+
+    <string name="content_description_default">image description</string>
+
+    <string name="string_publish_time">publish time</string>
+
+    <string name="title_detail_module">detail</string>
+    <string name="title_forecast_module">forecast</string>
+    <string name="title_aqi_module">aqi</string>
+    <string name="title_index_module">life index</string>
+    <string name="separator">  ～  </string>
+
 </resources>
