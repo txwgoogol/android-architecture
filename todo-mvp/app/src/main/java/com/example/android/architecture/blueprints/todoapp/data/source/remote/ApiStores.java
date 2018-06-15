@@ -52,7 +52,7 @@ public interface ApiStores {
      * @return weather/grid/now.json?key=52zpuzgswyulc0w6&location=39.865927:116.359805
      */
     @GET("weather/grid/now.json")
-    Call<List<Results<Location,NowGrid>>> getGridNow(@Query("key") String key, @Query("location") String location);
+    Call<NowGrid> getGridNow(@Query("key") String key, @Query("location") String location);
 
     /**
      * 分钟级降水预报（付费接口）
@@ -70,7 +70,7 @@ public interface ApiStores {
      * @return weather/daily.json?key=52zpuzgswyulc0w6&location=beijing&language=zh-Hans&unit=c&start=0&days=5
      */
     @GET("weather/daily.json")
-    Call<List<Results<Location,List<Daily>>>> getWeather(@Query("key") String key, @Query("location") String location, @Query("language") String language, @Query("unit") String unit, @Query("start") String start, @Query("days") String days);
+    Call<Daily> getWeather(@Query("key") String key, @Query("location") String location, @Query("language") String language, @Query("unit") String unit, @Query("start") String start, @Query("days") String days);
 
     /**
      * 24小时逐小时天气预报 付费接口
@@ -106,7 +106,7 @@ public interface ApiStores {
      * @return weather/alarm.json?key=52zpuzgswyulc0w6&location=beijing
      */
     @GET("weather/alarm.json")
-    Call<List<Results<Location,List<Alarm>>>> getAlarm(@Query("key") String key, @Query("location") String location);
+    Call<Alarm> getAlarm(@Query("key") String key, @Query("location") String location);
 
     /**
      * 自然语言天气查询（付费接口）
@@ -177,7 +177,7 @@ public interface ApiStores {
      * @return life/suggestion.json?key=52zpuzgswyulc0w6&location=shanghai&language=zh-Hans
      */
     @GET("life/suggestion.json")
-    Call<List<Results<Location,Suggestion>>> getLifeSuggestion(@Query("key") String key, @Query("location") String location, @Query("language") String language);
+    Call<Suggestion> getLifeSuggestion(@Query("key") String key, @Query("location") String location, @Query("language") String language);
 
     /**
      * 农历、节气、生肖（付费接口）

@@ -1,31 +1,32 @@
 package com.example.android.architecture.blueprints.todoapp.data;
 
+import com.example.android.architecture.blueprints.todoapp.data.location.Location;
+
 /**
  * 实体类基类
  *
- * @param <K> 包含位置信息
- * @param <V>        不定项
+ * @param <T> 不定类
  */
-public class Results<K, V> {
+public class Results<T> {
 
-    private K k;
-    private V v;
+    private Location location;
+    private T t;
     private String last_update;
 
-    public K getLocation() {
-        return k;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocation(K l) {
-        this.k = k;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public V getResults() {
-        return v;
+    public T getT() {
+        return t;
     }
 
-    public void setResults(V t) {
-        this.v = v;
+    public void setT(T t) {
+        this.t = t;
     }
 
     public String getLast_update() {

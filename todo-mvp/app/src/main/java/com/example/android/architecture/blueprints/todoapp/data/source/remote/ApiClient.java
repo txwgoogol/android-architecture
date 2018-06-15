@@ -23,17 +23,13 @@ public class ApiClient {
         builder.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);//连接超时时间
 //      builder.writeTimeout(DEFAULT_READ_TIME_OUT,TimeUnit.SECONDS);//写操作 超时时间
         builder.readTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS);//读操作超时时间
-        // 添加公共参数拦截器
-//        HttpCommonInterceptor commonInterceptor = new HttpCommonInterceptor.Builder()
-//                .addHeaderParams("paltform","android")
-//                .addHeaderParams("userToken","1234343434dfdfd3434")
-//                .addHeaderParams("userId","123445")
-//                .build();
-//        builder.addInterceptor(commonInterceptor);
+        // 自定义拦截器
+        builder.addInterceptor(new InterceptorEx());
+
         // 创建Retrofit
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(ApiStores.BASE_URL)
-                //.client(builder.build())
+                .client(builder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
