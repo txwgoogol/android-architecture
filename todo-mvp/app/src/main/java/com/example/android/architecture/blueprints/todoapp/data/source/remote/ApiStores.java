@@ -18,11 +18,9 @@ import com.example.android.architecture.blueprints.todoapp.data.weather.Hourly;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Hourly3h;
 import com.example.android.architecture.blueprints.todoapp.data.weather.HourlyHistory;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
-import com.example.android.architecture.blueprints.todoapp.data.weather.grid.NowGrid;
 import com.example.android.architecture.blueprints.todoapp.data.weather.grid.Minutely;
+import com.example.android.architecture.blueprints.todoapp.data.weather.grid.NowGrid;
 import com.example.android.architecture.blueprints.todoapp.data.weather.robot.Talk;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -165,7 +165,6 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
                 now.getResults().get(0).getNow().getCode(),
                 now.getResults().get(0).getNow().getTemperature(),
                 now.getResults().get(0).getLast_update());
-
     }
 
     @Override

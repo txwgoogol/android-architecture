@@ -35,11 +35,11 @@ public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.Vie
 
     @Override
     public void onBindViewHolder(ForecastAdapter.ViewHolder holder, int position) {
-        Daily weatherForecast = weatherForecasts.get(position);
-        holder.weekTextView.setText(weatherForecast.getDate()); //日期
-        holder.weatherIconImageView.setImageResource(R.mipmap.ic_launcher_round); //图标
-        holder.tempMaxTextView.setText(weatherForecast.getHigh()); //最高温度
-        holder.tempMinTextView.setText(weatherForecast.getLow()); //最低温度
+//        Daily weatherForecast = weatherForecasts.get(position);
+//        holder.weekTextView.setText(weatherForecast.getDate()); //日期
+//        holder.weatherIconImageView.setImageResource(R.mipmap.ic_launcher_round); //图标
+//        holder.tempMaxTextView.setText(weatherForecast.getHigh()); //最高温度
+//        holder.tempMinTextView.setText(weatherForecast.getLow()); //最低温度
     }
 
     @Override
