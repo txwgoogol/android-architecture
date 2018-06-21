@@ -2,6 +2,7 @@ package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.util.Log;
 
+import com.example.android.architecture.blueprints.todoapp.data.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
@@ -92,46 +93,58 @@ public class CloudWeatherAdapter extends WeatherAdapter {
      * @return
      */
     @Override
-    public Suggestion.ResultsBean.SuggestionBean getLifeSuggestion() {
+    public List<LifeIndex> getLifeIndex() {
         Log.d(TAG, "getLifeSuggestion: ");
-        Suggestion.ResultsBean.SuggestionBean suggestionBean = new Suggestion.ResultsBean.SuggestionBean();
 
-        Suggestion.ResultsBean.SuggestionBean.CarWashingBean carWashingBean = new Suggestion.ResultsBean.SuggestionBean.CarWashingBean();
-        carWashingBean.setBrief(mSuggestion.getCar_washing().getBrief());
-        carWashingBean.setDetails(mSuggestion.getCar_washing().getDetails());
-        suggestionBean.setCar_washing(carWashingBean); //空调开启
+        List<LifeIndex> lifeIndexList = new ArrayList<>();
 
-        Suggestion.ResultsBean.SuggestionBean.DressingBean dressingBean = new Suggestion.ResultsBean.SuggestionBean.DressingBean();
-        dressingBean.setBrief(mSuggestion.getDressing().getBrief());
-        dressingBean.setDetails(mSuggestion.getDressing().getDetails());
-        suggestionBean.setDressing(dressingBean); //穿衣
+        LifeIndex lifeIndex1 = new LifeIndex();
+        lifeIndex1.setId(0);
+        lifeIndex1.setName("洗车");
+        lifeIndex1.setIndex(mSuggestion.getCar_washing().getBrief());
+        lifeIndex1.setDetails(mSuggestion.getCar_washing().getDetails());
+        lifeIndexList.add(lifeIndex1);
 
-        Suggestion.ResultsBean.SuggestionBean.FluBean fluBean = new Suggestion.ResultsBean.SuggestionBean.FluBean();
-        fluBean.setBrief(mSuggestion.getFlu().getBrief());
-        fluBean.setDetails(mSuggestion.getFlu().getDetails());
-        suggestionBean.setFlu(fluBean); //感冒
+        LifeIndex lifeIndex2 = new LifeIndex();
+        lifeIndex2.setId(1);
+        lifeIndex2.setName("穿衣");
+        lifeIndex2.setIndex(mSuggestion.getDressing().getBrief());
+        lifeIndex2.setDetails(mSuggestion.getDressing().getDetails());
+        lifeIndexList.add(lifeIndex2);
 
-        Suggestion.ResultsBean.SuggestionBean.SportBean sportBean = new Suggestion.ResultsBean.SuggestionBean.SportBean();
-        sportBean.setBrief(mSuggestion.getSport().getBrief());
-        sportBean.setDetails(mSuggestion.getSport().getDetails());
-        suggestionBean.setSport(sportBean); //晨练
+        LifeIndex lifeIndex3 = new LifeIndex();
+        lifeIndex3.setId(2);
+        lifeIndex3.setName("感冒");
+        lifeIndex3.setIndex(mSuggestion.getFlu().getBrief());
+        lifeIndex3.setDetails(mSuggestion.getFlu().getDetails());
+        lifeIndexList.add(lifeIndex3);
 
-        Suggestion.ResultsBean.SuggestionBean.TravelBean travelBean = new Suggestion.ResultsBean.SuggestionBean.TravelBean();
-        travelBean.setBrief(mSuggestion.getTravel().getBrief());
-        travelBean.setDetails(mSuggestion.getTravel().getDetails());
-        suggestionBean.setTravel(travelBean); //旅游
+        LifeIndex lifeIndex4 = new LifeIndex();
+        lifeIndex4.setId(3);
+        lifeIndex4.setName("运动");
+        lifeIndex4.setIndex(mSuggestion.getSport().getBrief());
+        lifeIndex4.setDetails(mSuggestion.getSport().getDetails());
+        lifeIndexList.add(lifeIndex4);
 
-        Suggestion.ResultsBean.SuggestionBean.UvBean uvBean = new Suggestion.ResultsBean.SuggestionBean.UvBean();
-        uvBean.setBrief(mSuggestion.getUv().getBrief());
-        uvBean.setDetails(mSuggestion.getUv().getDetails());
-        suggestionBean.setUv(uvBean); //紫外线
+        LifeIndex lifeIndex5 = new LifeIndex();
+        lifeIndex5.setId(4);
+        lifeIndex5.setName("旅游");
+        lifeIndex5.setIndex(mSuggestion.getTravel().getBrief());
+        lifeIndex5.setDetails(mSuggestion.getTravel().getDetails());
+        lifeIndexList.add(lifeIndex5);
 
-        return suggestionBean;
+        LifeIndex lifeIndex6 = new LifeIndex();
+        lifeIndex6.setId(5);
+        lifeIndex6.setName("紫外线");
+        lifeIndex6.setIndex(mSuggestion.getUv().getBrief());
+        lifeIndex6.setDetails(mSuggestion.getUv().getDetails());
+        lifeIndexList.add(lifeIndex6);
+
+        return lifeIndexList;
     }
 
     @Override
     public String getLastUpdate() {
-        Log.d(TAG, "getLastUpdate: " + last_update);
         return last_update;
     }
 

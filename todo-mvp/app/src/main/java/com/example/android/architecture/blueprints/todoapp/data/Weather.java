@@ -1,6 +1,5 @@
 package com.example.android.architecture.blueprints.todoapp.data;
 
-import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 
@@ -11,7 +10,7 @@ public class Weather {
     private Now.ResultsBean.LocationBean location;
     private Now.ResultsBean.NowBean now;
     private List<Daily.ResultsBean.DailyBean> daily;
-    private Suggestion.ResultsBean.SuggestionBean suggestion;
+    private List<LifeIndex> lifeIndexList;
     private String last_update;
 
     public Now.ResultsBean.LocationBean getLocation() {
@@ -38,12 +37,12 @@ public class Weather {
         this.daily = daily;
     }
 
-    public Suggestion.ResultsBean.SuggestionBean getSuggestion() {
-        return suggestion;
+    public List<LifeIndex> getLifeIndexList() {
+        return lifeIndexList;
     }
 
-    public void setSuggestion(Suggestion.ResultsBean.SuggestionBean suggestion) {
-        this.suggestion = suggestion;
+    public void setLifeIndexList(List<LifeIndex> lifeIndexList) {
+        this.lifeIndexList = lifeIndexList;
     }
 
     public String getLast_update() {

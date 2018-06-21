@@ -10,7 +10,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,9 @@ import android.widget.Toast;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
+import com.example.android.architecture.blueprints.todoapp.data.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.Weather;
-import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
-import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
 import com.example.android.architecture.blueprints.widget.TitleView;
 
@@ -49,10 +47,10 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     Unbinder unbinder;
 
     private List<Daily.ResultsBean.DailyBean> weatherForecasts;
-    private List<Suggestion> lifeIndices;
+    private List<LifeIndex> lifeIndexList;
 
     private ForecastAdapter forecastAdapter;
-    private LifeSuggestionAdapter lifeIndexAdapter;
+    private LifeIndexAdapter lifeIndexAdapter;
 
     //回调接口 用于更新首页的数据
     private InteractionListener interactionListener;
@@ -118,13 +116,13 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         forecastRecyclerView.setAdapter(forecastAdapter);
 
         //生活指数
-        //lifeIndexRecyclerView.setNestedScrollingEnabled(false);
-        //lifeIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        //lifeIndices = new ArrayList<>();
-        //lifeIndexAdapter = new LifeSuggestionAdapter(getActivity(), lifeIndices);
-        //lifeIndexAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(HomePageFragment.this.getContext(), lifeIndices.get(i).getDetails(), Toast.LENGTH_LONG).show());
-        //lifeIndexRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        //lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
+        lifeIndexRecyclerView.setNestedScrollingEnabled(false);
+        lifeIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        lifeIndexList = new ArrayList<>();
+        lifeIndexAdapter = new LifeIndexAdapter(getActivity(), lifeIndexList);
+        lifeIndexAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(HomePageFragment.this.getContext(), lifeIndexList.get(i).getDetails(), Toast.LENGTH_LONG).show());
+        lifeIndexRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
 
         return view;
     }
@@ -136,8 +134,11 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         forecastAdapter.notifyDataSetChanged();
     }
 
-    public void setLifeSuggestion(Weather weather) {
-        //lifeIndices.addAll(weather.getSuggestion());
+    //设置生活指数数据
+    public void setLifeIndex(Weather weather) {
+        lifeIndexList.clear();
+        lifeIndexList.addAll(weather.getLifeIndexList());
+        lifeIndexAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -182,6 +183,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
                 weather.getNow().getTemperature(),
                 weather.getLast_update());
         setWeatherForecasts(weather);
+        setLifeIndex(weather);
     }
 
     @Override
