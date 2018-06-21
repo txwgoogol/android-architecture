@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseRecyclerViewAdapter;
+import com.example.android.architecture.blueprints.todoapp.data.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 
 import java.util.List;
@@ -18,33 +19,33 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LifeIndexAdapter extends BaseRecyclerViewAdapter<LifeIndexAdapter.ViewHolder> {
+public class LifeSuggestionAdapter extends BaseRecyclerViewAdapter<LifeSuggestionAdapter.ViewHolder> {
 
     private Context context;
-    private List<Suggestion> indexList;
+    private List<LifeIndex> lifeIndices;
 
-    public LifeIndexAdapter(Context context, List<Suggestion> indexList) {
+    public LifeSuggestionAdapter(Context context, Suggestion suggestion) {
         this.context = context;
-        this.indexList = indexList;
+        //this.lifeIndices = suggestion.getResults().get(0).getSuggestion();
     }
 
     @Override
-    public LifeIndexAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LifeSuggestionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_life_index, parent, false);
         return new ViewHolder(itemView, this);
     }
 
     @Override
-    public void onBindViewHolder(LifeIndexAdapter.ViewHolder holder, int position) {
-        Suggestion index = indexList.get(position);
-//        holder.indexIconImageView.setImageDrawable(getIndexDrawable(context, index.getName()));
-//        holder.indexLevelTextView.setText(index.getIndex());
-//        holder.indexNameTextView.setText(index.getName());
+    public void onBindViewHolder(LifeSuggestionAdapter.ViewHolder holder, int position) {
+        LifeIndex lifeIndex = lifeIndices.get(position);
+        holder.indexIconImageView.setImageDrawable(getIndexDrawable(context, lifeIndex.getBrief()));
+        holder.indexLevelTextView.setText(lifeIndex.getDetails());
+        holder.indexNameTextView.setText(lifeIndex.getBrief());
     }
 
     @Override
     public int getItemCount() {
-        return indexList == null ? 0 : indexList.size();
+        return lifeIndices == null ? 0 : lifeIndices.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -56,10 +57,10 @@ public class LifeIndexAdapter extends BaseRecyclerViewAdapter<LifeIndexAdapter.V
         @BindView(R.id.index_name_text_view)
         TextView indexNameTextView;
 
-        ViewHolder(View itemView, LifeIndexAdapter adapter) {
+        ViewHolder(View itemView, LifeSuggestionAdapter adapter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> adapter.onItemHolderClick(LifeIndexAdapter.ViewHolder.this));
+            itemView.setOnClickListener(v -> adapter.onItemHolderClick(LifeSuggestionAdapter.ViewHolder.this));
         }
     }
 

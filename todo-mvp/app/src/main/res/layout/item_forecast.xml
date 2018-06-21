@@ -10,8 +10,8 @@
 
     <TextView
         android:id="@+id/week_text_view"
-        android:layout_width="@dimen/dp_32"
-        android:layout_height="@dimen/dp_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:textSize="@dimen/sp_14"
@@ -20,21 +20,36 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="周二" />
 
-    <ImageView
-        android:id="@+id/weather_icon_image_view"
-        android:layout_width="@dimen/dp_32"
-        android:layout_height="@dimen/dp_32"
+    <TextView
+        android:id="@+id/weather_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/week_text_view"
         android:contentDescription="@string/content_description_default"
+        android:gravity="center"
+        android:text="晴转阴"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/week_text_view"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/ic_launcher" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/temp_min_text_view"
+        android:id="@+id/temp_max_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:lines="1"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/temp_min_text_view"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toEndOf="@+id/weather_text_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="30" />
+
+    <TextView
+        android:id="@+id/temp_separator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -43,14 +58,14 @@
         android:lines="1"
         android:textSize="@dimen/sp_14"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/temp_max_text_view"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toEndOf="@+id/weather_icon_image_view"
+        app:layout_constraintEnd_toStartOf="@+id/temp_min_text_view"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toEndOf="@+id/temp_max_text_view"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="30" />
+        tools:text="@string/separator" />
 
     <TextView
-        android:id="@+id/temp_max_text_view"
+        android:id="@+id/temp_min_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

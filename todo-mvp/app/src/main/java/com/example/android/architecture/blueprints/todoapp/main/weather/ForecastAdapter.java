@@ -1,6 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,12 @@ import butterknife.ButterKnife;
  */
 public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.ViewHolder> {
 
-    private List<Daily> weatherForecasts;
+    private static final String TAG = "ForecastAdapter";
 
-    public ForecastAdapter(List<Daily> weatherForecasts) {
-        this.weatherForecasts = weatherForecasts;
+    private List<Daily.ResultsBean.DailyBean> weatherForecasts;
+
+    public ForecastAdapter(List<Daily.ResultsBean.DailyBean> dailyBeans) {
+        this.weatherForecasts = dailyBeans;
     }
 
     @Override
@@ -35,11 +38,14 @@ public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.Vie
 
     @Override
     public void onBindViewHolder(ForecastAdapter.ViewHolder holder, int position) {
-//        Daily weatherForecast = weatherForecasts.get(position);
-//        holder.weekTextView.setText(weatherForecast.getDate()); //日期
-//        holder.weatherIconImageView.setImageResource(R.mipmap.ic_launcher_round); //图标
-//        holder.tempMaxTextView.setText(weatherForecast.getHigh()); //最高温度
-//        holder.tempMinTextView.setText(weatherForecast.getLow()); //最低温度
+        Daily.ResultsBean.DailyBean dailyBean = weatherForecasts.get(position);
+
+        //Log.d(TAG, "onBindViewHolder: "+dailyBean.getDate()+dailyBean.getText_day()+dailyBean.getHigh()+dailyBean.getLow());
+
+        holder.weekTextView.setText(dailyBean.getDate()); //日期
+        holder.weatherTextView.setText(dailyBean.getText_day()); //天气情况
+        holder.tempMaxTextView.setText(dailyBean.getHigh()); //最高温度
+        holder.tempMinTextView.setText(dailyBean.getLow()); //最低温度
     }
 
     @Override
@@ -51,8 +57,8 @@ public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.Vie
 
         @BindView(R.id.week_text_view)
         TextView weekTextView;
-        @BindView(R.id.weather_icon_image_view)
-        ImageView weatherIconImageView;
+        @BindView(R.id.weather_text_view)
+        TextView weatherTextView;
         @BindView(R.id.temp_max_text_view)
         TextView tempMaxTextView;
         @BindView(R.id.temp_min_text_view)

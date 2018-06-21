@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
+import com.example.android.architecture.blueprints.todoapp.data.Weather;
 import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
@@ -44,11 +48,11 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     RecyclerView lifeIndexRecyclerView;
     Unbinder unbinder;
 
-    private List<Daily> weatherForecasts;
+    private List<Daily.ResultsBean.DailyBean> weatherForecasts;
     private List<Suggestion> lifeIndices;
 
     private ForecastAdapter forecastAdapter;
-    private LifeIndexAdapter lifeIndexAdapter;
+    private LifeSuggestionAdapter lifeIndexAdapter;
 
     //回调接口 用于更新首页的数据
     private InteractionListener interactionListener;
@@ -108,20 +112,32 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         weatherForecasts = new ArrayList<>();
         forecastAdapter = new ForecastAdapter(weatherForecasts);
         forecastAdapter.setOnItemClickListener((adapterView, v, i, l) -> {
+            Toast.makeText(getActivity(), "" + weatherForecasts.get(i).getDate() + "    " + weatherForecasts.get(i).getText_day(), Toast.LENGTH_SHORT).show();
         });
         forecastRecyclerView.setItemAnimator(new DefaultItemAnimator());
         forecastRecyclerView.setAdapter(forecastAdapter);
 
         //生活指数
-//        lifeIndexRecyclerView.setNestedScrollingEnabled(false);
-//        lifeIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-//        lifeIndices = new ArrayList<>();
-//        lifeIndexAdapter = new LifeIndexAdapter(getActivity(), lifeIndices);
-//        lifeIndexAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(HomePageFragment.this.getContext(), lifeIndices.get(i).getDetails(), Toast.LENGTH_LONG).show());
-//        lifeIndexRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
+        //lifeIndexRecyclerView.setNestedScrollingEnabled(false);
+        //lifeIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        //lifeIndices = new ArrayList<>();
+        //lifeIndexAdapter = new LifeSuggestionAdapter(getActivity(), lifeIndices);
+        //lifeIndexAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(HomePageFragment.this.getContext(), lifeIndices.get(i).getDetails(), Toast.LENGTH_LONG).show());
+        //lifeIndexRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        //lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
 
         return view;
+    }
+
+    //设置近期天气数据
+    public void setWeatherForecasts(Weather weather) {
+        weatherForecasts.clear();
+        weatherForecasts.addAll(weather.getDaily());
+        forecastAdapter.notifyDataSetChanged();
+    }
+
+    public void setLifeSuggestion(Weather weather) {
+        //lifeIndices.addAll(weather.getSuggestion());
     }
 
     @Override
@@ -158,13 +174,14 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     }
 
     @Override
-    public void onSuccess(Now now) {
+    public void onSuccess(Weather weather) {
         interactionListener.updatePageTitle(
-                now.getResults().get(0).getLocation().getName(),
-                now.getResults().get(0).getNow().getText(),
-                now.getResults().get(0).getNow().getCode(),
-                now.getResults().get(0).getNow().getTemperature(),
-                now.getResults().get(0).getLast_update());
+                weather.getLocation().getName(),
+                weather.getNow().getText(),
+                weather.getNow().getCode(),
+                weather.getNow().getTemperature(),
+                weather.getLast_update());
+        setWeatherForecasts(weather);
     }
 
     @Override

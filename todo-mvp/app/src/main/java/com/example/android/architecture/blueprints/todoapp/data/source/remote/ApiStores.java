@@ -22,6 +22,8 @@ import com.example.android.architecture.blueprints.todoapp.data.weather.grid.Min
 import com.example.android.architecture.blueprints.todoapp.data.weather.grid.NowGrid;
 import com.example.android.architecture.blueprints.todoapp.data.weather.robot.Talk;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -42,6 +44,9 @@ public interface ApiStores {
      */
     @GET("weather/now.json")
     Call<Now> getNow(@Query("key") String key, @Query("location") String location, @Query("language") String language, @Query("unit") String unit);
+
+    @GET("weather/now.json")
+    Observable<Now> getNow1(@Query("key") String key, @Query("location") String location, @Query("language") String language, @Query("unit") String unit);
 
     /**
      * 格点天气实况（付费接口）
@@ -68,7 +73,7 @@ public interface ApiStores {
      * @return weather/daily.json?key=52zpuzgswyulc0w6&location=beijing&language=zh-Hans&unit=c&start=0&days=5
      */
     @GET("weather/daily.json")
-    Call<Daily> getWeather(@Query("key") String key, @Query("location") String location, @Query("language") String language, @Query("unit") String unit, @Query("start") String start, @Query("days") String days);
+    Observable<Daily> getDaily(@Query("key") String key, @Query("location") String location, @Query("language") String language, @Query("unit") String unit, @Query("start") String start, @Query("days") String days);
 
     /**
      * 24小时逐小时天气预报 付费接口
@@ -175,7 +180,7 @@ public interface ApiStores {
      * @return life/suggestion.json?key=52zpuzgswyulc0w6&location=shanghai&language=zh-Hans
      */
     @GET("life/suggestion.json")
-    Call<Suggestion> getLifeSuggestion(@Query("key") String key, @Query("location") String location, @Query("language") String language);
+    Observable<Suggestion> getLifeSuggestion(@Query("key") String key, @Query("location") String location, @Query("language") String language);
 
     /**
      * 农历、节气、生肖（付费接口）
