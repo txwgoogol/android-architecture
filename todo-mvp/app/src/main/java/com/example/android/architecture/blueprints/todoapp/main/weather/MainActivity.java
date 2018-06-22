@@ -45,10 +45,10 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
     CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
-    @BindView(R.id.fragment_container)
-    FrameLayout fragmentContainer;
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout refreshLayout;
+    //@BindView(R.id.fragment_container)
+    //FrameLayout fragmentContainer;
+    //@BindView(R.id.refresh_layout)
+    //SmartRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), tasksFragment, R.id.fragment_container);
         }
 
-        refreshLayout.setRefreshHeader(new ClassicsHeader(this).setSpinnerStyle(SpinnerStyle.Scale));
+        //refreshLayout.setRefreshHeader(new ClassicsHeader(this).setSpinnerStyle(SpinnerStyle.Scale));
     }
 
     @Override
