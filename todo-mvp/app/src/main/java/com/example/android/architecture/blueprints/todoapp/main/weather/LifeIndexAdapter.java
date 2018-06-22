@@ -19,6 +19,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.android.architecture.blueprints.todoapp.util.CCTable.getIndexDrawable;
+
 public class LifeIndexAdapter extends BaseRecyclerViewAdapter<LifeIndexAdapter.ViewHolder> {
 
     private static final String TAG = "LifeIndexAdapter";
@@ -66,21 +68,4 @@ public class LifeIndexAdapter extends BaseRecyclerViewAdapter<LifeIndexAdapter.V
         }
     }
 
-    private Drawable getIndexDrawable(Context context, String indexName) {
-        int colorResourceId = R.drawable.ic_index_sunscreen;
-        if (indexName.contains("洗车")) {
-            colorResourceId = R.drawable.ic_index_car_wash;
-        } else if (indexName.contains("穿衣")) {
-            colorResourceId = R.drawable.ic_index_dress;
-        } else if (indexName.contains("感冒")) {
-            colorResourceId = R.drawable.ic_index_clod;
-        } else if (indexName.contains("运动")) {
-            colorResourceId = R.drawable.ic_index_sport;
-        } else if (indexName.contains("旅游")) {
-            colorResourceId = R.drawable.ic_index_shopping;
-        } else if (indexName.contains("紫外线")) {
-            colorResourceId = R.drawable.ic_index_sunscreen;
-        }
-        return context.getResources().getDrawable(colorResourceId);
-    }
 }

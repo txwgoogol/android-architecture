@@ -67,7 +67,7 @@ public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.Vie
         ViewHolder(View itemView, ForecastAdapter adapter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> adapter.onItemHolderClick(ViewHolder.this));
+            //itemView.setOnClickListener(v -> adapter.onItemHolderClick(ViewHolder.this));
         }
     }
 }

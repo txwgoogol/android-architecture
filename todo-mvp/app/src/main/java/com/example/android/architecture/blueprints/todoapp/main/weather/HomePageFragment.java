@@ -109,9 +109,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         forecastRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         weatherForecasts = new ArrayList<>();
         forecastAdapter = new ForecastAdapter(weatherForecasts);
-        forecastAdapter.setOnItemClickListener((adapterView, v, i, l) -> {
-            Toast.makeText(getActivity(), "" + weatherForecasts.get(i).getDate() + "    " + weatherForecasts.get(i).getText_day(), Toast.LENGTH_SHORT).show();
-        });
+        //forecastAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(getActivity(), "" + weatherForecasts.get(i).getDate() + "    " + weatherForecasts.get(i).getText_day(), Toast.LENGTH_SHORT).show());
         forecastRecyclerView.setItemAnimator(new DefaultItemAnimator());
         forecastRecyclerView.setAdapter(forecastAdapter);
 
@@ -120,7 +118,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         lifeIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         lifeIndexList = new ArrayList<>();
         lifeIndexAdapter = new LifeIndexAdapter(getActivity(), lifeIndexList);
-        lifeIndexAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(HomePageFragment.this.getContext(), lifeIndexList.get(i).getDetails(), Toast.LENGTH_LONG).show());
+        //lifeIndexAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(HomePageFragment.this.getContext(), lifeIndexList.get(i).getDetails(), Toast.LENGTH_LONG).show());
         lifeIndexRecyclerView.setItemAnimator(new DefaultItemAnimator());
         lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
 
