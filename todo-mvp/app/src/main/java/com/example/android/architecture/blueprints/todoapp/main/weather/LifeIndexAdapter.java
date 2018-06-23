@@ -64,7 +64,7 @@ public class LifeIndexAdapter extends BaseRecyclerViewAdapter<LifeIndexAdapter.V
         ViewHolder(View itemView, LifeIndexAdapter adapter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> adapter.onItemHolderClick(LifeIndexAdapter.ViewHolder.this));
+            //itemView.setOnClickListener(v -> adapter.onItemHolderClick(LifeIndexAdapter.ViewHolder.this));
         }
     }
 
