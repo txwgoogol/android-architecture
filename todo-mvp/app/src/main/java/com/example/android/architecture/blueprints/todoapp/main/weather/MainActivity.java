@@ -3,6 +3,7 @@ package com.example.android.architecture.blueprints.todoapp.main.weather;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
@@ -19,8 +20,9 @@ import com.example.android.architecture.blueprints.todoapp.base.BaseActivity;
 import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 import com.example.android.architecture.blueprints.todoapp.util.CCTable;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,8 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
 
     private static final String TAG = "MainActivity";
 
+    @BindView(R.id.parallax)
+    ImageView parallax;
     @BindView(R.id.publish_time_text_view)
     TextView publishTimeTextView;
     @BindView(R.id.temp_text_view)
@@ -45,10 +49,13 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
     CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
-    //@BindView(R.id.fragment_container)
-    //FrameLayout fragmentContainer;
-    //@BindView(R.id.refresh_layout)
-    //SmartRefreshLayout refreshLayout;
+    @BindView(R.id.fragment_container)
+    FrameLayout fragmentContainer;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
+
+//    private int mOffset = 0;
+//    private int mScrollY = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +83,55 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), tasksFragment, R.id.fragment_container);
         }
 
-        //refreshLayout.setRefreshHeader(new ClassicsHeader(this).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setEnableLoadMore(false);//禁用上拉刷新
+        refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+
+            @Override
+            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
+                /*
+                mOffset = offset / 2;
+                parallax.setTranslationY(mOffset - mScrollY);
+                toolbar.setAlpha(1 - Math.min(percent, 1));
+                 */
+            }
+        });
+
+        /*
+
+        NestedScrollView nestedScrollView = tasksFragment.getView().findViewById(R.id.nested_scroll_view);
+
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+
+            private int lastScrollY = 0;
+            private int h = DensityUtil.dp2px(170);
+            private int color = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary) & 0x00ffffff;
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+
+                Log.d(TAG, "onScrollChange: "+lastScrollY);
+
+                if (lastScrollY < h) {
+                    scrollY = Math.min(h, scrollY);
+                    mScrollY = scrollY > h ? h : scrollY;
+                    buttonBarLayoutTop.setAlpha(1f * mScrollY / h);
+                    toolbarTop.setBackgroundColor(((255 * mScrollY / h) << 24) | color);
+                    parallax.setTranslationY(mOffset - mScrollY);
+                }
+                lastScrollY = scrollY;
+            }
+        });
+
+        buttonBarLayoutTop.setAlpha(0);
+        toolbarTop.setBackgroundColor(0);
+
+         */
+
     }
 
     @Override

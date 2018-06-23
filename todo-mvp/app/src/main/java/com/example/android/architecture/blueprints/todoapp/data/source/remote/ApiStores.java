@@ -22,11 +22,14 @@ import com.example.android.architecture.blueprints.todoapp.data.weather.grid.Min
 import com.example.android.architecture.blueprints.todoapp.data.weather.grid.NowGrid;
 import com.example.android.architecture.blueprints.todoapp.data.weather.robot.Talk;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * 接口
@@ -47,6 +50,9 @@ public interface ApiStores {
 
     @GET("weather/now.json")
     Observable<Now> getNow1(@Query("key") String key, @Query("location") String location, @Query("language") String language, @Query("unit") String unit);
+
+    @GET("weather/now.json")
+    Observable<Now> getNow2(@QueryMap Map<String,Object> map);
 
     /**
      * 格点天气实况（付费接口）

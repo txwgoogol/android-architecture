@@ -59,6 +59,7 @@ dependencies {
     //greenrobot
     implementation 'org.greenrobot:greendao:3.2.2'
     //other
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-7'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-7'

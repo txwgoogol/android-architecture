@@ -2,6 +2,7 @@
     xmlns:titleView="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/nested_scroll_view"
     android:layout_height="match_parent"
     tools:context="com.example.android.architecture.blueprints.todoapp.main.weather.HomePageFragment"
     tools:ignore="RtlHardcoded">

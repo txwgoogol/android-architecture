@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
@@ -45,6 +45,8 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     @BindView(R.id.life_index_recycler_view)
     RecyclerView lifeIndexRecyclerView;
     Unbinder unbinder;
+    @BindView(R.id.nested_scroll_view)
+    NestedScrollView nestedScrollView;
 
     private List<Daily.ResultsBean.DailyBean> weatherForecasts;
     private List<LifeIndex> lifeIndexList;
@@ -203,6 +205,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
          * @param last_update 数据更新时间（该城市的本地时间）
          */
         void updatePageTitle(String location, String text, String code, String temperature, String last_update);
+
     }
 
 }

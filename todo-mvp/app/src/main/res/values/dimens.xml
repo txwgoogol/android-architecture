@@ -6,6 +6,8 @@
 
     <!-- dp and sp values, must be defind in this file! -->
     <!-- view size,you can add if there is no one -->
+    <dimen name="dp_m_300">-300dp</dimen>
+    <dimen name="dp_m_80">-80dp</dimen>
     <dimen name="dp_m_60">-60dp</dimen>
     <dimen name="dp_m_30">-30dp</dimen>
     <dimen name="dp_m_20">-20dp</dimen>
