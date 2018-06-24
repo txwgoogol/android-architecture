@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -54,8 +56,8 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
 
-//    private int mOffset = 0;
-//    private int mScrollY = 0;
+    private int mOffset = 0;
+    private int mScrollY = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,45 +94,11 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
 
             @Override
             public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
-                /*
                 mOffset = offset / 2;
                 parallax.setTranslationY(mOffset - mScrollY);
                 toolbar.setAlpha(1 - Math.min(percent, 1));
-                 */
             }
         });
-
-        /*
-
-        NestedScrollView nestedScrollView = tasksFragment.getView().findViewById(R.id.nested_scroll_view);
-
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-
-            private int lastScrollY = 0;
-            private int h = DensityUtil.dp2px(170);
-            private int color = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary) & 0x00ffffff;
-
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-
-                Log.d(TAG, "onScrollChange: "+lastScrollY);
-
-                if (lastScrollY < h) {
-                    scrollY = Math.min(h, scrollY);
-                    mScrollY = scrollY > h ? h : scrollY;
-                    buttonBarLayoutTop.setAlpha(1f * mScrollY / h);
-                    toolbarTop.setBackgroundColor(((255 * mScrollY / h) << 24) | color);
-                    parallax.setTranslationY(mOffset - mScrollY);
-                }
-                lastScrollY = scrollY;
-            }
-        });
-
-        buttonBarLayoutTop.setAlpha(0);
-        toolbarTop.setBackgroundColor(0);
-
-         */
 
     }
 
@@ -147,6 +115,29 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
         weatherTextView.setText(text); //天气情况文字
         tempTextView.setText(temperature); //温度
         publishTimeTextView.setText(last_update); //最近更新时间
+    }
+
+    //跳转到添加城市
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the ic_hamburger_menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.hamburger_menu) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
