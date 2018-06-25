@@ -167,7 +167,7 @@ public class CCTable {
         } else if (indexName.contains("运动")) {
             colorResourceId = R.drawable.ic_index_sport;
         } else if (indexName.contains("旅游")) {
-            colorResourceId = R.drawable.ic_index_shopping;
+            colorResourceId = R.drawable.ic_wallet_travel;
         } else if (indexName.contains("紫外线")) {
             colorResourceId = R.drawable.ic_index_sunscreen;
         }
