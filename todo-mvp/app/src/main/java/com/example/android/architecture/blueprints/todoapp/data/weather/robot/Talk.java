@@ -20,7 +20,7 @@ public class Talk {
     public static class ResultsBean {
         /**
          * query : 北京明天天气怎么样？
-         * location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * reply : {"type":"WEATHER_FORECAST","plain":"北京明天，周四，多云，18度到31度，天气挺热的，空气质量指数115，轻度污染，注意戴口罩防护。","origin":[{"date":"2018-06-14","text_day":"多云","code_day":"4","text_night":"多云","code_night":"4","high":"31","low":"18","precip":"","wind_direction":"南","wind_direction_degree":"180","wind_speed":"10","wind_scale":"2","air":{"aqi":"115","pm25":"33","pm10":"92","so2":"3","no2":"35","co":"0.733","o3":"176","date":"2018-06-14","quality":"轻度污染"}}]}
          * session : 625aae92-002a-45a5-bde0-ec5990964f4d
          */

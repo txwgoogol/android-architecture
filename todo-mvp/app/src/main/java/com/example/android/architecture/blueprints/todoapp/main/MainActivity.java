@@ -1,5 +1,6 @@
-package com.example.android.architecture.blueprints.todoapp.main.weather;
+package com.example.android.architecture.blueprints.todoapp.main;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseActivity;
+import com.example.android.architecture.blueprints.todoapp.main.citylist.CityListActivity;
+import com.example.android.architecture.blueprints.todoapp.main.weather.HomePageFragment;
 import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 import com.example.android.architecture.blueprints.todoapp.util.CCTable;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -134,6 +137,8 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.hamburger_menu) {
+            Intent intent = new Intent(MainActivity.this, CityListActivity.class);
+            startActivity(intent);
             return true;
         }
 

@@ -2,12 +2,7 @@ package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import com.example.android.architecture.blueprints.todoapp.base.BasePresenter;
 import com.example.android.architecture.blueprints.todoapp.base.BaseView;
-import com.example.android.architecture.blueprints.todoapp.data.Results;
-import com.example.android.architecture.blueprints.todoapp.data.Weather;
-import com.example.android.architecture.blueprints.todoapp.data.location.Location;
-import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
-
-import java.util.List;
+import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
 
 public interface WeatherContact {
 

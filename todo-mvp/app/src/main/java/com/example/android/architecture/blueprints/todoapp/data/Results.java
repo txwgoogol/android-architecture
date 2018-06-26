@@ -1,6 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.data;
 
-import com.example.android.architecture.blueprints.todoapp.data.location.Location;
+import com.example.android.architecture.blueprints.todoapp.data.location.Search;
 
 /**
  * 实体类基类
@@ -9,15 +9,15 @@ import com.example.android.architecture.blueprints.todoapp.data.location.Locatio
  */
 public class Results<T> {
 
-    private Location location;
+    private Search location;
     private T t;
     private String last_update;
 
-    public Location getLocation() {
+    public Search getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(Search location) {
         this.location = location;
     }
 

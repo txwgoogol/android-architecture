@@ -1,7 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.data;
-
-import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
-import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
+package com.example.android.architecture.blueprints.todoapp.data.weather;
 
 import java.util.List;
 

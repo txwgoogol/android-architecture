@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.data;
+package com.example.android.architecture.blueprints.todoapp.data.weather;
 
 public class LifeIndex {
 

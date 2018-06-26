@@ -19,7 +19,7 @@ public class AirNow {
 
     public static class ResultsBean {
         /**
-         * location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * air : {"city":{"aqi":"104","pm25":"78","pm10":"80","so2":"6","no2":"30","co":"1.367","o3":"98","primary_pollutant":"PM2.5","last_update":"2018-06-13T09:00:00+08:00","quality":"轻度污染"},"stations":null}
          * last_update : 2018-06-13T09:00:00+08:00
          */

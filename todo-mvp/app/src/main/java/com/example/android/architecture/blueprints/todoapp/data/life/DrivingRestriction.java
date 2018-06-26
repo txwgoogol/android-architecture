@@ -19,7 +19,7 @@ public class DrivingRestriction {
 
     public static class ResultsBean {
         /**
-         * location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * restriction : {"penalty":"京牌罚100块，不扣分。非京牌罚100块，扣3分。","region":"五环路以内道路（不包括五环路主路）","time":"周一至五的早7时至晚20时(法定节假日和公休日不限行)","remarks":"临时号牌按号牌尾号数字限行。机动车车尾号为英文字母的按0号管理。本市核发号牌的纯电动小客车不受工作日高峰时段区域限行措施限制。警车、消防车、救护车、出租车、环卫车等非民用车辆不受上述限制, 外埠车辆工作日7时至9时、17时至20时禁止进五环（含），没有进京证禁止进六环（不含）","limits":[{"date":"2018-06-13","plates":["1","6"],"memo":"尾号限行"},{"date":"2018-06-14","plates":["2","7"],"memo":"尾号限行"},{"date":"2018-06-15","plates":["3","8"],"memo":"尾号限行"}]}
          */
 

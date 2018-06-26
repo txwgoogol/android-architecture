@@ -5,8 +5,8 @@ package com.example.android.architecture.blueprints.todoapp.base;
  */
 public interface BasePresenter {
 
-    void start();
+    void onAttach();
 
-    void end();
+    void onDetach();
 
 }

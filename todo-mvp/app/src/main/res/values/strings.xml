@@ -25,4 +25,7 @@
     <string name="title_index_module">life index</string>
     <string name="separator">  ～  </string>
 
+    <!-- search -->
+    <string name="tips">Enter city,zip code,or airport location</string>
+
 </resources>

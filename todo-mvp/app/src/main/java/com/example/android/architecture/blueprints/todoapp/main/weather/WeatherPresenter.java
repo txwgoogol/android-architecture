@@ -2,7 +2,7 @@ package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.util.Log;
 
-import com.example.android.architecture.blueprints.todoapp.data.WeatherResponse;
+import com.example.android.architecture.blueprints.todoapp.data.weather.WeatherResponse;
 import com.example.android.architecture.blueprints.todoapp.util.RxScheduler;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -33,7 +33,7 @@ public class WeatherPresenter implements WeatherContact.Presenter {
     }
 
     @Override
-    public void start() {
+    public void onAttach() {
         mWeatherView.loadProgress();
         Disposable disposable = WeatherResponse.getWeather()
                 .compose(RxScheduler.normalSchedulersTransformer())
@@ -51,7 +51,7 @@ public class WeatherPresenter implements WeatherContact.Presenter {
     }
 
     @Override
-    public void end() {
+    public void onDetach() {
         compositeDisposable.clear();
     }
 

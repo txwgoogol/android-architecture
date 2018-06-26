@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
-import com.example.android.architecture.blueprints.todoapp.data.LifeIndex;
-import com.example.android.architecture.blueprints.todoapp.data.Weather;
+import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
+import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
 import com.example.android.architecture.blueprints.widget.TitleView;
@@ -144,7 +144,13 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+        mPresenter.onAttach();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mPresenter.onDetach();
     }
 
     @Override

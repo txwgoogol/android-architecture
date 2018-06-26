@@ -19,7 +19,7 @@ public class Daily {
 
     public static class ResultsBean {
         /**
-         * location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * daily : [{"date":"2018-06-15","text_day":"多云","code_day":"4","text_night":"多云","code_night":"4","high":"31","low":"20","precip":"","wind_direction":"东南","wind_direction_degree":"135","wind_speed":"10","wind_scale":"2"},{"date":"2018-06-16","text_day":"多云","code_day":"4","text_night":"雷阵雨","code_night":"11","high":"31","low":"20","precip":"","wind_direction":"西南","wind_direction_degree":"225","wind_speed":"10","wind_scale":"2"},{"date":"2018-06-17","text_day":"雷阵雨","code_day":"11","text_night":"雷阵雨","code_night":"11","high":"31","low":"22","precip":"","wind_direction":"西南","wind_direction_degree":"225","wind_speed":"10","wind_scale":"2"}]
          * last_update : 2018-06-15T11:00:00+08:00
          */

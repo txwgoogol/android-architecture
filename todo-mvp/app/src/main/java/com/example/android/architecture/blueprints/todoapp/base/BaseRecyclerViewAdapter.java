@@ -3,12 +3,15 @@ package com.example.android.architecture.blueprints.todoapp.base;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AdapterView;
 
+/**
+ * RecyclerView.ViewHolder 基类
+ * @param <T>
+ */
 public abstract class BaseRecyclerViewAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 
     protected AdapterView.OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
-
         this.onItemClickListener = onItemClickListener;
     }
 

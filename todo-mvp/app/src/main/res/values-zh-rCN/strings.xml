@@ -26,4 +26,6 @@
     <string name="title_index_module">生活指数</string>
     <string name="separator">  ～  </string>
 
+    <!-- 搜索 -->
+    <string name="tips">输入城市,编码,机场位置</string>
 </resources>

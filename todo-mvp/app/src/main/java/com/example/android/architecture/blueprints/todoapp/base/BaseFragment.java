@@ -8,7 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BaseFragment extends Fragment {
+import com.example.android.architecture.blueprints.todoapp.util.HandleBack;
+
+public class BaseFragment extends Fragment implements HandleBackInterface {
+
+    /**
+     * 返回事件处理
+     *
+     * @return
+     */
+    @Override
+    public boolean onBackPressed() {
+        return HandleBack.handleBackPress(this);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

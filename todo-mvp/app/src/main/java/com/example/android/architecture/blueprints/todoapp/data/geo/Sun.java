@@ -19,7 +19,7 @@ public class Sun {
 
     public static class ResultsBean {
         /**
-         * location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * sun : [{"date":"2018-06-13","sunrise":"04:46","sunset":"19:44"},{"date":"2018-06-14","sunrise":"04:46","sunset":"19:44"},{"date":"2018-06-15","sunrise":"04:46","sunset":"19:45"},{"date":"2018-06-16","sunrise":"04:46","sunset":"19:45"},{"date":"2018-06-17","sunrise":"04:46","sunset":"19:45"},{"date":"2018-06-18","sunrise":"04:46","sunset":"19:46"},{"date":"2018-06-19","sunrise":"04:46","sunset":"19:46"}]
          */
 

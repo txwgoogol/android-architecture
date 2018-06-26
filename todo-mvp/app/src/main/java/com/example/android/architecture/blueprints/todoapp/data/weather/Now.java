@@ -20,7 +20,7 @@ public class Now {
 
     public static class ResultsBean {
         /**
-         * location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * now : {"text":"晴","code":"0","temperature":"28"}
          * last_update : 2018-06-15T12:05:00+08:00
          */

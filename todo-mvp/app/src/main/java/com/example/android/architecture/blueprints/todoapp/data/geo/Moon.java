@@ -19,7 +19,7 @@ public class Moon {
 
     public static class ResultsBean {
         /**
-         * location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * moon : [{"date":"2018-06-13","rise":"04:17","set":"19:02","fraction":"0.02","phase":"0.95","phase_name":"亏眉月"},{"date":"2018-06-14","rise":"05:05","set":"20:08","fraction":"0","phase":"0.99","phase_name":"亏眉月"},{"date":"2018-06-15","rise":"06:01","set":"21:09","fraction":"0.01","phase":"0.03","phase_name":"蛾眉月"},{"date":"2018-06-16","rise":"07:05","set":"22:03","fraction":"0.05","phase":"0.07","phase_name":"蛾眉月"},{"date":"2018-06-17","rise":"08:14","set":"22:51","fraction":"0.11","phase":"0.11","phase_name":"蛾眉月"},{"date":"2018-06-18","rise":"09:25","set":"23:31","fraction":"0.19","phase":"0.14","phase_name":"蛾眉月"},{"date":"2018-06-19","rise":"10:36","set":"10:20","fraction":"0.29","phase":"0.18","phase_name":"蛾眉月"}]
          */
 

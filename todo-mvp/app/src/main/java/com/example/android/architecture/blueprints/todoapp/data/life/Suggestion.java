@@ -19,7 +19,7 @@ public class Suggestion {
 
     public static class ResultsBean {
         /**
-         * location : {"id":"WTW3SJ5ZBJUY","name":"上海","country":"CN","path":"上海,上海,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"WTW3SJ5ZBJUY","name":"上海","country":"CN","path":"上海,上海,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * suggestion : {"car_washing":{"brief":"较适宜","details":""},"dressing":{"brief":"热","details":""},"flu":{"brief":"少发","details":""},"sport":{"brief":"适宜","details":""},"travel":{"brief":"适宜","details":""},"uv":{"brief":"中等","details":""}}
          * last_update : 2018-06-15T12:10:42+08:00
          */

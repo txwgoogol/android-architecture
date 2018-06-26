@@ -19,7 +19,7 @@ public class AirRanking {
 
     public static class ResultsBean {
         /**
-         * location : {"id":"W7YGK0CKZKF9","name":"茂名","country":"CN","path":"茂名,茂名,广东,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
+         * ic_location : {"id":"W7YGK0CKZKF9","name":"茂名","country":"CN","path":"茂名,茂名,广东,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"}
          * aqi : 8
          */
 

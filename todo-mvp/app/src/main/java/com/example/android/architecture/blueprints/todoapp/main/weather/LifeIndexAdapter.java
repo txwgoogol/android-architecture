@@ -1,9 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseRecyclerViewAdapter;
-import com.example.android.architecture.blueprints.todoapp.data.LifeIndex;
+import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
 
 import java.util.List;
 

@@ -4,17 +4,41 @@ import android.util.Log;
 
 import java.io.IOException;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * 拦截器
+ *
+ * 请求头 https://blog.csdn.net/silenceoo/article/details/77460607
+ * 公共参数 https://blog.csdn.net/weixin_37577039/article/details/79495797
+ */
 public class InterceptorEx implements Interceptor {
 
     private static final String TAG = "InterceptorEx";
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
+        Request original = chain.request();
+
+        //添加公共请求头
+//        Request request = chain.request().newBuilder()
+//                //.header("User-Agent", "YourAppName")
+//                //.header("Accept", "application/vnd.yourapi.v1.full+json")
+//                .header("key","52zpuzgswyulc0w6")
+//                .method(original.method(), original.body())
+//                .build();
+
+        //添加公共参数
+        Request request;
+        HttpUrl modifiedUrl = original.url().newBuilder()
+                // Provide your custom parameter here
+                .addQueryParameter("key", "52zpuzgswyulc0w6")
+                .build();
+        request = original.newBuilder().url(modifiedUrl).build();
+
         //请求前--打印请求信息
         long t1 = System.nanoTime();
         Log.d(TAG, String.format("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
