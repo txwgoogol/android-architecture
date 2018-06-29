@@ -25,6 +25,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    //Add the following configuration
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -67,6 +73,9 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-7'
     //search view
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    //module
     implementation project(':widget')
     implementation project(':searchview')
+    //Amap location
+    implementation 'com.amap.api:location:latest.integration'
 }

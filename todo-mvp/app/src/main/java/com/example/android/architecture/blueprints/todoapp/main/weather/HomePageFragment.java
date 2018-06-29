@@ -2,6 +2,7 @@ package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,17 +12,25 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
+import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
-import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
+import com.example.android.architecture.blueprints.todoapp.main.citylist.CityListActivity;
 import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
 import com.example.android.architecture.blueprints.widget.TitleView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +69,20 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     private WeatherContact.Presenter mPresenter;
     private WeatherPresenter mWeatherPresenter;
 
+    private SmartRefreshLayout smartRefreshLayout;
+    //回调得到的城市ID Or 出事定位得到的经纬度
+    public static String mIdOrLL = "31.29:120.58";
+
     public static HomePageFragment newInstance() {
         return new HomePageFragment();
+    }
+
+    public static HomePageFragment newInstance(String str) {
+        HomePageFragment homePageFragment = new HomePageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("str", str);
+        homePageFragment.setArguments(bundle);
+        return homePageFragment;
     }
 
     @Override
@@ -88,8 +109,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
             if (activity instanceof InteractionListener) {
                 interactionListener = (InteractionListener) activity;
             } else {
-                throw new RuntimeException(activity.toString()
-                        + " must implement ABC_Listener");
+                throw new RuntimeException(activity.toString() + " must implement ABC_Listener");
             }
         }
     }
@@ -105,6 +125,9 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        //覆写activity的菜单
+        setHasOptionsMenu(true);
 
         //天气预报
         forecastRecyclerView.setNestedScrollingEnabled(false);
@@ -123,6 +146,16 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         //lifeIndexAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(HomePageFragment.this.getContext(), lifeIndexList.get(i).getDetails(), Toast.LENGTH_LONG).show());
         lifeIndexRecyclerView.setItemAnimator(new DefaultItemAnimator());
         lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
+
+        smartRefreshLayout = getActivity().findViewById(R.id.refresh_layout);
+        smartRefreshLayout.setEnableLoadMore(false);//禁用上拉刷新
+        smartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+                mWeatherPresenter.weather(mIdOrLL);
+            }
+        });
 
         return view;
     }
@@ -148,15 +181,17 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         mPresenter.onDetach();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        interactionListener = null;
+        if (interactionListener != null) {
+            interactionListener = null;
+        }
     }
 
     @Override
@@ -190,6 +225,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
                 weather.getLast_update());
         setWeatherForecasts(weather);
         setLifeIndex(weather);
+        smartRefreshLayout.finishRefresh();
     }
 
     @Override
@@ -212,6 +248,32 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
          */
         void updatePageTitle(String location, String text, String code, String temperature, String last_update);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mWeatherPresenter.result(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onWeather(String q) {
+        mWeatherPresenter.weather(q);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.hamburger_menu:
+                startActivityForResult(new Intent(getContext(), CityListActivity.class), CityListActivity.REQUEST_CITY_LIST);
+                break;
+        }
+        return true;
     }
 
 }

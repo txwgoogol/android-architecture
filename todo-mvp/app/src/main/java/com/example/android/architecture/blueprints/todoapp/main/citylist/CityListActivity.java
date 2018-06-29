@@ -9,6 +9,8 @@ import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 
 public class CityListActivity extends AppCompatActivity{
 
+    public static final int REQUEST_CITY_LIST = 1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

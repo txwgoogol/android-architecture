@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ import android.widget.AdapterView;
 import com.example.android.architecture.blueprints.searchview.MaterialSearchView;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
+import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.data.location.Search;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
@@ -33,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.bumptech.glide.util.Preconditions.checkNotNull;
 
@@ -50,9 +53,13 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
 
     private CityListPresenter mCityPresenter;
     private CityListContact.Presenter mPresenter;
+
     private CityListAdapter mCityAdapter;
 
     private String[] strings; //搜索结果
+    private List<City> cityList = new ArrayList<>();
+    //private LinkedHashSet<City> cityLinkedHashSet = new LinkedHashSet<>();
+    //private Set<City> mLinkedSetString = Collections.synchronizedSet(new LinkedHashSet<City>());
 
     public static CityListFragment newInstance(String str) {
         CityListFragment cityListFragment = new CityListFragment();
@@ -123,7 +130,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     }
 
     @Override
-    public void setResult(List<Search.ResultsBean> resultsBeanList) {
+    public void onSearchResult(List<Search.ResultsBean> resultsBeanList) {
         //数组与list的转换 https://www.cnblogs.com/jingnumber/p/7814092.html
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < resultsBeanList.size(); i++) {
@@ -132,18 +139,43 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         strings = new String[list.size()];
         list.toArray(strings);
 
-//        for (int i = 0; i < list.size(); i++) {
-//            Log.d(TAG, "strings === "+strings[i]);
-//        }
-
         searchView.setCursorDrawable(R.drawable.color_cursor_white);
         searchView.setSuggestions(strings);
         searchView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
-            //向城市列表添加数据 返回数据
+            //向城市列表添加数据 返回数据城市id查询天气数据
+            mCityPresenter.setSearchWeather(resultsBeanList.get(position).getId());
 
             //关闭搜索框 回到城市列表页面
             searchView.closeSearch();
         });
+    }
+
+    @Override
+    public void onWeatherResult(City city) {
+        //向数集合中添加城市数据
+        cityList.add(city);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mCityAdapter = new CityListAdapter(getActivity(), cityList);
+        //mCityAdapter.notifyDataSetChanged(); //刷新adapter
+        mCityAdapter.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> setResult(RESULT_OK, position));
+        recyclerView.setAdapter(mCityAdapter);
+    }
+
+    /**
+     * 回调
+     *
+     * @param resultCode The result code to propagate back to the originating activity, often RESULT_CANCELED or RESULT_OK
+     * @param position
+     */
+    private void setResult(int resultCode, int position) {
+        if (position >= 0) {
+            Intent intent = new Intent();
+            intent.putExtra("id", cityList.get(position).getId());
+            getActivity().setResult(resultCode, intent);
+        } else {
+            getActivity().setResult(resultCode);
+        }
+        getActivity().finish();
     }
 
     @Override
@@ -153,8 +185,8 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         mCityPresenter.onDetach();
     }
 
@@ -196,7 +228,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                getActivity().finish();
+                setResult(RESULT_CANCELED, -1);
                 break;
         }
         return true;

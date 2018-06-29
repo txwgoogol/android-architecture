@@ -2,9 +2,11 @@ package com.example.android.architecture.blueprints.todoapp.main.citylist;
 
 import android.util.Log;
 
+import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.data.location.Search;
 import com.example.android.architecture.blueprints.todoapp.data.source.remote.ApiClient;
 import com.example.android.architecture.blueprints.todoapp.data.source.remote.ApiStores;
+import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.example.android.architecture.blueprints.todoapp.util.RxScheduler;
 
 import java.util.HashMap;
@@ -20,6 +22,7 @@ public class CityListPresenter implements CityListContact.Presenter {
 
     private CityListContact.View mCityView;
     private CompositeDisposable compositeDisposable;
+    private Disposable disposable;
     ApiStores apiStores = ApiClient.getInstance().create(ApiStores.class);
 
     public CityListPresenter(CityListContact.View view) {
@@ -72,19 +75,53 @@ public class CityListPresenter implements CityListContact.Presenter {
         Map locationMap = new HashMap();
         //locationMap.put("key", "52zpuzgswyulc0w6");
         locationMap.put("q", key);
-        Disposable disposable = apiStores.getSearch(locationMap)
+        disposable = apiStores.getSearch(locationMap)
                 .compose(RxScheduler.normalSchedulersTransformer())
                 .subscribe(new Consumer<Search>() {
                     @Override
                     public void accept(Search location) throws Exception {
                         for (Search.ResultsBean resultsBean : location.getResults()) {
-                            Log.d(TAG, "accept: " + resultsBean.getName());
+                            Log.d(TAG, "location name = " + resultsBean.getName());
+                            Log.d(TAG, "location id = " + resultsBean.getId());
                         }
-                        mCityView.setResult(location.getResults());
+                        mCityView.onSearchResult(location.getResults());
                         //mCityView.hideProgress();
                     }
                 }, throwable -> mCityView.onFailure());
         compositeDisposable.add(disposable); //订阅
+    }
+
+    @Override
+    public void setSearchWeather(String id) {
+        Log.d(TAG, "setSearchWeather: " + id);
+
+        Map nowMap = new HashMap();
+        //nowMap.put("key","52zpuzgswyulc0w6");
+        nowMap.put("location", id);
+        nowMap.put("language", "zh-Hans");
+        nowMap.put("unit", "c");
+        disposable = apiStores.getNow(nowMap)
+                .compose(RxScheduler.normalSchedulersTransformer()).subscribe(new Consumer<Now>() {
+                    @Override
+                    public void accept(Now now) throws Exception {
+                        Log.d(TAG, "now=location=====" + now.getResults().get(0).getLocation().getName());
+                        Log.d(TAG, "now=temperature=====" + now.getResults().get(0).getNow().getTemperature());
+
+
+                        Now.ResultsBean.NowBean nowBean = now.getResults().get(0).getNow();
+                        Now.ResultsBean.LocationBean locationBean = now.getResults().get(0).getLocation();
+
+                        City city = new City();
+                        city.setId(locationBean.getId());
+                        city.setTime(String.valueOf(System.currentTimeMillis()));
+                        city.setName(locationBean.getName());
+                        city.setTemperature(nowBean.getTemperature());
+
+                        mCityView.onWeatherResult(city);
+                    }
+                });
+        compositeDisposable.add(disposable); //订阅
+
     }
 
     @Override
