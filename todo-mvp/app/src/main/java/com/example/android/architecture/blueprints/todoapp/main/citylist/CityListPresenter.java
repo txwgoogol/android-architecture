@@ -107,7 +107,6 @@ public class CityListPresenter implements CityListContact.Presenter {
                         Log.d(TAG, "now=location=====" + now.getResults().get(0).getLocation().getName());
                         Log.d(TAG, "now=temperature=====" + now.getResults().get(0).getNow().getTemperature());
 
-
                         Now.ResultsBean.NowBean nowBean = now.getResults().get(0).getNow();
                         Now.ResultsBean.LocationBean locationBean = now.getResults().get(0).getLocation();
 
@@ -116,6 +115,7 @@ public class CityListPresenter implements CityListContact.Presenter {
                         city.setTime(String.valueOf(System.currentTimeMillis()));
                         city.setName(locationBean.getName());
                         city.setTemperature(nowBean.getTemperature());
+                        city.setCode(nowBean.getCode());
 
                         mCityView.onWeatherResult(city);
                     }

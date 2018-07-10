@@ -1,6 +1,9 @@
 package com.example.android.architecture.blueprints.todoapp.main.citylist;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
@@ -19,11 +22,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.example.android.architecture.blueprints.searchview.MaterialSearchView;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
+import com.example.android.architecture.blueprints.todoapp.common.Constant;
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
+import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBHelper;
+import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBManger;
 import com.example.android.architecture.blueprints.todoapp.data.location.Search;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
@@ -51,6 +58,9 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     MaterialSearchView searchView;
     Unbinder unbinder;
 
+    private SQLiteDatabase sqLiteDatabase;
+    private DBHelper dbHelper;
+
     private CityListPresenter mCityPresenter;
     private CityListContact.Presenter mPresenter;
 
@@ -58,8 +68,6 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
 
     private String[] strings; //搜索结果
     private List<City> cityList = new ArrayList<>();
-    //private LinkedHashSet<City> cityLinkedHashSet = new LinkedHashSet<>();
-    //private Set<City> mLinkedSetString = Collections.synchronizedSet(new LinkedHashSet<City>());
 
     public static CityListFragment newInstance(String str) {
         CityListFragment cityListFragment = new CityListFragment();
@@ -126,6 +134,26 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
             }
         });
 
+        //初始化数据库
+        dbHelper = DBManger.getInstance(getActivity());
+
+        //从数据查询已经存在的城市数据
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+
+        Cursor cursor = sqLiteDatabase.query(Constant.TABLE_CITY, null, null, null, null, null, null);
+        //将cursor转换为list集合
+        List<City> list = DBManger.cursorToList(cursor);
+        for (City city : list) {
+            Log.d(TAG, "查询数据: " + city.toString());
+            cityList.add(city);
+
+            if (cityList != null) {
+                initAdapter(cityList);
+            }
+        }
+
+        sqLiteDatabase.close();
+
         return viewRoot;
     }
 
@@ -154,11 +182,33 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     public void onWeatherResult(City city) {
         //向数集合中添加城市数据
         cityList.add(city);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mCityAdapter = new CityListAdapter(getActivity(), cityList);
-        //mCityAdapter.notifyDataSetChanged(); //刷新adapter
-        mCityAdapter.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> setResult(RESULT_OK, position));
-        recyclerView.setAdapter(mCityAdapter);
+        initAdapter(cityList);
+
+        Log.d(TAG, "onWeatherResult: " + city.getId() + " " + city.getName() + " " + city.getTime() + " " + city.getTemperature());
+
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        /* 哪里错了？ 为什么不成功 泪溃 :(
+        String insertSQL = "insert into " + Constant.TABLE_CITY + " values("
+                + city.getId() + ","
+                + city.getTime() + ","
+                + city.getName() + ","
+                + city.getTemperature() + ")";
+        DBManger.execSQL(sqLiteDatabase, insertSQL);
+        */
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constant.CITY_ID, city.getId());
+        contentValues.put(Constant.CITY_TIME, city.getTime());
+        contentValues.put(Constant.CITY_NAME, city.getName());
+        contentValues.put(Constant.CITY_TEMPERATURE, city.getTemperature());
+        contentValues.put(Constant.CITY_CODE, city.getCode());
+        long result = sqLiteDatabase.insert(Constant.TABLE_CITY, null, contentValues);
+        if (result > 0) {
+            Toast.makeText(getActivity(), "添加数据成功", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "添加数据失败", Toast.LENGTH_SHORT).show();
+        }
+
+        sqLiteDatabase.close();
     }
 
     /**
@@ -248,6 +298,14 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void initAdapter(List list) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mCityAdapter = new CityListAdapter(getActivity(), list);
+        mCityAdapter.notifyDataSetChanged(); //刷新adapter
+        mCityAdapter.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> setResult(RESULT_OK, position));
+        recyclerView.setAdapter(mCityAdapter);
     }
 
 }

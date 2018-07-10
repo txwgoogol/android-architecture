@@ -1,8 +1,10 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,9 +21,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
+import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBHelper;
+import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBManger;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
@@ -70,8 +75,11 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     private WeatherPresenter mWeatherPresenter;
 
     private SmartRefreshLayout smartRefreshLayout;
+    private ImageView parallax;
     //回调得到的城市ID Or 出事定位得到的经纬度
     public static String mIdOrLL = "31.29:120.58";
+
+    private DBHelper dbHelper;
 
     public static HomePageFragment newInstance() {
         return new HomePageFragment();
@@ -129,6 +137,8 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         //覆写activity的菜单
         setHasOptionsMenu(true);
 
+        dbHelper = DBManger.getInstance(getActivity()); //实例化
+
         //天气预报
         forecastRecyclerView.setNestedScrollingEnabled(false);
         forecastRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -148,6 +158,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
 
         smartRefreshLayout = getActivity().findViewById(R.id.refresh_layout);
+        parallax = getActivity().findViewById(R.id.parallax);
         smartRefreshLayout.setEnableLoadMore(false);//禁用上拉刷新
         smartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
             @Override
@@ -225,7 +236,68 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
                 weather.getLast_update());
         setWeatherForecasts(weather);
         setLifeIndex(weather);
+
+        //写入数据
+        saveInSQLite(weather);
         smartRefreshLayout.finishRefresh();
+    }
+
+    /**
+     * 存储数据到SQLite数据库
+     */
+    private void saveInSQLite(Weather weather) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("_id", weather.getLocation().getId());
+        contentValues.put("name", weather.getLocation().getName());
+        contentValues.put("text", weather.getNow().getText());
+        contentValues.put("code", weather.getNow().getCode());
+        contentValues.put("temperature", weather.getNow().getTemperature());
+        contentValues.put("last_time", weather.getLast_update());
+
+        long weatherResult = db.insert("weather", null, contentValues);
+        if (weatherResult > 0) {
+            Log.d(TAG, "天气添加成功");
+        } else {
+            Log.d(TAG, "天气添加失败");
+        }
+
+        for (int i = 0; i < weather.getDaily().size(); i++) {
+            Daily.ResultsBean.DailyBean dailyBean = weather.getDaily().get(i);
+            ContentValues fccv = new ContentValues();
+            fccv.put("_id", weather.getLocation().getId());
+            fccv.put("location_id", weather.getLocation().getId());
+            fccv.put("time", dailyBean.getDate());
+            fccv.put("text", dailyBean.getText_day());
+            fccv.put("high", dailyBean.getHigh());
+            fccv.put("low", dailyBean.getLow());
+            long forecastResult = db.insert("forecast", null, fccv);
+            if (forecastResult > 0) {
+                Log.d(TAG, "天气预报添加成功" + i);
+            } else {
+                Log.d(TAG, "天气预报添加失败" + i);
+            }
+        }
+
+        int lifeIndexSize = weather.getLifeIndexList().size();
+        for (int i = 0; i < lifeIndexSize; i++) {
+            LifeIndex lifeIndex = weather.getLifeIndexList().get(i);
+            ContentValues licv = new ContentValues();
+            licv.put("_id", weather.getLocation().getId());
+            licv.put("location_id", weather.getLocation().getId());
+            licv.put("name", lifeIndex.getName());
+            licv.put("life_index", lifeIndex.getIndex());
+            licv.put("detail", lifeIndex.getDetails());
+            long lifeIndexResult = db.insert("life_index", null, licv);
+            if (lifeIndexResult > 0) {
+                Log.d(TAG, "生活指数添加成功" + i);
+            } else {
+                Log.d(TAG, "添加失败 " + i);
+            }
+        }
+
+        db.close();
     }
 
     @Override
@@ -257,7 +329,18 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
     @Override
     public void onWeather(String q) {
+        
         mWeatherPresenter.weather(q);
+
+        //searchFromSQLite(q);//从数据库读取数据
+    }
+
+    /**
+     * 从数据看查询数据
+     * @param q 查询关键字 基本用不到 因为天气都是实时更新的
+     */
+    private void searchFromSQLite(String q){
+
     }
 
     @Override

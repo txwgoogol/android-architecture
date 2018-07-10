@@ -47,4 +47,15 @@ public class City {
     public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id='" + id + '\'' +
+                ", time='" + time + '\'' +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", temperature='" + temperature + '\'' +
+                '}';
+    }
 }

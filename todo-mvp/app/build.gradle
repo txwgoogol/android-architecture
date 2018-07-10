@@ -16,7 +16,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true //https://www.jianshu.com/p/46560895b42c 缩减代码和优化
+            zipAlignEnabled true //https://blog.csdn.net/hello_1995/article/details/52870573 让应用程序和整个系统运行得更快
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -73,9 +75,10 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-7'
     //search view
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    //Amap location
+    implementation 'com.amap.api:location:latest.integration'
     //module
     implementation project(':widget')
     implementation project(':searchview')
-    //Amap location
-    implementation 'com.amap.api:location:latest.integration'
+    implementation 'org.jetbrains:annotations:15.0'
 }

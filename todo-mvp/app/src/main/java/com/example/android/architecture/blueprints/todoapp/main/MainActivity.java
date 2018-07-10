@@ -1,18 +1,14 @@
 package com.example.android.architecture.blueprints.todoapp.main;
 
 import android.Manifest;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,19 +22,13 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.AMapLocationQualityReport;
-import com.amap.api.location.CoordinateConverter;
-import com.amap.api.location.DPoint;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseActivity;
-import com.example.android.architecture.blueprints.todoapp.main.citylist.CityListActivity;
 import com.example.android.architecture.blueprints.todoapp.main.weather.HomePageFragment;
 import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 import com.example.android.architecture.blueprints.todoapp.util.AmapUtils;
 import com.example.android.architecture.blueprints.todoapp.util.CCTable;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
@@ -71,9 +61,6 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
 
-    private int mOffset = 0;
-    private int mScrollY = 0;
-
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
 
@@ -103,38 +90,24 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), tasksFragment, R.id.fragment_container);
         }
 
-        /*
-        refreshLayout.setEnableLoadMore(false);//禁用上拉刷新
-        refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
-            }
+        RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Must be done during an initialization phase like onCreate
+            rxPermissions
+                    .request(Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE)
+                    .subscribe(granted -> {
+                        if (granted) { // Always true pre-M
+                            //初始化
+                            //initLocation();
+                            //启动定位
+                            //startLocation();
 
-            @Override
-            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
-                mOffset = offset / 2;
-                parallax.setTranslationY(mOffset - mScrollY);
-                toolbar.setAlpha(1 - Math.min(percent, 1));
-            }
-        });
-         */
+                        } else {
+                            // Oups permission denied
+                        }
+                    });
+        }
 
-//        RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
-//        // Must be done during an initialization phase like onCreate
-//        rxPermissions
-//                .request(Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE)
-//                .subscribe(granted -> {
-//                    if (granted) { // Always true pre-M
-//                        //初始化
-//                        initLocation();
-//                        //启动定位
-//                        startLocation();
-//
-//                    } else {
-//                        // Oups permission denied
-//                    }
-//                });
     }
 
     /**
@@ -225,7 +198,7 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
                 //解析定位结果，
                 String result = sb.toString();
 
-                Log.d(TAG, "定位成功: " + String.valueOf(location.getLatitude()).subSequence(0,5)+":"+String.valueOf(location.getLongitude()).substring(0,7));
+                Log.d(TAG, "定位成功: " + String.valueOf(location.getLatitude()).subSequence(0, 5) + ":" + String.valueOf(location.getLongitude()).substring(0, 7));
 
                 /*
                 CoordinateConverter converter = new CoordinateConverter(MainActivity.this);
