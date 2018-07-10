@@ -61,8 +61,7 @@
         app:layout_constraintEnd_toStartOf="@+id/temp_min_text_view"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/temp_max_text_view"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/separator" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/temp_min_text_view"
