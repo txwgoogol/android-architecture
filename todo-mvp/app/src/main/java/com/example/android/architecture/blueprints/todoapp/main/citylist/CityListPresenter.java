@@ -1,13 +1,12 @@
 package com.example.android.architecture.blueprints.todoapp.main.citylist;
 
-import android.util.Log;
-
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.data.location.Search;
 import com.example.android.architecture.blueprints.todoapp.data.source.remote.ApiClient;
 import com.example.android.architecture.blueprints.todoapp.data.source.remote.ApiStores;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.example.android.architecture.blueprints.todoapp.util.RxScheduler;
+import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +43,7 @@ public class CityListPresenter implements CityListContact.Presenter {
 //                .subscribe(new Consumer<Now>() {
 //                    @Override
 //                    public void accept(Now now) throws Exception {
-//                        Log.d(TAG, "accept: " + now.getResults().get(0).getNow().getText());
+//                        Logger.d(TAG, "accept: " + now.getResults().get(0).getNow().getText());
 //                    }
 //                });
 
@@ -58,7 +57,7 @@ public class CityListPresenter implements CityListContact.Presenter {
 //                    public void accept(Search ic_location) throws Exception {
 //
 //                        for (Search.ResultsBean resultsBean : ic_location.getResults())
-//                            Log.d(TAG, "accept: " + resultsBean.getName());
+//                            Logger.d(TAG, "accept: " + resultsBean.getName());
 //
 //                        //mCityView.onSuccess(ic_location.getResults());
 //                        mCityView.hideProgress();
@@ -81,8 +80,8 @@ public class CityListPresenter implements CityListContact.Presenter {
                     @Override
                     public void accept(Search location) throws Exception {
                         for (Search.ResultsBean resultsBean : location.getResults()) {
-                            Log.d(TAG, "location name = " + resultsBean.getName());
-                            Log.d(TAG, "location id = " + resultsBean.getId());
+                            Logger.d(TAG, "location name = " + resultsBean.getName());
+                            Logger.d(TAG, "location id = " + resultsBean.getId());
                         }
                         mCityView.onSearchResult(location.getResults());
                         //mCityView.hideProgress();
@@ -93,7 +92,7 @@ public class CityListPresenter implements CityListContact.Presenter {
 
     @Override
     public void setSearchWeather(String id) {
-        Log.d(TAG, "setSearchWeather: " + id);
+        Logger.d(TAG, "setSearchWeather: " + id);
 
         Map nowMap = new HashMap();
         //nowMap.put("key","52zpuzgswyulc0w6");
@@ -104,8 +103,8 @@ public class CityListPresenter implements CityListContact.Presenter {
                 .compose(RxScheduler.normalSchedulersTransformer()).subscribe(new Consumer<Now>() {
                     @Override
                     public void accept(Now now) throws Exception {
-                        Log.d(TAG, "now=location=====" + now.getResults().get(0).getLocation().getName());
-                        Log.d(TAG, "now=temperature=====" + now.getResults().get(0).getNow().getTemperature());
+                        Logger.d(TAG, "now=location=====" + now.getResults().get(0).getLocation().getName());
+                        Logger.d(TAG, "now=temperature=====" + now.getResults().get(0).getNow().getTemperature());
 
                         Now.ResultsBean.NowBean nowBean = now.getResults().get(0).getNow();
                         Now.ResultsBean.LocationBean locationBean = now.getResults().get(0).getLocation();

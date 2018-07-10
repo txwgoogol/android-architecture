@@ -3,7 +3,15 @@ package com.example.android.architecture.blueprints.todoapp;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.BuildConfig;
+import com.orhanobut.logger.Logger;
+
+/**
+ * 自定义Application类
+ */
 public class App extends Application {
 
     private int count = 0;
@@ -47,6 +55,15 @@ public class App extends Application {
             }
         });
 
+
+        //https://blog.csdn.net/AsiaLYF/article/details/79067374
+        Logger.addLogAdapter(new AndroidLogAdapter(){
+            @Override
+            public boolean isLoggable(int priority, @Nullable String tag) {
+                return true;
+                //return BuildConfig.DEBUG; //默认返回true:打印日志 false:隐藏日志
+            }
+        });
     }
 
     @Override

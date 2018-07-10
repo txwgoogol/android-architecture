@@ -1,11 +1,10 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
-import android.util.Log;
-
-import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
+import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class CloudWeatherAdapter extends WeatherAdapter {
 
     @Override
     public Now.ResultsBean.LocationBean getLocation() {
-        Log.d(TAG, "getLocation: ");
+        Logger.d(TAG, "getLocation: ");
         Now.ResultsBean.LocationBean locationBean = new Now.ResultsBean.LocationBean();
         locationBean.setId(mLocation.getId());
         locationBean.setName(mLocation.getName());
@@ -51,7 +50,7 @@ public class CloudWeatherAdapter extends WeatherAdapter {
      */
     @Override
     public Now.ResultsBean.NowBean getNow() {
-        Log.d(TAG, "getNow: " + mNow.getText() + "    " + mNow.getCode() + "    " + mNow.getTemperature());
+        Logger.d(TAG, "getNow: " + mNow.getText() + "    " + mNow.getCode() + "    " + mNow.getTemperature());
         Now.ResultsBean.NowBean nowBean = new Now.ResultsBean.NowBean();
         nowBean.setText(mNow.getText()); //天气现象文字
         nowBean.setCode(mNow.getCode()); //天气现象代码
@@ -66,7 +65,7 @@ public class CloudWeatherAdapter extends WeatherAdapter {
      */
     @Override
     public List<Daily.ResultsBean.DailyBean> getDaily() {
-        Log.d(TAG, "getDaily: ");
+        Logger.d(TAG, "getDaily: ");
         List<Daily.ResultsBean.DailyBean> dailyBeans = new ArrayList<>();
         for (Daily.ResultsBean.DailyBean daily : mDailyBeanList) {
             Daily.ResultsBean.DailyBean dailyBean = new Daily.ResultsBean.DailyBean();
@@ -94,7 +93,7 @@ public class CloudWeatherAdapter extends WeatherAdapter {
      */
     @Override
     public List<LifeIndex> getLifeIndex() {
-        Log.d(TAG, "getLifeSuggestion: ");
+        Logger.d(TAG, "getLifeSuggestion: ");
 
         List<LifeIndex> lifeIndexList = new ArrayList<>();
 

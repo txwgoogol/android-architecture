@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 
-public class CityListActivity extends AppCompatActivity{
+public class CityListActivity extends AppCompatActivity {
 
     public static final int REQUEST_CITY_LIST = 1;
 
@@ -17,9 +17,9 @@ public class CityListActivity extends AppCompatActivity{
         setContentView(R.layout.frame_layout);
 
         CityListFragment cityListFragment = (CityListFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout);
-        if (cityListFragment == null){
+        if (cityListFragment == null) {
             cityListFragment = CityListFragment.newInstance("cityList");
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),cityListFragment,R.id.frame_layout);
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), cityListFragment, R.id.frame_layout);
         }
 
     }

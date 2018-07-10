@@ -14,7 +14,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +32,7 @@ import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
 import com.example.android.architecture.blueprints.todoapp.main.citylist.CityListActivity;
 import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
 import com.example.android.architecture.blueprints.widget.TitleView;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
@@ -258,9 +258,9 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
         long weatherResult = db.insert("weather", null, contentValues);
         if (weatherResult > 0) {
-            Log.d(TAG, "天气添加成功");
+            Logger.d(TAG, "天气添加成功");
         } else {
-            Log.d(TAG, "天气添加失败");
+            Logger.d(TAG, "天气添加失败");
         }
 
         for (int i = 0; i < weather.getDaily().size(); i++) {
@@ -274,9 +274,9 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
             fccv.put("low", dailyBean.getLow());
             long forecastResult = db.insert("forecast", null, fccv);
             if (forecastResult > 0) {
-                Log.d(TAG, "天气预报添加成功" + i);
+                Logger.d(TAG, "天气预报添加成功" + i);
             } else {
-                Log.d(TAG, "天气预报添加失败" + i);
+                Logger.d(TAG, "天气预报添加失败" + i);
             }
         }
 
@@ -291,9 +291,9 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
             licv.put("detail", lifeIndex.getDetails());
             long lifeIndexResult = db.insert("life_index", null, licv);
             if (lifeIndexResult > 0) {
-                Log.d(TAG, "生活指数添加成功" + i);
+                Logger.d(TAG, "生活指数添加成功" + i);
             } else {
-                Log.d(TAG, "添加失败 " + i);
+                Logger.d(TAG, "添加失败 " + i);
             }
         }
 
@@ -329,7 +329,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
     @Override
     public void onWeather(String q) {
-        
+
         mWeatherPresenter.weather(q);
 
         //searchFromSQLite(q);//从数据库读取数据
@@ -337,9 +337,10 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
     /**
      * 从数据看查询数据
+     *
      * @param q 查询关键字 基本用不到 因为天气都是实时更新的
      */
-    private void searchFromSQLite(String q){
+    private void searchFromSQLite(String q) {
 
     }
 

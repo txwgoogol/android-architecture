@@ -1,11 +1,9 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
@@ -40,7 +38,7 @@ public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.Vie
     public void onBindViewHolder(ForecastAdapter.ViewHolder holder, int position) {
         Daily.ResultsBean.DailyBean dailyBean = weatherForecasts.get(position);
 
-        //Log.d(TAG, "onBindViewHolder: "+dailyBean.getDate()+dailyBean.getText_day()+dailyBean.getHigh()+dailyBean.getLow());
+        //Logger.d(TAG, "onBindViewHolder: "+dailyBean.getDate()+dailyBean.getText_day()+dailyBean.getHigh()+dailyBean.getLow());
 
         holder.weekTextView.setText(dailyBean.getDate()); //日期
         holder.weatherTextView.setText(dailyBean.getText_day()); //天气情况

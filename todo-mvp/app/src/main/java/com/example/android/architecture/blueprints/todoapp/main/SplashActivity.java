@@ -16,6 +16,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.AMapLocationQualityReport;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.util.AmapUtils;
+import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
@@ -188,7 +189,7 @@ public class SplashActivity extends AppCompatActivity {
                 //解析定位结果，
                 String result = sb.toString();
 
-                Log.d(TAG, "定位成功: " + result);
+                Logger.d(TAG, "定位成功: " + result);
 
                 /*
                 CoordinateConverter converter = new CoordinateConverter(MainActivity.this);
@@ -204,14 +205,14 @@ public class SplashActivity extends AppCompatActivity {
                     converter.coord(new DPoint(location.getLatitude(), location.getLongitude()));
                     // 执行转换操作
                     DPoint desLatLng = converter.convert();
-                    Log.d(TAG, "======desLatLng====== "+desLatLng);
+                    Logger.d(TAG, "======desLatLng====== "+desLatLng);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                  */
 
             } else {
-                Log.d(TAG, "定位失败，loc is null");
+                Logger.d(TAG, "定位失败，loc is null");
             }
         }
     };

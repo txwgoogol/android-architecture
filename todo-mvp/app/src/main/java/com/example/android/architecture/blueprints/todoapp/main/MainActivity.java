@@ -28,6 +28,7 @@ import com.example.android.architecture.blueprints.todoapp.main.weather.HomePage
 import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 import com.example.android.architecture.blueprints.todoapp.util.AmapUtils;
 import com.example.android.architecture.blueprints.todoapp.util.CCTable;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -198,7 +199,7 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
                 //解析定位结果，
                 String result = sb.toString();
 
-                Log.d(TAG, "定位成功: " + String.valueOf(location.getLatitude()).subSequence(0, 5) + ":" + String.valueOf(location.getLongitude()).substring(0, 7));
+                Logger.d( "定位成功: " + String.valueOf(location.getLatitude()).subSequence(0, 5) + ":" + String.valueOf(location.getLongitude()).substring(0, 7));
 
                 /*
                 CoordinateConverter converter = new CoordinateConverter(MainActivity.this);
@@ -214,14 +215,14 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
                     converter.coord(new DPoint(location.getLatitude(), location.getLongitude()));
                     // 执行转换操作
                     DPoint desLatLng = converter.convert();
-                    Log.d(TAG, "======desLatLng====== "+desLatLng);
+                    Logger.d(TAG, "======desLatLng====== "+desLatLng);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                  */
 
             } else {
-                Log.d(TAG, "定位失败，loc is null");
+                Logger.e("定位失败，loc is null");
             }
         }
     };

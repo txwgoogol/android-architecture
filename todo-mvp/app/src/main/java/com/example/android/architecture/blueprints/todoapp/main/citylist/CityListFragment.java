@@ -14,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.example.android.architecture.blueprints.searchview.MaterialSearchView;
 import com.example.android.architecture.blueprints.todoapp.R;
@@ -34,6 +32,7 @@ import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBMang
 import com.example.android.architecture.blueprints.todoapp.data.location.Search;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,31 +105,17 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d(TAG, "onQueryTextSubmit: ");
+                Logger.d(TAG, "onQueryTextSubmit: ");
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d(TAG, "onQueryTextChange: ");
+                Logger.d(TAG, "onQueryTextChange: ");
                 //执行搜索
                 mCityPresenter.setSearchKey(newText);
 
                 return false;
-            }
-        });
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-                Log.d(TAG, "onSearchViewShown: ");
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
-                Log.d(TAG, "onSearchViewClosed: ");
             }
         });
 
@@ -144,7 +129,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         //将cursor转换为list集合
         List<City> list = DBManger.cursorToList(cursor);
         for (City city : list) {
-            Log.d(TAG, "查询数据: " + city.toString());
+            Logger.d(TAG, "查询数据: " + city.toString());
             cityList.add(city);
 
             if (cityList != null) {
@@ -184,7 +169,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         cityList.add(city);
         initAdapter(cityList);
 
-        Log.d(TAG, "onWeatherResult: " + city.getId() + " " + city.getName() + " " + city.getTime() + " " + city.getTemperature());
+        Logger.d(TAG, "onWeatherResult: " + city.getId() + " " + city.getName() + " " + city.getTime() + " " + city.getTemperature());
 
         sqLiteDatabase = dbHelper.getWritableDatabase();
         /* 哪里错了？ 为什么不成功 泪溃 :(
@@ -203,9 +188,9 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         contentValues.put(Constant.CITY_CODE, city.getCode());
         long result = sqLiteDatabase.insert(Constant.TABLE_CITY, null, contentValues);
         if (result > 0) {
-            Toast.makeText(getActivity(), "添加数据成功", Toast.LENGTH_SHORT).show();
+            Logger.d(TAG, "添加数据成功");
         } else {
-            Toast.makeText(getActivity(), "添加数据失败", Toast.LENGTH_SHORT).show();
+            Logger.d(TAG, "添加数据失败");
         }
 
         sqLiteDatabase.close();
@@ -258,7 +243,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
 
     @Override
     public void onSuccess(Now now) {
-        Log.d(TAG, "onSuccess: ");
+        Logger.d(TAG, "onSuccess: ");
     }
 
     @Override

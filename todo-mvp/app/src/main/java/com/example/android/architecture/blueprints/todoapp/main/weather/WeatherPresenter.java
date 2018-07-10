@@ -2,7 +2,6 @@ package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.android.architecture.blueprints.todoapp.data.weather.WeatherResponse;
 import com.example.android.architecture.blueprints.todoapp.main.citylist.CityListActivity;

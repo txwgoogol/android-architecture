@@ -26,12 +26,14 @@ public class CityListContact {
 
         /**
          * 返回城市搜索结果
+         *
          * @param resultsBeanList 结果列表
          */
         void onSearchResult(List<Search.ResultsBean> resultsBeanList);
 
         /**
          * 返回获取的天气信息
+         *
          * @param city 天气信息实体类
          */
         void onWeatherResult(City city);
