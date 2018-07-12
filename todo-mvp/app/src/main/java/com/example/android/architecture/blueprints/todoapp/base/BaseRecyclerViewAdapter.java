@@ -10,9 +10,22 @@ import android.widget.AdapterView;
 public abstract class BaseRecyclerViewAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 
     protected AdapterView.OnItemClickListener onItemClickListener;
+    protected AdapterView.OnItemLongClickListener onItemLongClickListener;
 
+    /**
+     * item 单击事件
+     * @param onItemClickListener 单机事件监听器
+     */
     public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    /**
+     * item长按事件
+     * @param onItemLongClickListener 长按事件监听器
+     */
+    public void setOnItemLongClickListener(AdapterView.OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     protected void onItemHolderClick(RecyclerView.ViewHolder itemHolder) {
@@ -20,6 +33,14 @@ public abstract class BaseRecyclerViewAdapter<T extends RecyclerView.ViewHolder>
             onItemClickListener.onItemClick(null, itemHolder.itemView, itemHolder.getAdapterPosition(), itemHolder.getItemId());
         } else {
             throw new IllegalStateException("Please call setOnItemClickListener method set the click event listeners");
+        }
+    }
+
+    protected void onItemHolderLongClick(RecyclerView.ViewHolder itemHolder) {
+        if (onItemLongClickListener != null) {
+            onItemLongClickListener.onItemLongClick(null, itemHolder.itemView, itemHolder.getAdapterPosition(), itemHolder.getItemId());
+        } else {
+            throw new IllegalStateException("Please call setOnItemLongClickListener method set the click event listeners");
         }
     }
 

@@ -238,7 +238,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         setLifeIndex(weather);
 
         //写入数据
-        saveInSQLite(weather);
+        //saveInSQLite(weather);
         smartRefreshLayout.finishRefresh();
     }
 

@@ -1,6 +1,5 @@
 package com.example.android.architecture.blueprints.todoapp.main.citylist;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +26,8 @@ public class CityListAdapter extends BaseRecyclerViewAdapter<CityListAdapter.Vie
     private static final String TAG = "CityAdapter";
 
     private List<City> mCityList;
-    private Context mContext;
 
-    public CityListAdapter(Context context, List<City> cityList) {
-        this.mContext = context;
+    public CityListAdapter(List<City> cityList) {
         this.mCityList = cityList;
     }
 
@@ -50,6 +47,14 @@ public class CityListAdapter extends BaseRecyclerViewAdapter<CityListAdapter.Vie
         holder.cityTime.setText(TimeConvert.stampToTime(String.valueOf(System.currentTimeMillis()))); //当前时间
         holder.cityName.setText(city.getName()); //城市名称
         holder.cityTemplate.setText(city.getTemperature() + "°"); //当前城市的温度
+
+        /* 处理滑动删除
+        holder.delete.setOnClickListener(v -> {
+            mCityList.remove(position);
+            notifyDataSetChanged();
+        });
+        //holder.slideDeleteLayout.requestLayout();//刷新布局
+        */
     }
 
     @Override
@@ -59,6 +64,8 @@ public class CityListAdapter extends BaseRecyclerViewAdapter<CityListAdapter.Vie
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        //@BindView(R.id.swipe_delete_layout)
+        //SlideDeleteLayout slideDeleteLayout;
         @BindView(R.id.weather_gif)
         ImageView weatherGif;
         @BindView(R.id.city_time)
@@ -67,11 +74,16 @@ public class CityListAdapter extends BaseRecyclerViewAdapter<CityListAdapter.Vie
         TextView cityName;
         @BindView(R.id.city_template)
         TextView cityTemplate;
+        @BindView(R.id.delete)
+        TextView delete;
 
         ViewHolder(View itemView, CityListAdapter adapter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> adapter.onItemHolderClick(CityListAdapter.ViewHolder.this));
+            itemView.setOnClickListener(v -> {
+                adapter.onItemHolderClick(CityListAdapter.ViewHolder.this);
+                adapter.onItemHolderLongClick(CityListAdapter.ViewHolder.this);
+            });
         }
     }
 

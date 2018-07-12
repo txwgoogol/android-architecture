@@ -1,9 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.main.citylist;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
@@ -21,14 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.example.android.architecture.blueprints.searchview.MaterialSearchView;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
 import com.example.android.architecture.blueprints.todoapp.common.Constant;
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
-import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBHelper;
-import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBManger;
+import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBUtils;
 import com.example.android.architecture.blueprints.todoapp.data.location.Search;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
@@ -57,9 +54,6 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     MaterialSearchView searchView;
     Unbinder unbinder;
 
-    private SQLiteDatabase sqLiteDatabase;
-    private DBHelper dbHelper;
-
     private CityListPresenter mCityPresenter;
     private CityListContact.Presenter mPresenter;
 
@@ -67,6 +61,10 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
 
     private String[] strings; //搜索结果
     private List<City> cityList = new ArrayList<>();
+    //hashMap代替ArrayList去重操作
+    //private Map<String,City> map = new HashMap<>();
+
+    private boolean isRepeat = false;
 
     public static CityListFragment newInstance(String str) {
         CityListFragment cityListFragment = new CityListFragment();
@@ -98,8 +96,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            //actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setTitle("城市列表");
+            actionBar.setTitle(R.string.city_list);
         }
 
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
@@ -119,25 +116,15 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
             }
         });
 
-        //初始化数据库
-        dbHelper = DBManger.getInstance(getActivity());
+        //获取城市列表
+        List<City> cities = DBUtils.getInstance(getActivity()).query(Constant.TABLE_CITY);
 
-        //从数据查询已经存在的城市数据
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-
-        Cursor cursor = sqLiteDatabase.query(Constant.TABLE_CITY, null, null, null, null, null, null);
-        //将cursor转换为list集合
-        List<City> list = DBManger.cursorToList(cursor);
-        for (City city : list) {
-            Logger.d(TAG, "查询数据: " + city.toString());
+        for (City city : cities) {
+            Logger.d("查询数据: " + city.toString());
             cityList.add(city);
 
-            if (cityList != null) {
-                initAdapter(cityList);
-            }
+            initAdapter(cityList);
         }
-
-        sqLiteDatabase.close();
 
         return viewRoot;
     }
@@ -165,35 +152,32 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
 
     @Override
     public void onWeatherResult(City city) {
-        //向数集合中添加城市数据
-        cityList.add(city);
-        initAdapter(cityList);
 
-        Logger.d(TAG, "onWeatherResult: " + city.getId() + " " + city.getName() + " " + city.getTime() + " " + city.getTemperature());
-
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        /* 哪里错了？ 为什么不成功 泪溃 :(
-        String insertSQL = "insert into " + Constant.TABLE_CITY + " values("
-                + city.getId() + ","
-                + city.getTime() + ","
-                + city.getName() + ","
-                + city.getTemperature() + ")";
-        DBManger.execSQL(sqLiteDatabase, insertSQL);
-        */
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Constant.CITY_ID, city.getId());
-        contentValues.put(Constant.CITY_TIME, city.getTime());
-        contentValues.put(Constant.CITY_NAME, city.getName());
-        contentValues.put(Constant.CITY_TEMPERATURE, city.getTemperature());
-        contentValues.put(Constant.CITY_CODE, city.getCode());
-        long result = sqLiteDatabase.insert(Constant.TABLE_CITY, null, contentValues);
-        if (result > 0) {
-            Logger.d(TAG, "添加数据成功");
-        } else {
-            Logger.d(TAG, "添加数据失败");
+        Logger.d(city.getId());
+        for (int i = 0; i < cityList.size(); i++) {
+            Logger.d(cityList.get(i).getId().contains(city.getId()));
+            //List 数据去重操作 可以用HashMap 替换 但是我不会用 贼尴尬  等完成了项目再来优化 :(
+            if (cityList.get(i).getId().contains(city.getId())) {
+                isRepeat = true;
+            } else {
+                isRepeat = false;
+            }
         }
 
-        sqLiteDatabase.close();
+        //去重操作
+        if (isRepeat || DBUtils.getInstance(getActivity()).query(Constant.TABLE_CITY, city.getId())) {
+            Toast.makeText(getActivity(), "城市列表已经存在该城市天气数据,请勿重读添加!", Toast.LENGTH_SHORT).show();
+            DBUtils.getInstance(getActivity()).update(city);//如果存在直接进行更新
+            mCityAdapter.notifyDataSetChanged();//刷新列表
+            //initAdapter(cityList);
+        } else {
+            //向数集合中添加城市数据
+            cityList.add(city);
+            initAdapter(cityList);
+            Logger.d(TAG, city.toString());
+            //添加数据到数据库
+            DBUtils.getInstance(getActivity()).insert(city); //如果不再存在直接添加
+        }
     }
 
     /**
@@ -251,6 +235,12 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         ProgressDialogEx.dismissProgressDialog();
     }
 
+    /**
+     * 获取菜单
+     *
+     * @param menu     菜单列表
+     * @param inflater 实例话布局文件的
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -259,9 +249,16 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         searchView.setMenuItem(menu.findItem(R.id.action_search));
     }
 
+    /**
+     * 菜单操作 返回按钮操作
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //系统菜单
             case android.R.id.home:
                 setResult(RESULT_CANCELED, -1);
                 break;
@@ -269,6 +266,13 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         return true;
     }
 
+    /**
+     * 数据回调工作
+     *
+     * @param requestCode 请求码
+     * @param resultCode  返回码
+     * @param data        返回携带的值
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -285,11 +289,24 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void initAdapter(List list) {
+    /**
+     * 数据适配工作
+     *
+     * @param list 数据列表
+     */
+    private void initAdapter(List<City> list) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mCityAdapter = new CityListAdapter(getActivity(), list);
+        mCityAdapter = new CityListAdapter(list);
         mCityAdapter.notifyDataSetChanged(); //刷新adapter
-        mCityAdapter.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> setResult(RESULT_OK, position));
+        mCityAdapter.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
+            Logger.d("ITEM单击事件");
+            setResult(RESULT_OK, position);
+        });
+
+        mCityAdapter.setOnItemLongClickListener((AdapterView<?> parent, View view, int position, long id) -> {
+            Logger.d("ITEM长按事件");
+            return true;
+        });
         recyclerView.setAdapter(mCityAdapter);
     }
 
