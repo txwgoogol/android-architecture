@@ -46,13 +46,14 @@ public class DBManger {
 
     /**
      * 将cursor数据转换为list数组
+     *
      * @param cursor cursor 对象
      * @return list数组
      */
-    public static List<City> cursorToList(Cursor cursor){
+    public static List<City> cursorToList(Cursor cursor) {
         List<City> list = new ArrayList<>();
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
 
             String _id = cursor.getString(cursor.getColumnIndex(Constant.CITY_ID));
             String time = cursor.getString(cursor.getColumnIndex(Constant.CITY_TIME));

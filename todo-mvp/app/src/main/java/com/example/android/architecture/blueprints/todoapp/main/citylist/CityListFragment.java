@@ -1,5 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.main.citylist;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -18,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.example.android.architecture.blueprints.searchview.MaterialSearchView;
 import com.example.android.architecture.blueprints.todoapp.R;
@@ -26,9 +27,9 @@ import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
 import com.example.android.architecture.blueprints.todoapp.common.Constant;
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBUtils;
-import com.example.android.architecture.blueprints.todoapp.data.location.Search;
+import com.example.android.architecture.blueprints.todoapp.data.search.Search;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
-import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
+import com.example.android.architecture.blueprints.todoapp.util.ProgressDialogUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -122,7 +123,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         for (City city : cities) {
             Logger.d("查询数据: " + city.toString());
             cityList.add(city);
-
+            mCityPresenter.setSearchWeather(city.getId());  //更新列表数据
             initAdapter(cityList);
         }
 
@@ -166,7 +167,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
 
         //去重操作
         if (isRepeat || DBUtils.getInstance(getActivity()).query(Constant.TABLE_CITY, city.getId())) {
-            Toast.makeText(getActivity(), "城市列表已经存在该城市天气数据,请勿重读添加!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "城市列表已经存在该城市天气数据,请勿重读添加!", Toast.LENGTH_SHORT).show();
             DBUtils.getInstance(getActivity()).update(city);//如果存在直接进行更新
             mCityAdapter.notifyDataSetChanged();//刷新列表
             //initAdapter(cityList);
@@ -217,12 +218,12 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
 
     @Override
     public void loadProgress() {
-        ProgressDialogEx.showProgressDialog(getActivity());
+        ProgressDialogUtils.showProgressDialog(getActivity());
     }
 
     @Override
     public void hideProgress() {
-        ProgressDialogEx.dismissProgressDialog();
+        ProgressDialogUtils.dismissProgressDialog();
     }
 
     @Override
@@ -232,7 +233,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
 
     @Override
     public void onFailure() {
-        ProgressDialogEx.dismissProgressDialog();
+        ProgressDialogUtils.dismissProgressDialog();
     }
 
     /**
@@ -290,6 +291,16 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     }
 
     /**
+     * 长按删除事件
+     *
+     * @param cityId
+     */
+    @Override
+    public void removeCityById(String cityId) {
+        DBUtils.getInstance(getActivity()).delete(cityId);
+    }
+
+    /**
      * 数据适配工作
      *
      * @param list 数据列表
@@ -304,8 +315,26 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         });
 
         mCityAdapter.setOnItemLongClickListener((AdapterView<?> parent, View view, int position, long id) -> {
-            Logger.d("ITEM长按事件");
-            return true;
+            Logger.d("ITEM长按事件   "+position);
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("删除该城市")
+                    .setMessage("确认删除该城市")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mCityPresenter.removeCityById(cityList.get(position).getId());//根据城市ID移除添加的城市
+                            cityList.remove(position);
+                            mCityAdapter.notifyDataSetChanged();
+                        }
+                    })
+                    .create().show();
+            return true;//返回true表示消耗该长按事件
         });
         recyclerView.setAdapter(mCityAdapter);
     }

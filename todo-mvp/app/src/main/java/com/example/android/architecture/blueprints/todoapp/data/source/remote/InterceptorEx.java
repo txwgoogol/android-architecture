@@ -1,7 +1,5 @@
 package com.example.android.architecture.blueprints.todoapp.data.source.remote;
 
-import android.util.Log;
-
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
@@ -13,14 +11,11 @@ import okhttp3.Response;
 
 /**
  * 拦截器
- *
  * 请求头 https://blog.csdn.net/silenceoo/article/details/77460607
  * 公共参数 https://blog.csdn.net/weixin_37577039/article/details/79495797
  * 报文加解密 https://www.jianshu.com/p/83caa619b219
  */
 public class InterceptorEx implements Interceptor {
-
-    private static final String TAG = "InterceptorEx";
 
     @Override
     public Response intercept(Chain chain) throws IOException {

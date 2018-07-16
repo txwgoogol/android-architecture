@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.view;
+package com.example.android.architecture.blueprints.todoapp.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,17 +6,16 @@ import android.content.Context;
 import com.example.android.architecture.blueprints.todoapp.R;
 
 /**
- * 自定义Dialog
+ * 进度工具类
  */
-public class ProgressDialogEx {
+public class ProgressDialogUtils {
 
     public static ProgressDialog progressDialog;
 
-    public static ProgressDialog showProgressDialog(Context context) {
+    public static void showProgressDialog(Context context) {
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(context.getResources().getString(R.string.loading));
         progressDialog.show();
-        return progressDialog;
     }
 
     public static ProgressDialog showProgressDialog(CharSequence message, Context context) {

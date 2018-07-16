@@ -2,7 +2,7 @@ package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
-import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
+import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.orhanobut.logger.Logger;
 

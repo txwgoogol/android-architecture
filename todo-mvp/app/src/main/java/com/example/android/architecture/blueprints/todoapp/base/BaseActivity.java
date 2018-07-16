@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatDelegate;
 
 import com.example.android.architecture.blueprints.todoapp.util.HandleBack;
 
+/**
+ * Activity基类 处理一些公共的操作
+ */
 public class BaseActivity extends AppCompatActivity {
 
     /*

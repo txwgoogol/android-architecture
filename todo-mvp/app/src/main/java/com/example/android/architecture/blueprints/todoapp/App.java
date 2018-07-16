@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -14,6 +13,7 @@ import com.orhanobut.logger.Logger;
  */
 public class App extends Application {
 
+    //记录Activity数量
     private int count = 0;
 
     @Override
@@ -55,20 +55,16 @@ public class App extends Application {
             }
         });
 
-
-        //https://blog.csdn.net/AsiaLYF/article/details/79067374
-        Logger.addLogAdapter(new AndroidLogAdapter(){
+        // Logger的使用
+        // https://blog.csdn.net/AsiaLYF/article/details/79067374
+        Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override
             public boolean isLoggable(int priority, @Nullable String tag) {
                 return true;
                 //return BuildConfig.DEBUG; //默认返回true:打印日志 false:隐藏日志
             }
         });
-    }
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
     }
 
     /**

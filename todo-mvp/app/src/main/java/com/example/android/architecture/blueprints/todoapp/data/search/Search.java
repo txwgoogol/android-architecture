@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.data.location;
+package com.example.android.architecture.blueprints.todoapp.data.search;
 
 import java.util.List;
 

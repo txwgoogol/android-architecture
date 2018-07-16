@@ -152,6 +152,7 @@ public class CCTable {
 
     /**
      * 生活指数
+     *
      * @param context
      * @param indexName
      * @return

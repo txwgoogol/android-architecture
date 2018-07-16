@@ -1,5 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.data.weather;
 
+import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
+
 import java.util.List;
 
 public class Weather {

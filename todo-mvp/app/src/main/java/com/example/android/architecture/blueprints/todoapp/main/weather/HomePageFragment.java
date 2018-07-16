@@ -1,10 +1,8 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,13 +22,16 @@ import android.widget.ImageView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
+import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBHelper;
 import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBManger;
+import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBUtils;
+import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
-import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
 import com.example.android.architecture.blueprints.todoapp.main.citylist.CityListActivity;
-import com.example.android.architecture.blueprints.todoapp.view.ProgressDialogEx;
+import com.example.android.architecture.blueprints.todoapp.util.ProgressDialogUtils;
+import com.example.android.architecture.blueprints.todoapp.util.TimeConvert;
 import com.example.android.architecture.blueprints.widget.TitleView;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -47,8 +48,6 @@ import butterknife.Unbinder;
 import static com.bumptech.glide.util.Preconditions.checkNotNull;
 
 public class HomePageFragment extends BaseFragment implements WeatherContact.View {
-
-    private static final String TAG = "HomePageFragment";
 
     @BindView(R.id.forecast_title)
     TitleView forecastTitle;
@@ -76,14 +75,8 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
     private SmartRefreshLayout smartRefreshLayout;
     private ImageView parallax;
-    //回调得到的城市ID Or 出事定位得到的经纬度
-    public static String mIdOrLL = "31.29:120.58";
-
-    private DBHelper dbHelper;
-
-    public static HomePageFragment newInstance() {
-        return new HomePageFragment();
-    }
+    //回调得到的城市ID Or 初始定位得到的经纬度
+    public String mIdOrLL = "31.29:120.58";
 
     public static HomePageFragment newInstance(String str) {
         HomePageFragment homePageFragment = new HomePageFragment();
@@ -137,8 +130,6 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         //覆写activity的菜单
         setHasOptionsMenu(true);
 
-        dbHelper = DBManger.getInstance(getActivity()); //实例化
-
         //天气预报
         forecastRecyclerView.setNestedScrollingEnabled(false);
         forecastRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -164,11 +155,16 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                mWeatherPresenter.weather(mIdOrLL);
+                mWeatherPresenter.onAttach();
             }
         });
 
         return view;
+    }
+
+    @Override
+    public String getLatitudeAndLongitude() {
+        return getArguments().getString("str");
     }
 
     //设置近期天气数据
@@ -218,91 +214,56 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
     @Override
     public void loadProgress() {
-        ProgressDialogEx.showProgressDialog(getActivity());
+        ProgressDialogUtils.showProgressDialog(getActivity());
     }
 
     @Override
     public void hideProgress() {
-        ProgressDialogEx.dismissProgressDialog();
+        ProgressDialogUtils.dismissProgressDialog();
     }
 
     @Override
     public void onSuccess(Weather weather) {
+        String[] s = weather.getLast_update().split("\\+");
+
         interactionListener.updatePageTitle(
                 weather.getLocation().getName(),
                 weather.getNow().getText(),
                 weather.getNow().getCode(),
                 weather.getNow().getTemperature(),
-                weather.getLast_update());
+                TimeConvert.formatUTC(s[0]));
+
         setWeatherForecasts(weather);
         setLifeIndex(weather);
 
-        //写入数据
-        //saveInSQLite(weather);
         smartRefreshLayout.finishRefresh();
-    }
 
-    /**
-     * 存储数据到SQLite数据库
-     */
-    private void saveInSQLite(Weather weather) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Logger.d(TimeConvert.formatUTC(s[0]));
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("_id", weather.getLocation().getId());
-        contentValues.put("name", weather.getLocation().getName());
-        contentValues.put("text", weather.getNow().getText());
-        contentValues.put("code", weather.getNow().getCode());
-        contentValues.put("temperature", weather.getNow().getTemperature());
-        contentValues.put("last_time", weather.getLast_update());
+        //写入或更新数据
+        //DBUtils.getInstance(getActivity()).insert(weather);
+        /*
+        if (DBUtils.getInstance(getActivity()).insert(weather)) {
+            Logger.d("写入或更新数据成功");
 
-        long weatherResult = db.insert("weather", null, contentValues);
-        if (weatherResult > 0) {
-            Logger.d(TAG, "天气添加成功");
+            City city = new City();
+            city.setId(weather.getLocation().getId());
+            city.setName(weather.getLocation().getName());
+            city.setTime(TimeConvert.stampToTime(String.valueOf(System.currentTimeMillis())));
+            city.setTemperature(weather.getNow().getTemperature());
+            city.setCode(weather.getNow().getCode());
+            //加入到城市列表
+            DBUtils.getInstance(getActivity()).insert(city);
+            //Logger.d(DBUtils.getInstance(getActivity()).insert(city));
         } else {
-            Logger.d(TAG, "天气添加失败");
+            Logger.d("写入或更新数据失败");
         }
-
-        for (int i = 0; i < weather.getDaily().size(); i++) {
-            Daily.ResultsBean.DailyBean dailyBean = weather.getDaily().get(i);
-            ContentValues fccv = new ContentValues();
-            fccv.put("_id", weather.getLocation().getId());
-            fccv.put("location_id", weather.getLocation().getId());
-            fccv.put("time", dailyBean.getDate());
-            fccv.put("text", dailyBean.getText_day());
-            fccv.put("high", dailyBean.getHigh());
-            fccv.put("low", dailyBean.getLow());
-            long forecastResult = db.insert("forecast", null, fccv);
-            if (forecastResult > 0) {
-                Logger.d(TAG, "天气预报添加成功" + i);
-            } else {
-                Logger.d(TAG, "天气预报添加失败" + i);
-            }
-        }
-
-        int lifeIndexSize = weather.getLifeIndexList().size();
-        for (int i = 0; i < lifeIndexSize; i++) {
-            LifeIndex lifeIndex = weather.getLifeIndexList().get(i);
-            ContentValues licv = new ContentValues();
-            licv.put("_id", weather.getLocation().getId());
-            licv.put("location_id", weather.getLocation().getId());
-            licv.put("name", lifeIndex.getName());
-            licv.put("life_index", lifeIndex.getIndex());
-            licv.put("detail", lifeIndex.getDetails());
-            long lifeIndexResult = db.insert("life_index", null, licv);
-            if (lifeIndexResult > 0) {
-                Logger.d(TAG, "生活指数添加成功" + i);
-            } else {
-                Logger.d(TAG, "添加失败 " + i);
-            }
-        }
-
-        db.close();
+        */
     }
 
     @Override
     public void onFailure() {
-        ProgressDialogEx.dismissProgressDialog();
+        ProgressDialogUtils.dismissProgressDialog();
     }
 
     /**
@@ -325,23 +286,6 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         mWeatherPresenter.result(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onWeather(String q) {
-
-        mWeatherPresenter.weather(q);
-
-        //searchFromSQLite(q);//从数据库读取数据
-    }
-
-    /**
-     * 从数据看查询数据
-     *
-     * @param q 查询关键字 基本用不到 因为天气都是实时更新的
-     */
-    private void searchFromSQLite(String q) {
-
     }
 
     @Override

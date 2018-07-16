@@ -23,7 +23,7 @@ import android.support.v4.app.FragmentTransaction;
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
 /**
- * This provides methods to help Activities load their UI.
+ * 将Fragment添加到Activity中
  */
 public final class ActivityUtils {
 

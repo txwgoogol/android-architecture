@@ -1,42 +1,60 @@
 package com.example.android.architecture.blueprints.todoapp.service;
 
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-public class APSService extends Service {
+public class AppService extends Service {
 
+    /**
+     * 创建服务
+     */
     @Override
     public void onCreate() {
         super.onCreate();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
+    /**
+     * 用户通过显示调用启动服务
+     * @param intent
+     * @param flags
+     * @param startId
+     * @return
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    @Override
-    public ComponentName startService(Intent service) {
-        return super.startService(service);
-    }
-
+    /**
+     * 绑定服务
+     * @param intent
+     * @return
+     */
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+
         return null;
     }
 
+    /**
+     * 解绑服务
+     * @param intent
+     * @return
+     */
     @Override
     public boolean onUnbind(Intent intent) {
         return super.onUnbind(intent);
+    }
+
+    /**
+     * 销毁服务
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 }

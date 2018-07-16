@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import com.example.android.architecture.blueprints.todoapp.util.HandleBack;
 
+/**
+ * Fragment基类 处理一些公共的操作
+ */
 public class BaseFragment extends Fragment implements HandleBackInterface {
 
     /**

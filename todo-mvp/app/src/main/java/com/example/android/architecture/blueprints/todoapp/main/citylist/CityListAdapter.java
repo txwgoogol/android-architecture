@@ -80,9 +80,18 @@ public class CityListAdapter extends BaseRecyclerViewAdapter<CityListAdapter.Vie
         ViewHolder(View itemView, CityListAdapter adapter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> {
-                adapter.onItemHolderClick(CityListAdapter.ViewHolder.this);
+
+            /**
+             * 点击事件
+             */
+            itemView.setOnClickListener(v -> adapter.onItemHolderClick(CityListAdapter.ViewHolder.this));
+
+            /**
+             * 长按事件
+             */
+            itemView.setOnLongClickListener(v -> {
                 adapter.onItemHolderLongClick(CityListAdapter.ViewHolder.this);
+                return true;
             });
         }
     }

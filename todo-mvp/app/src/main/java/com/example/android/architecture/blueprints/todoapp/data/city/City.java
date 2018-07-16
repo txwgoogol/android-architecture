@@ -1,5 +1,8 @@
 package com.example.android.architecture.blueprints.todoapp.data.city;
 
+/**
+ * 城市列表实体类
+ */
 public class City {
 
     private String id; //城市ID

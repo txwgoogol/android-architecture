@@ -4,6 +4,9 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * RxJava 线程转换类
+ */
 public final class RxScheduler {
 
     /**

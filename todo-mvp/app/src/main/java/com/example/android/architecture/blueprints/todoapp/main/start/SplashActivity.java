@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.main;
+package com.example.android.architecture.blueprints.todoapp.main.start;
 
 import android.Manifest;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.amap.api.location.AMapLocation;
@@ -15,6 +14,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.AMapLocationQualityReport;
 import com.example.android.architecture.blueprints.todoapp.R;
+import com.example.android.architecture.blueprints.todoapp.main.MainActivity;
 import com.example.android.architecture.blueprints.todoapp.util.AmapUtils;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
     private AMapLocationClientOption locationOption = null;
 
     //判断跳过广告，进入主页面
-    private boolean canJump;
+    private boolean canJump = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class SplashActivity extends AppCompatActivity {
                         requestADs();
                     } else {
                         // Oups permission denied
+                        stopLocation();
                     }
                 });
     }
@@ -90,14 +91,26 @@ public class SplashActivity extends AppCompatActivity {
         String appId = "";
         String adId = "";
 
+        try {
+            Thread.sleep(3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //在广告页面停留三秒中 然后跳转到主页面
+        canJump = true;
     }
 
+    /**
+     * 跳转到主页面 传递获取到的经纬度 关闭当前页面
+     */
     private void forward() {
         if (canJump) {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            intent.putExtra("ll", "31.29:120.58");
+            startActivity(intent);
             finish();
         } else {
-            canJump = true;
+            canJump = false;
         }
     }
 
@@ -189,7 +202,7 @@ public class SplashActivity extends AppCompatActivity {
                 //解析定位结果，
                 String result = sb.toString();
 
-                Logger.d(TAG, "定位成功: " + result);
+                Logger.d( "定位成功: " + String.valueOf(location.getLatitude()).subSequence(0, 5) + ":" + String.valueOf(location.getLongitude()).substring(0, 7));
 
                 /*
                 CoordinateConverter converter = new CoordinateConverter(MainActivity.this);

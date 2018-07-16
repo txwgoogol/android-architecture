@@ -1,6 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.data;
 
-import com.example.android.architecture.blueprints.todoapp.data.location.Search;
+import com.example.android.architecture.blueprints.todoapp.data.search.Search;
 
 /**
  * 实体类基类

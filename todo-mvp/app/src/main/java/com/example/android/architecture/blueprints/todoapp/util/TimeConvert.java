@@ -1,5 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.util;
 
+import com.orhanobut.logger.Logger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,4 +47,23 @@ public class TimeConvert {
         return res;
     }
 
+    /**
+     * UTC 时间格式化
+     *
+     * @param s
+     * @return
+     */
+    public static String formatUTC(String s) {
+        String str = "";
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            Date date = sdf1.parse(s);//拿到Date对象
+            str = sdf2.format(date);//输出格式：2017-01-22 09:28
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Logger.d(str);
+        return str;
+    }
 }

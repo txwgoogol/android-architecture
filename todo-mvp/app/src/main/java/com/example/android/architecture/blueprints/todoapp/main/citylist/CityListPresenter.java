@@ -1,7 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.main.citylist;
 
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
-import com.example.android.architecture.blueprints.todoapp.data.location.Search;
+import com.example.android.architecture.blueprints.todoapp.data.search.Search;
 import com.example.android.architecture.blueprints.todoapp.data.source.remote.ApiClient;
 import com.example.android.architecture.blueprints.todoapp.data.source.remote.ApiStores;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
@@ -121,6 +121,11 @@ public class CityListPresenter implements CityListContact.Presenter {
                 });
         compositeDisposable.add(disposable); //订阅
 
+    }
+
+    @Override
+    public void removeCityById(String cityId) {
+        mCityView.removeCityById(cityId);
     }
 
     @Override

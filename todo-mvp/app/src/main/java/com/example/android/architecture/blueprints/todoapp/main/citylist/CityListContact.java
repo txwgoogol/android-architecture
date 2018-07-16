@@ -3,7 +3,7 @@ package com.example.android.architecture.blueprints.todoapp.main.citylist;
 import com.example.android.architecture.blueprints.todoapp.base.BasePresenter;
 import com.example.android.architecture.blueprints.todoapp.base.BaseView;
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
-import com.example.android.architecture.blueprints.todoapp.data.location.Search;
+import com.example.android.architecture.blueprints.todoapp.data.search.Search;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 
 import java.util.List;
@@ -37,6 +37,9 @@ public class CityListContact {
          * @param city 天气信息实体类
          */
         void onWeatherResult(City city);
+
+        //移除城市列表(数据库)中城市信息
+        void removeCityById(String cityId);
     }
 
     interface Presenter extends BasePresenter {
@@ -46,6 +49,9 @@ public class CityListContact {
 
         //根据城市ID进行该城市的天气情况搜索
         void setSearchWeather(String id);
+
+        //根据城市ID移除城市列表(数据库)中的城市信息
+        void removeCityById(String cityId);
 
     }
 }

@@ -1,6 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
-import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
+import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;

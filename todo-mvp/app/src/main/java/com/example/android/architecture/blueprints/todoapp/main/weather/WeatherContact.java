@@ -22,8 +22,8 @@ public interface WeatherContact {
         //数据加载失败
         void onFailure();
 
-        //执行获取天气信息
-        void onWeather(String q);
+        //获取经纬度信息
+        String getLatitudeAndLongitude();
     }
 
     interface Presenter extends BasePresenter {

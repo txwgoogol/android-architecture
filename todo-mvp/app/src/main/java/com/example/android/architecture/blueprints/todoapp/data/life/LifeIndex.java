@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.data.weather;
+package com.example.android.architecture.blueprints.todoapp.data.life;
 
 public class LifeIndex {
 
@@ -37,5 +37,15 @@ public class LifeIndex {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    @Override
+    public String toString() {
+        return "LifeIndex{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", index='" + index + '\'' +
+                ", details='" + details + '\'' +
+                '}';
     }
 }

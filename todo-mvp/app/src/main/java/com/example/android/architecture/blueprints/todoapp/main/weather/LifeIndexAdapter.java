@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseRecyclerViewAdapter;
-import com.example.android.architecture.blueprints.todoapp.data.weather.LifeIndex;
+import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 
 import java.util.List;
 

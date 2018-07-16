@@ -8,6 +8,9 @@ import com.example.android.architecture.blueprints.todoapp.base.HandleBackInterf
 
 import java.util.List;
 
+/**
+ * 返回事件处理工具类
+ */
 public class HandleBack {
 
     /**

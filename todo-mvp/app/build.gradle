@@ -13,6 +13,11 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //压缩资源方法来瘦身APK 只保留中文和英文语言资源
+        resConfigs "en","zh"
+        //resConfigs "hdpi","xhdpi","xxhdpi","xxxhdpi"
+
     }
     buildTypes {
         release {
