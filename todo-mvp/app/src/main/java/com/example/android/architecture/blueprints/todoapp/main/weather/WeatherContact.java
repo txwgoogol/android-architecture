@@ -10,20 +10,20 @@ public interface WeatherContact {
 
     interface View extends BaseView<Presenter> {
 
-        //显示加载进度
-        void loadProgress();
-
-        //隐藏加载进度
-        void hideProgress();
-
         //数据加载成功
-        void onSuccess(Weather weather);
+        void showWeather(Weather weather);
 
-        //数据加载失败
-        void onFailure();
+        //根据经纬度获取地址信息
+        String getLocation();
 
-        //获取经纬度信息
-        String getLatitudeAndLongitude();
+        //根据地址信息获取地址ID
+        String getLocationId();
+
+        //是否添加到容器中
+        boolean isActive();
+
+        //获取网络状态
+        boolean getNetWorkAvailable();
     }
 
     interface Presenter extends BasePresenter {
@@ -31,8 +31,25 @@ public interface WeatherContact {
         //回调获取数据
         void result(int requestCode, int resultCode, Intent data);
 
-        //执行查询
-        void weather(String q);
+        /**
+         * 执行天气查询
+         *
+         * @param key 查询关键字
+         */
+        void searchWeather(String key);
+
+        /**
+         * 根据经纬度获取地址信息
+         *
+         * @return 返回地址名
+         */
+        String getLatitudeAndLongitude(String lal);
+
+        /**
+         * 执行刷新操作
+         * @param refresh 是否执行刷新操作
+         */
+        void forceUpdate(boolean refresh);
     }
 
 }

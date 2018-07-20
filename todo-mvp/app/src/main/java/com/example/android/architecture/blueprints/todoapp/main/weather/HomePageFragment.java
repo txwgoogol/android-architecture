@@ -22,18 +22,13 @@ import android.widget.ImageView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
-import com.example.android.architecture.blueprints.todoapp.data.city.City;
-import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBHelper;
-import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBManger;
-import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBUtils;
 import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
 import com.example.android.architecture.blueprints.todoapp.main.citylist.CityListActivity;
-import com.example.android.architecture.blueprints.todoapp.util.ProgressDialogUtils;
 import com.example.android.architecture.blueprints.todoapp.util.TimeConvert;
+import com.example.android.architecture.blueprints.todoapp.util.Utils;
 import com.example.android.architecture.blueprints.widget.TitleView;
-import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
@@ -115,17 +110,13 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         }
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mWeatherPresenter = new WeatherPresenter(this);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        mWeatherPresenter = new WeatherPresenter(this);
 
         //覆写activity的菜单
         setHasOptionsMenu(true);
@@ -135,7 +126,6 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         forecastRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         weatherForecasts = new ArrayList<>();
         forecastAdapter = new ForecastAdapter(weatherForecasts);
-        //forecastAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(getActivity(), "" + weatherForecasts.get(i).getDate() + "    " + weatherForecasts.get(i).getText_day(), Toast.LENGTH_SHORT).show());
         forecastRecyclerView.setItemAnimator(new DefaultItemAnimator());
         forecastRecyclerView.setAdapter(forecastAdapter);
 
@@ -144,7 +134,6 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         lifeIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         lifeIndexList = new ArrayList<>();
         lifeIndexAdapter = new LifeIndexAdapter(getActivity(), lifeIndexList);
-        //lifeIndexAdapter.setOnItemClickListener((adapterView, v, i, l) -> Toast.makeText(HomePageFragment.this.getContext(), lifeIndexList.get(i).getDetails(), Toast.LENGTH_LONG).show());
         lifeIndexRecyclerView.setItemAnimator(new DefaultItemAnimator());
         lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
 
@@ -155,7 +144,7 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                mWeatherPresenter.onAttach();
+                mPresenter.forceUpdate(true);
             }
         });
 
@@ -163,8 +152,14 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     }
 
     @Override
-    public String getLatitudeAndLongitude() {
+    public String getLocation() {
         return getArguments().getString("str");
+    }
+
+    @Override
+    public String getLocationId() {
+        //DBUtils.getInstance(getActivity()).query(Constant.TABLE_WEATHER,mPresenter.getLatitudeAndLongitude(getLocation()));
+        return null;
     }
 
     //设置近期天气数据
@@ -208,22 +203,8 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void loadProgress() {
-        ProgressDialogUtils.showProgressDialog(getActivity());
-    }
-
-    @Override
-    public void hideProgress() {
-        ProgressDialogUtils.dismissProgressDialog();
-    }
-
-    @Override
-    public void onSuccess(Weather weather) {
+    public void showWeather(Weather weather) {
+        //获取的是UTC时间 需要将其分割获取有效的时间显示
         String[] s = weather.getLast_update().split("\\+");
 
         interactionListener.updatePageTitle(
@@ -237,8 +218,6 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         setLifeIndex(weather);
 
         smartRefreshLayout.finishRefresh();
-
-        Logger.d(TimeConvert.formatUTC(s[0]));
 
         //写入或更新数据
         //DBUtils.getInstance(getActivity()).insert(weather);
@@ -259,11 +238,6 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
             Logger.d("写入或更新数据失败");
         }
         */
-    }
-
-    @Override
-    public void onFailure() {
-        ProgressDialogUtils.dismissProgressDialog();
     }
 
     /**
@@ -302,6 +276,16 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
                 break;
         }
         return true;
+    }
+
+    @Override
+    public boolean getNetWorkAvailable() {
+        return Utils.getNetWorkAvailable(getActivity());
+    }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
     }
 
 }

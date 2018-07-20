@@ -1,9 +1,9 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
 import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
-import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
+import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
 
 import java.util.List;
 
@@ -28,4 +28,5 @@ public abstract class WeatherAdapter {
         weather.setLast_update(getLastUpdate());
         return weather;
     }
+
 }

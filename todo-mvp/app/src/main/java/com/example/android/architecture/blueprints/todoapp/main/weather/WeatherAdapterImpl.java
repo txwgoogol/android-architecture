@@ -1,10 +1,9 @@
 package com.example.android.architecture.blueprints.todoapp.main.weather;
 
+import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
-import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +11,7 @@ import java.util.List;
 /**
  * 将获取的天气信息进行组合
  */
-public class CloudWeatherAdapter extends WeatherAdapter {
-
-    private static final String TAG = "CloudWeatherAdapter";
+public class WeatherAdapterImpl extends WeatherAdapter {
 
     private Now.ResultsBean.LocationBean mLocation;
     private Now.ResultsBean.NowBean mNow;
@@ -22,7 +19,7 @@ public class CloudWeatherAdapter extends WeatherAdapter {
     private Suggestion.ResultsBean.SuggestionBean mSuggestion;
     private String last_update;
 
-    public CloudWeatherAdapter(Now now, Daily daily, Suggestion suggestion) {
+    public WeatherAdapterImpl(Now now, Daily daily, Suggestion suggestion) {
         this.mLocation = now.getResults().get(0).getLocation();
         this.mNow = now.getResults().get(0).getNow();
         this.mDailyBeanList = daily.getResults().get(0).getDaily();
@@ -32,7 +29,6 @@ public class CloudWeatherAdapter extends WeatherAdapter {
 
     @Override
     public Now.ResultsBean.LocationBean getLocation() {
-        Logger.d(TAG, "getLocation: ");
         Now.ResultsBean.LocationBean locationBean = new Now.ResultsBean.LocationBean();
         locationBean.setId(mLocation.getId());
         locationBean.setName(mLocation.getName());
@@ -50,7 +46,6 @@ public class CloudWeatherAdapter extends WeatherAdapter {
      */
     @Override
     public Now.ResultsBean.NowBean getNow() {
-        Logger.d(TAG, "getNow: " + mNow.getText() + "    " + mNow.getCode() + "    " + mNow.getTemperature());
         Now.ResultsBean.NowBean nowBean = new Now.ResultsBean.NowBean();
         nowBean.setText(mNow.getText()); //天气现象文字
         nowBean.setCode(mNow.getCode()); //天气现象代码
@@ -65,7 +60,6 @@ public class CloudWeatherAdapter extends WeatherAdapter {
      */
     @Override
     public List<Daily.ResultsBean.DailyBean> getDaily() {
-        Logger.d(TAG, "getDaily: ");
         List<Daily.ResultsBean.DailyBean> dailyBeans = new ArrayList<>();
         for (Daily.ResultsBean.DailyBean daily : mDailyBeanList) {
             Daily.ResultsBean.DailyBean dailyBean = new Daily.ResultsBean.DailyBean();
@@ -93,7 +87,6 @@ public class CloudWeatherAdapter extends WeatherAdapter {
      */
     @Override
     public List<LifeIndex> getLifeIndex() {
-        Logger.d(TAG, "getLifeSuggestion: ");
 
         List<LifeIndex> lifeIndexList = new ArrayList<>();
 

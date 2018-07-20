@@ -19,9 +19,10 @@ import butterknife.ButterKnife;
 
 import static com.example.android.architecture.blueprints.todoapp.util.CCTable.getIndexDrawable;
 
+/**
+ * 生活指数适配器
+ */
 public class LifeIndexAdapter extends BaseRecyclerViewAdapter<LifeIndexAdapter.ViewHolder> {
-
-    private static final String TAG = "LifeIndexAdapter";
 
     private Context context;
     private List<LifeIndex> lifeIndexList;
@@ -62,7 +63,6 @@ public class LifeIndexAdapter extends BaseRecyclerViewAdapter<LifeIndexAdapter.V
         ViewHolder(View itemView, LifeIndexAdapter adapter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            //itemView.setOnClickListener(v -> adapter.onItemHolderClick(LifeIndexAdapter.ViewHolder.this));
         }
     }
 

@@ -16,11 +16,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 未来三天天气预报
+ * 未来天气预报适配器
  */
 public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.ViewHolder> {
-
-    private static final String TAG = "ForecastAdapter";
 
     private List<Daily.ResultsBean.DailyBean> weatherForecasts;
 
@@ -37,9 +35,6 @@ public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.Vie
     @Override
     public void onBindViewHolder(ForecastAdapter.ViewHolder holder, int position) {
         Daily.ResultsBean.DailyBean dailyBean = weatherForecasts.get(position);
-
-        //Logger.d(TAG, "onBindViewHolder: "+dailyBean.getDate()+dailyBean.getText_day()+dailyBean.getHigh()+dailyBean.getLow());
-
         holder.weekTextView.setText(dailyBean.getDate()); //日期
         holder.weatherTextView.setText(dailyBean.getText_day()); //天气情况
         holder.tempMaxTextView.setText(dailyBean.getHigh()); //最高温度
@@ -65,7 +60,7 @@ public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.Vie
         ViewHolder(View itemView, ForecastAdapter adapter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            //itemView.setOnClickListener(v -> adapter.onItemHolderClick(ViewHolder.this));
         }
     }
+
 }

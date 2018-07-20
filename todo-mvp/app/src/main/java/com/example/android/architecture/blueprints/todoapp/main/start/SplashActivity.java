@@ -92,7 +92,7 @@ public class SplashActivity extends AppCompatActivity {
         String adId = "";
 
         try {
-            Thread.sleep(3000);
+            Thread.sleep(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
