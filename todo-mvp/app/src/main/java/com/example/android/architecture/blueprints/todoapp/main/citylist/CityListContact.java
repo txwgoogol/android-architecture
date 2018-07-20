@@ -4,7 +4,6 @@ import com.example.android.architecture.blueprints.todoapp.base.BasePresenter;
 import com.example.android.architecture.blueprints.todoapp.base.BaseView;
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.data.search.Search;
-import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 
 import java.util.List;
 
@@ -12,46 +11,52 @@ public class CityListContact {
 
     interface View extends BaseView<CityListContact.Presenter> {
 
-        //显示加载进度
-        void loadProgress();
-
-        //隐藏加载进度
-        void hideProgress();
-
-        //获取数据成功
-        void onSuccess(Now now);
-
-        //获取数据失败
-        void onFailure();
+        /**
+         * 城市列表 适配器
+         *
+         * @param cityList 城市数据列表
+         */
+        void initCityListAdapter(List<City> cityList);
 
         /**
-         * 返回城市搜索结果
+         * 城市搜索结果 适配器
          *
-         * @param resultsBeanList 结果列表
+         * @param searchResultList 搜索结果列表
          */
-        void onSearchResult(List<Search.ResultsBean> resultsBeanList);
+        void initSearchResultAdapter(List<Search.ResultsBean> searchResultList);
 
         /**
          * 返回获取的天气信息
          *
          * @param city 天气信息实体类
          */
-        void onWeatherResult(City city);
+        void addToCityList(City city);
 
-        //移除城市列表(数据库)中城市信息
-        void removeCityById(String cityId);
+        //Fragment已经添加到Activity中
+        boolean isActive();
+
+        //判断数据库有没有数据
+        boolean isDataMissing();
+
     }
 
     interface Presenter extends BasePresenter {
 
-        //根据输入的城市ID、城市名称、城市名称拼音、英文名称等进行搜索城市
-        void setSearchKey(String key);
+        /**
+         * 根据输入的城市ID、城市名称、城市名称拼音、英文名称等进行搜索城市
+         *
+         * @param key 城市ID、城市名称、城市名称拼音、英文名称等
+         */
+        void searchCity(String key);
 
-        //根据城市ID进行该城市的天气情况搜索
-        void setSearchWeather(String id);
-
-        //根据城市ID移除城市列表(数据库)中的城市信息
-        void removeCityById(String cityId);
+        /**
+         * 根据城市ID进行该城市的天气情况搜索
+         *
+         * @param cityId 城市ID
+         * @return 返回城市对象
+         */
+        City searchWeather(String cityId);
 
     }
+
 }
