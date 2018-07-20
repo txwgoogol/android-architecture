@@ -22,6 +22,8 @@ import android.widget.ImageView;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
+import com.example.android.architecture.blueprints.todoapp.data.city.City;
+import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBUtils;
 import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
@@ -29,6 +31,7 @@ import com.example.android.architecture.blueprints.todoapp.main.citylist.CityLis
 import com.example.android.architecture.blueprints.todoapp.util.TimeConvert;
 import com.example.android.architecture.blueprints.todoapp.util.Utils;
 import com.example.android.architecture.blueprints.widget.TitleView;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
@@ -204,6 +207,15 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
     @Override
     public void showWeather(Weather weather) {
+
+        Logger.d(" "
+                + weather.getLocation()
+                + weather.getNow()
+                + weather.getDaily()
+                + weather.getLifeIndexList()
+                + weather.getLast_update());
+
+
         //获取的是UTC时间 需要将其分割获取有效的时间显示
         String[] s = weather.getLast_update().split("\\+");
 
@@ -218,6 +230,24 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         setLifeIndex(weather);
 
         smartRefreshLayout.finishRefresh();
+
+        //添加到城市列表
+        //Logger.d(DBUtils.getInstance(getActivity()).insert(new City(weather.getId(),weather.getLast_update(),weather.getLocation().getName(),weather.getNow().getCode(),weather.getNow().getTemperature())));
+        //添加到天气列表
+        Logger.d(DBUtils.getInstance(getActivity()).insert(weather));
+
+        /**/
+        City city = new City();
+        city.setId(weather.getLocation().getId());
+        city.setTime(weather.getLast_update());
+        city.setName(weather.getLocation().getName());
+        city.setCode(weather.getNow().getCode());
+        city.setTemperature(weather.getNow().getTemperature());
+
+        Logger.d(city.toString());
+
+        //添加到城市列表
+        Logger.d(DBUtils.getInstance(getActivity()).insert(city));
 
         //写入或更新数据
         //DBUtils.getInstance(getActivity()).insert(weather);

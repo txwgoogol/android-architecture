@@ -11,6 +11,17 @@ public class City {
     private String code;//天气情况代码
     private String temperature; //温度
 
+    public City() {
+    }
+
+    public City(String id, String time, String name, String code, String temperature) {
+        this.id = id;
+        this.time = time;
+        this.name = name;
+        this.code = code;
+        this.temperature = temperature;
+    }
+
     public String getId() {
         return id;
     }
@@ -61,4 +72,5 @@ public class City {
                 ", temperature='" + temperature + '\'' +
                 '}';
     }
+
 }

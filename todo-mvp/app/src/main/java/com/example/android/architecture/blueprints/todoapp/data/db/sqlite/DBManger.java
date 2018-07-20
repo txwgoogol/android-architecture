@@ -50,25 +50,27 @@ public class DBManger {
      * @param cursor cursor 对象
      * @return list数组
      */
-    public static List<City> cursorToList(Cursor cursor) {
-        List<City> list = new ArrayList<>();
+    public static <T> List<T> cursorToList(Cursor cursor, int tableId) {
+        List<T> list = new ArrayList<>();
+        if (cursor.moveToNext()) {
+            switch (tableId) {
+                case Constant.TABLE_ID_CITY:
+                    String _id = cursor.getString(cursor.getColumnIndex(Constant.CITY_ID));
+                    String time = cursor.getString(cursor.getColumnIndex(Constant.CITY_TIME));
+                    String name = cursor.getString(cursor.getColumnIndex(Constant.CITY_NAME));
+                    String temperature = cursor.getString(cursor.getColumnIndex(Constant.CITY_TEMPERATURE));
+                    String code = cursor.getString(cursor.getColumnIndex(Constant.CITY_CODE));
 
-        while (cursor.moveToNext()) {
+                    City city = new City();
+                    city.setId(_id);
+                    city.setTime(time);
+                    city.setName(name);
+                    city.setTemperature(temperature);
+                    city.setCode(code);
 
-            String _id = cursor.getString(cursor.getColumnIndex(Constant.CITY_ID));
-            String time = cursor.getString(cursor.getColumnIndex(Constant.CITY_TIME));
-            String name = cursor.getString(cursor.getColumnIndex(Constant.CITY_NAME));
-            String temperature = cursor.getString(cursor.getColumnIndex(Constant.CITY_TEMPERATURE));
-            String code = cursor.getString(cursor.getColumnIndex(Constant.CITY_CODE));
-
-            City city = new City();
-            city.setId(_id);
-            city.setTime(time);
-            city.setName(name);
-            city.setTemperature(temperature);
-            city.setCode(code);
-
-            list.add(city);
+                    list.add((T) city);
+                    break;
+            }
         }
         return list;
     }

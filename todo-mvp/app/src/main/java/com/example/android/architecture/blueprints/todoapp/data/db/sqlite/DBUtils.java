@@ -9,7 +9,9 @@ import com.example.android.architecture.blueprints.todoapp.common.Constant;
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
+import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Weather;
+import com.example.android.architecture.blueprints.todoapp.util.TimeConvert;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -24,6 +26,12 @@ public class DBUtils {
     private static SQLiteDatabase db;
     //游标 从数据库读取数据的
     private Cursor cursor;
+
+    boolean weatherResult = false;
+    boolean nowResult = false;
+    boolean locationResult = false;
+    boolean forecastResult = false;
+    boolean lifeIndexResult = false;
 
     /**
      * 有参构造函数
@@ -44,6 +52,7 @@ public class DBUtils {
         return new DBUtils(context);
     }
 
+
     //================ 首页天气信息数据库表的添改查 START ================
 
     /**
@@ -53,20 +62,17 @@ public class DBUtils {
      * @return 返回添加数据结果
      */
     public boolean insert(Weather weather) {
-
-        long weatherResult = 0;//记录插入数据的返回结果 如果插入数据成功则返回值大于0 否则插入失败
-        boolean forecastResult = false;
-        boolean lifeIndexResult = false;
-
         //插入数据之前先从数据库查询是否存在该城市数据 如果存在则找到该城市信息ID然后更新数据 否则添加数据到数据库
         if (query(Constant.TABLE_WEATHER, weather.getLocation().getId())) {
-            update(weather);
+            updateWeather(weather);
         } else {
-            weatherResult = db.insert(Constant.TABLE_WEATHER, null, weatherValues(weather));
+            weatherResult = insertOrUpdateWeather(weather, Constant.INSERT);
+            locationResult = insertOrUpdateLocation(weather, Constant.INSERT);
+            nowResult = insertOrUpdateNow(weather, Constant.INSERT);
             forecastResult = insertOrUpdateForecast(weather, Constant.INSERT);// 添加数据
             lifeIndexResult = insertOrUpdateLifeIndex(weather, Constant.INSERT);//添加数据
         }
-        if (weatherResult > 0 && forecastResult && lifeIndexResult) {
+        if (weatherResult && forecastResult && lifeIndexResult) {
             Logger.d("成功");
             return true;
         } else {
@@ -81,17 +87,16 @@ public class DBUtils {
      * @param weather
      * @return
      */
-    public boolean update(Weather weather) {
-        long weatherResult = 0; //同理 insert()
-        boolean forecastResult = false; //同理 insert()
-        boolean lifeIndexResult = false; //同理 insert()
+    public boolean updateWeather(Weather weather) {
         //查询是否存在该城市信息 如果存在则更新数据
-        if (query(weather)) {
-            weatherResult = db.update(Constant.TABLE_WEATHER, weatherValues(weather), Constant.CITY_ID + "=?", new String[]{weather.getLocation().getId()});
+        if (queryWeatherId(weather)) {
+            weatherResult = insertOrUpdateWeather(weather, Constant.UPDATE);
+            locationResult = insertOrUpdateLocation(weather, Constant.UPDATE);
+            nowResult = insertOrUpdateNow(weather, Constant.UPDATE);
             forecastResult = insertOrUpdateForecast(weather, Constant.UPDATE); //更新数据
             lifeIndexResult = insertOrUpdateLifeIndex(weather, Constant.UPDATE);//更新数据
         }
-        if (weatherResult > 0 && forecastResult && lifeIndexResult) {
+        if (weatherResult && forecastResult && lifeIndexResult) {
             closeDB();
             return true;
         } else {
@@ -107,7 +112,7 @@ public class DBUtils {
      * @param weather 类名
      * @return 返回查询结果
      */
-    public boolean query(Weather weather) {
+    public boolean queryWeatherId(Weather weather) {
         cursor = db.query(Constant.TABLE_WEATHER, null, Constant.WEATHER_ID + "=?", new String[]{weather.getLocation().getId()}, null, null, null);
         //根据cursor.moveToNext()的值判断真假    当cursor哦有数据的时候 返回true 否则 返回false
         if (cursor.moveToNext()) {
@@ -120,15 +125,15 @@ public class DBUtils {
     }
 
     /**
-     * 根据地址名称对应城市ID
+     * 根据查询的地址名称返回对应城市ID
      *
      * @param locationName 查询的名字
-     * @return 返回查询ID
+     * @return 返回查询地址ID
      */
     @Deprecated
-    public String queryCity(String locationName) {
+    public String queryWeatherCityName(String locationName) {
         String locationId = null;
-        cursor = db.query(Constant.TABLE_WEATHER, null, Constant.WEATHER_NAME + "=?", new String[]{locationName}, null, null, null);
+        cursor = db.query(Constant.TABLE_WEATHER, null, Constant.WEATHER_ID + "=?", new String[]{locationName}, null, null, null);
         //根据cursor.moveToNext()的值判断真假    当cursor哦有数据的时候 返回true 否则 返回false
         if (cursor.moveToNext()) {
             locationId = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_ID));
@@ -140,151 +145,7 @@ public class DBUtils {
         }
     }
 
-    /**
-     * 根据城市ID查询天气信息
-     *
-     * @param locationId 城市ID
-     * @return 天气数据
-     */
-    @Deprecated
-    public Weather queryWeatherById(String locationId) {
-
-        //weather
-        String id;
-        String time;
-        String name;
-        String text;
-        String code;
-        String temperature;
-        String last_update;
-        List<Daily.ResultsBean.DailyBean> forecastList = new ArrayList<>();
-        List<LifeIndex> lifeIndexList = new ArrayList<>();
-
-        //forecast
-        String forecast_id;
-        String forecast_location_id;
-        String forecast_text;
-        String forecast_height;
-        String forecast_low;
-        String forecast_code;
-
-        //lifeindex
-        int life_index_id;
-        String life_index_location_id;
-        String life_index_name;
-        String life_index_life_index;
-        String life_index_details;
-
-        Weather weather = new Weather();
-        Daily.ResultsBean.DailyBean dailyBean = new Daily.ResultsBean.DailyBean();
-        LifeIndex lifeIndex = new LifeIndex();
-
-        /*
-        WeatherDB weatherDB = new WeatherDB();
-        WeatherDB.Forecast forecast = new WeatherDB.Forecast();
-        WeatherDB.LifeIndex lifeIndex = new WeatherDB.LifeIndex();
-        */
-        cursor = db.query(Constant.TABLE_WEATHER, null, Constant.WEATHER_ID + "=?", new String[]{locationId}, null, null, null);
-        if (cursor.moveToNext()) {
-            /*
-            id = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_ID));
-            time = String.valueOf(System.currentTimeMillis());
-            name = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_NAME));
-            text = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_TEXT));
-            code = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_CODE));
-            temperature = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_TEMPERATURE));
-            last_update = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_LAST_UPDATE));
-
-            forecast_id = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_ID));
-            forecast_location_id = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_LOCATION_ID));
-            forecast_text = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_TEXT));
-            forecast_height = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_HEIGHT));
-            forecast_low = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_LOW));
-            forecast_code = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_CODE));
-
-            life_index_id = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_ID));
-            life_index_location_id = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_LOCATION_ID));
-            life_index_name = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_NAME));
-            life_index_life_index = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_LIFE_INDEX));
-            life_index_details = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_DETAILS));
-
-            forecast.set_id(forecast_id);
-            forecast.setLocation_id(forecast_location_id);
-            forecast.setText(forecast_text);
-            forecast.setHeight(forecast_height);
-            forecast.setLow(forecast_low);
-            forecast.setCode(forecast_code);
-            forecastList.add(forecast);
-
-            lifeIndex.set_id(life_index_id);
-            lifeIndex.setLocation_id(life_index_location_id);
-            lifeIndex.setName(life_index_name);
-            lifeIndex.setLife_index(life_index_life_index);
-            lifeIndex.setDetails(life_index_details);
-            lifeIndexList.add(lifeIndex);
-
-            weatherDB.setId(id);
-            weatherDB.setTime(time);
-            weatherDB.setName(name);
-            weatherDB.setText(text);
-            weatherDB.setCode(code);
-            weatherDB.setTemperature(temperature);
-            weatherDB.setLast_update(last_update);
-            weatherDB.setForecastList(forecastList);
-            weatherDB.setLifeIndexList(lifeIndexList);
-            */
-
-            id = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_ID));
-            time = String.valueOf(System.currentTimeMillis());
-            name = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_NAME));
-            text = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_TEXT));
-            code = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_CODE));
-            temperature = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_TEMPERATURE));
-            last_update = cursor.getString(cursor.getColumnIndex(Constant.WEATHER_LAST_UPDATE));
-
-            forecast_id = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_ID));
-            forecast_location_id = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_LOCATION_ID));
-            forecast_text = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_TEXT));
-            forecast_height = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_HEIGHT));
-            forecast_low = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_LOW));
-            forecast_code = cursor.getString(cursor.getColumnIndex(Constant.FORECAST_CODE));
-
-            life_index_id = cursor.getInt(cursor.getColumnIndex(Constant.LIFE_INDEX_ID));
-            life_index_location_id = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_LOCATION_ID));
-            life_index_name = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_NAME));
-            life_index_life_index = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_LIFE_INDEX));
-            life_index_details = cursor.getString(cursor.getColumnIndex(Constant.LIFE_INDEX_DETAILS));
-
-            dailyBean.setText_day(forecast_text);
-            //dailyBean.setHeight(forecast_height);
-            dailyBean.setLow(forecast_low);
-            //dailyBean.setCode(forecast_code);
-            forecastList.add(dailyBean);
-
-            lifeIndex.setId(life_index_id);
-            lifeIndex.setName(life_index_name);
-            lifeIndex.setIndex(life_index_life_index);
-            lifeIndex.setDetails(life_index_details);
-            lifeIndexList.add(lifeIndex);
-
-            //weather.setId(id);
-            //weather.setTime(time);
-            //weather.setName(name);
-            //weather.setText(text);
-            //weather.setCode(code);
-            //weather.setTemperature(temperature);
-
-            weather.setLast_update(last_update);
-            weather.setDaily(forecastList);
-            weather.setLifeIndexList(lifeIndexList);
-
-            closeDB();
-            return weather;
-        } else {
-            closeDB();
-            return weather;
-        }
-    }
+    //==================================================
 
     /**
      * 添加或更新天气数据
@@ -292,16 +153,76 @@ public class DBUtils {
      * @param weather
      * @return
      */
-    private ContentValues weatherValues(Weather weather) {
+    public boolean insertOrUpdateWeather(Weather weather, int DBEvent) {
+
+        //获取的是UTC时间 需要将其分割获取有效的时间显示
+        String[] s = weather.getLast_update().split("\\+");
+
+        long weatherResult = 0;
         ContentValues weatherContentValues = new ContentValues();
         weatherContentValues.put(Constant.WEATHER_ID, weather.getLocation().getId());
-        weatherContentValues.put(Constant.WEATHER_TIME, String.valueOf(System.currentTimeMillis()));//时间戳
-        weatherContentValues.put(Constant.WEATHER_NAME, weather.getLocation().getName());
-        weatherContentValues.put(Constant.WEATHER_TEXT, weather.getNow().getText());
-        weatherContentValues.put(Constant.WEATHER_CODE, weather.getNow().getCode());
-        weatherContentValues.put(Constant.WEATHER_TEMPERATURE, weather.getNow().getTemperature());
-        weatherContentValues.put(Constant.WEATHER_LAST_UPDATE, weather.getLast_update());
-        return weatherContentValues;
+        weatherContentValues.put(Constant.WEATHER_LAST_UPDATE, TimeConvert.formatUTC(s[0]).toString());
+        switch (DBEvent) {
+            case Constant.INSERT:
+                weatherResult = db.insert(Constant.TABLE_WEATHER, null, weatherContentValues);
+                break;
+            case Constant.UPDATE:
+                weatherResult = db.update(Constant.TABLE_WEATHER, weatherContentValues, Constant.WEATHER_ID + "=?", new String[]{weather.getLocation().getId()});
+                break;
+        }
+        return result(weatherResult, Constant.QUERY);
+    }
+
+    /**
+     * 添加或更新位置信息数据
+     *
+     * @param weather
+     * @return
+     */
+    public boolean insertOrUpdateLocation(Weather weather, int DBEvent) {
+        long locationResult = 0;
+        ContentValues locationContentValues = new ContentValues();
+        locationContentValues.put(Constant.LOCATION_ID, weather.getLocation().getId());
+        locationContentValues.put(Constant.LOCATION_NAME, weather.getLocation().getName());
+        locationContentValues.put(Constant.LOCATION_COUNTRY, weather.getLocation().getCountry());
+        locationContentValues.put(Constant.LOCATION_PATH, weather.getLocation().getPath());
+        locationContentValues.put(Constant.LOCATION_TIMEZONE, weather.getLocation().getTimezone());
+        locationContentValues.put(Constant.LOCATION_TIMEZONE_OFFSET, weather.getLocation().getTimezone_offset());
+        locationContentValues.put(Constant.LOCATION_WEATHER_ID, weather.getLocation().getId());
+        switch (DBEvent) {
+            case Constant.INSERT:
+                locationResult = db.insert(Constant.TABLE_LOCATION, null, locationContentValues);
+                break;
+            case Constant.UPDATE:
+                locationResult = db.update(Constant.TABLE_LOCATION, locationContentValues, Constant.LOCATION_WEATHER_ID + "=?", new String[]{weather.getLocation().getId()});
+                break;
+        }
+        return result(locationResult, Constant.QUERY);
+    }
+
+    /**
+     * 添加或更新实时天气数据
+     *
+     * @param weather
+     * @return
+     */
+    private boolean insertOrUpdateNow(Weather weather, int DBEvent) {
+        long nowResult = 0;
+        ContentValues nowContentValues = new ContentValues();
+        nowContentValues.put(Constant.NOW_ID, weather.getLocation().getId());
+        nowContentValues.put(Constant.NOW_TEXT, weather.getNow().getText());
+        nowContentValues.put(Constant.NOW_CODE, weather.getNow().getCode());
+        nowContentValues.put(Constant.NOW_TEMPERATURE, weather.getNow().getTemperature());
+        nowContentValues.put(Constant.NOW_WEATHER_ID, weather.getLocation().getId());
+        switch (DBEvent) {
+            case Constant.INSERT:
+                nowResult = db.insert(Constant.TABLE_NOW, null, nowContentValues);
+                break;
+            case Constant.UPDATE:
+                nowResult = db.update(Constant.TABLE_NOW, nowContentValues, Constant.NOW_WEATHER_ID + "=?", new String[]{weather.getLocation().getId()});
+                break;
+        }
+        return result(nowResult, Constant.QUERY);
     }
 
     /**
@@ -315,36 +236,35 @@ public class DBUtils {
         long result = 0;
         for (int i = 0; i < weather.getDaily().size(); i++) {
 
+            Logger.d(weather.getDaily().get(i).getDate());
+
+            //String[] s = weather.getDaily().get(i).getDate().split("\\+");
+
             Daily.ResultsBean.DailyBean dailyBean = weather.getDaily().get(i);
             ContentValues fccv = new ContentValues();
-
-            fccv.put(Constant.FORECAST_ID, i);//作为主键
-            fccv.put(Constant.FORECAST_LOCATION_ID, weather.getLocation().getId());
-
-            //这里使用StringBuffer代替String进行字符串拼接 因为String进行字符串拼接的时候会产生很多临时变量 影响性能 :)
-            StringBuffer stringBuffer = new StringBuffer();
-            //如果白天和晚上天气一样就直接显示任意一个天气描述即可 否则就是格式为: 白天(晴)到晚上(多云) -> 晴到多云
-            if (dailyBean.getText_day().equals(dailyBean.getText_night())) {
-                stringBuffer.append(dailyBean.getText_day());
-            } else {
-                stringBuffer.append(dailyBean.getText_day());
-                stringBuffer.append("到");
-                stringBuffer.append(dailyBean.getText_night());
-            }
-
-            fccv.put(Constant.FORECAST_TEXT, stringBuffer.toString());
-            fccv.put(Constant.FORECAST_HEIGHT, dailyBean.getHigh());
+            fccv.put(Constant.FORECAST_ID, weather.getLocation().getId());
+            fccv.put(Constant.FORECAST_WEATHER_ID, weather.getLocation().getId());
+            fccv.put(Constant.FORECAST_DATE, weather.getDaily().get(i).getDate());
+            fccv.put(Constant.FORECAST_TEXT_DAY, dailyBean.getText_day());
+            fccv.put(Constant.FORECAST_CODE_DAY, dailyBean.getCode_day());
+            fccv.put(Constant.FORECAST_TEXT_NIGHT, dailyBean.getText_night());
+            fccv.put(Constant.FORECAST_CODE_NIGHT, dailyBean.getCode_night());
+            fccv.put(Constant.FORECAST_HIGH, dailyBean.getHigh());
             fccv.put(Constant.FORECAST_LOW, dailyBean.getLow());
-            fccv.put(Constant.FORECAST_CODE, dailyBean.getCode_day());
+            fccv.put(Constant.FORECAST_PRECIP, dailyBean.getPrecip());
+            fccv.put(Constant.FORECAST_WIND_DIRECTION, dailyBean.getWind_direction());
+            fccv.put(Constant.FORECAST_WIND_DIRECTION_DEGREE, dailyBean.getWind_direction_degree());
+            fccv.put(Constant.FORECAST_WIND_SPEED, dailyBean.getWind_speed());
+            fccv.put(Constant.FORECAST_WIND_SCALE, dailyBean.getWind_scale());
 
             switch (DBEvent) {
                 case Constant.INSERT:
                     result = db.insert(Constant.TABLE_FORECAST, null, fccv);
-                    Logger.d(result+"添加未来天气数据成功");
+                    Logger.d(result + "添加未来天气数据成功");
                     break;
                 case Constant.UPDATE:
-                    result = db.update(Constant.TABLE_FORECAST, fccv, Constant.FORECAST_LOCATION_ID + "=?", new String[]{weather.getLocation().getId()});
-                    Logger.d(result+"更新未来天气数据成功");
+                    result = db.update(Constant.TABLE_FORECAST, fccv, Constant.FORECAST_WEATHER_ID + "=?", new String[]{weather.getLocation().getId()});
+                    Logger.d(result + "更新未来天气数据成功");
                     break;
             }
         }
@@ -365,11 +285,11 @@ public class DBUtils {
             LifeIndex lifeIndex = weather.getLifeIndexList().get(i);
 
             ContentValues licv = new ContentValues();
-            licv.put(Constant.LIFE_INDEX_ID, i);
-            licv.put(Constant.LIFE_INDEX_LOCATION_ID, weather.getLocation().getId());
+            licv.put(Constant.LIFE_INDEX_ID, lifeIndex.getId() + "");
             licv.put(Constant.LIFE_INDEX_NAME, lifeIndex.getName());
             licv.put(Constant.LIFE_INDEX_LIFE_INDEX, lifeIndex.getIndex());
             licv.put(Constant.LIFE_INDEX_DETAILS, lifeIndex.getDetails());
+            licv.put(Constant.LIFE_INDEX_WEATHER_ID, weather.getLocation().getId());
 
             Logger.d(licv.toString());
 
@@ -380,7 +300,7 @@ public class DBUtils {
                     Logger.d("添加生活指数数据成功");
                     break;
                 case Constant.UPDATE:
-                    result = db.update(Constant.TABLE_LIFE_INDEX, weatherValues(weather), Constant.LIFE_INDEX_LOCATION_ID + "=?", new String[]{weather.getLocation().getId()});
+                    result = db.update(Constant.TABLE_LIFE_INDEX, licv, Constant.LIFE_INDEX_WEATHER_ID + "=?", new String[]{weather.getLocation().getId()});
                     Logger.d("更新生活指数数据成功");
                     break;
             }
@@ -461,7 +381,7 @@ public class DBUtils {
      */
     public boolean query(String table, String _id) {
         cursor = db.query(table, null, Constant.CITY_ID + "=?", new String[]{_id}, null, null, null);
-        List<City> cities = DBManger.cursorToList(cursor);
+        List<City> cities = DBManger.cursorToList(cursor, Constant.TABLE_ID_CITY);
         return result(cities.size(), Constant.QUERY);
     }
 
@@ -474,7 +394,7 @@ public class DBUtils {
      */
     public List<City> query(String table) {
         cursor = db.query(table, null, null, null, null, null, null);
-        List<City> cities = DBManger.cursorToList(cursor);
+        List<City> cities = DBManger.cursorToList(cursor, Constant.TABLE_ID_CITY);
         closeDB();
         return cities;
     }
