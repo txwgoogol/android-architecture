@@ -255,7 +255,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     }
 
     //初始化搜索
-    private void initSearchView(){
+    private void initSearchView() {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

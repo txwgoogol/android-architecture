@@ -11,7 +11,6 @@ import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseRecyclerViewAdapter;
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.util.TimeConvert;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -22,8 +21,6 @@ import butterknife.ButterKnife;
  * 城市列表适配器
  */
 public class CityListAdapter extends BaseRecyclerViewAdapter<CityListAdapter.ViewHolder> {
-
-    private static final String TAG = "CityAdapter";
 
     private List<City> mCityList;
 
@@ -40,8 +37,6 @@ public class CityListAdapter extends BaseRecyclerViewAdapter<CityListAdapter.Vie
     @Override
     public void onBindViewHolder(CityListAdapter.ViewHolder holder, int position) {
         City city = mCityList.get(position);
-
-        Logger.d(TAG, "adapter city === " + city.getName());
 
         //Glide.with(mContext).load(city.getCode()).into(holder.weatherGif); //加载Gif动画
         holder.cityTime.setText(TimeConvert.stampToTime(String.valueOf(System.currentTimeMillis()))); //当前时间
