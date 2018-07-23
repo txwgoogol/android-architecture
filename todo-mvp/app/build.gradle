@@ -10,14 +10,25 @@ android {
         versionCode 1
         versionName "1.0"
 
+        //vector 图片使用配置
         vectorDrawables.useSupportLibrary = true
 
+        //单元测试配置
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //压缩资源方法来瘦身APK 只保留中文和英文语言资源
         resConfigs "en","zh"
         //resConfigs "hdpi","xhdpi","xxhdpi","xxxhdpi"
 
+        //jni
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+        ndk{
+            moduleName = "weather"
+        }
     }
     buildTypes {
         release {
@@ -38,6 +49,13 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    //jni cmake
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
 }
 
 dependencies {
@@ -53,6 +71,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     //square
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'

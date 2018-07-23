@@ -40,7 +40,7 @@
         <!-- 设置地图定位key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="c7921070afd0a0f339bf9f1ccd24308a" />
+            android:value="@string/api_key" />
 
         <!-- 主页面 程序入口 -->
         <activity

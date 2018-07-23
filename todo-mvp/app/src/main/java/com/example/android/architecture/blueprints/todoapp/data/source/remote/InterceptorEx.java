@@ -1,5 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.data.source.remote;
 
+import com.example.android.architecture.blueprints.todoapp.jni.WeatherJNI;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class InterceptorEx implements Interceptor {
         Request request;
         HttpUrl modifiedUrl = original.url().newBuilder()
                 // Provide your custom parameter here
-                .addQueryParameter("key", "52zpuzgswyulc0w6")
+                .addQueryParameter("key", WeatherJNI.weatherKey())
                 .build();
         request = original.newBuilder().url(modifiedUrl).build();
 
