@@ -4,6 +4,7 @@ import com.example.android.architecture.blueprints.todoapp.data.life.LifeIndex;
 import com.example.android.architecture.blueprints.todoapp.data.life.Suggestion;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Daily;
 import com.example.android.architecture.blueprints.todoapp.data.weather.Now;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class WeatherAdapterImpl extends WeatherAdapter {
         locationBean.setPath(mLocation.getPath());
         locationBean.setTimezone(mLocation.getTimezone());
         locationBean.setTimezone_offset(mLocation.getTimezone_offset());
+        Logger.d(locationBean);
         return locationBean;
     }
 
@@ -50,6 +52,7 @@ public class WeatherAdapterImpl extends WeatherAdapter {
         nowBean.setText(mNow.getText()); //天气现象文字
         nowBean.setCode(mNow.getCode()); //天气现象代码
         nowBean.setTemperature(mNow.getTemperature()); //温度，单位为c摄氏度或f华氏度
+        Logger.d(nowBean);
         return nowBean;
     }
 
@@ -76,6 +79,7 @@ public class WeatherAdapterImpl extends WeatherAdapter {
             dailyBean.setWind_speed(daily.getWind_speed()); //风速，单位km/h（当unit=c时）、mph（当unit=f时）
             dailyBean.setWind_scale(daily.getWind_scale()); //风力等级
             dailyBeans.add(dailyBean);
+            Logger.d(dailyBean);
         }
         return dailyBeans;
     }
@@ -131,6 +135,10 @@ public class WeatherAdapterImpl extends WeatherAdapter {
         lifeIndex6.setIndex(mSuggestion.getUv().getBrief());
         lifeIndex6.setDetails(mSuggestion.getUv().getDetails());
         lifeIndexList.add(lifeIndex6);
+
+        for (LifeIndex li : lifeIndexList) {
+            Logger.d(li.toString());
+        }
 
         return lifeIndexList;
     }

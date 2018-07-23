@@ -344,12 +344,45 @@ public class DBUtils {
      * @return
      */
     public boolean delete(String cityId) {
-        long deleteResult = 0; //同理 insert()
+        long deleteResult = 0;
         //如果存在城市信息则进行删除操作      ??? 应该一定存在该城市信息吧
         if (query(Constant.TABLE_CITY, cityId)) {
             deleteResult = db.delete(Constant.TABLE_CITY, Constant.CITY_ID + "=?", new String[]{cityId});
-            Logger.d(deleteResult);
         }
+        return result(deleteResult, Constant.DELETE);
+    }
+
+    /**
+     * 删除数据
+     *
+     * @param cityId
+     * @return
+     */
+    public boolean deleteCityAndWeather(String cityId) {
+        long deleteResult = 0;
+
+        boolean city = false;
+        boolean location = false;
+        boolean now = false;
+        boolean forecast = false;
+        boolean life_index = false;
+        boolean weather = false;
+        //如果存在城市信息则进行删除操作      ??? 应该一定存在该城市信息吧
+        if (query(Constant.TABLE_CITY, cityId)) {
+            city = db.delete(Constant.TABLE_CITY, Constant.CITY_ID + "=?", new String[]{cityId}) > 0 ? true : false;
+            location = db.delete(Constant.TABLE_LOCATION, Constant.LOCATION_WEATHER_ID + "=?", new String[]{cityId}) > 0 ? true : false;
+            now = db.delete(Constant.TABLE_NOW, Constant.NOW_WEATHER_ID + "=?", new String[]{cityId}) > 0 ? true : false;
+            forecast = db.delete(Constant.TABLE_FORECAST, Constant.FORECAST_WEATHER_ID + "=?", new String[]{cityId}) > 0 ? true : false;
+            weather = db.delete(Constant.TABLE_LIFE_INDEX, Constant.LIFE_INDEX_WEATHER_ID + "=?", new String[]{cityId}) > 0 ? true : false;
+            db.delete(Constant.TABLE_WEATHER, Constant.WEATHER_ID + "=?", new String[]{cityId});
+        }
+
+        if (city && location && now && forecast && life_index && weather) {
+            deleteResult = 1;
+        } else {
+            deleteResult = -1;
+        }
+
         return result(deleteResult, Constant.DELETE);
     }
 
@@ -395,6 +428,9 @@ public class DBUtils {
     public List<City> query(String table) {
         cursor = db.query(table, null, null, null, null, null, null);
         List<City> cities = DBManger.cursorToList(cursor, Constant.TABLE_ID_CITY);
+        for (City c : cities) {
+            Logger.d(c.toString());
+        }
         closeDB();
         return cities;
     }

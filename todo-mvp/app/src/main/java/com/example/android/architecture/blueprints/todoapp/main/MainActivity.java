@@ -20,14 +20,13 @@ import com.example.android.architecture.blueprints.todoapp.main.weather.HomePage
 import com.example.android.architecture.blueprints.todoapp.service.AutoUpdateService;
 import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 import com.example.android.architecture.blueprints.todoapp.util.CCTable;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements HomePageFragment.InteractionListener {
 
-    @BindView(R.id.parallax)
-    ImageView parallax;
     @BindView(R.id.publish_time_text_view)
     TextView publishTimeTextView;
     @BindView(R.id.temp_text_view)

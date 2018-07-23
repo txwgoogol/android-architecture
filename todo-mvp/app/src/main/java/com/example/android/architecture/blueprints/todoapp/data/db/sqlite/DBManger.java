@@ -52,9 +52,9 @@ public class DBManger {
      */
     public static <T> List<T> cursorToList(Cursor cursor, int tableId) {
         List<T> list = new ArrayList<>();
-        if (cursor.moveToNext()) {
-            switch (tableId) {
-                case Constant.TABLE_ID_CITY:
+        switch (tableId) {
+            case Constant.TABLE_ID_CITY:
+                while (cursor.moveToNext()) {
                     String _id = cursor.getString(cursor.getColumnIndex(Constant.CITY_ID));
                     String time = cursor.getString(cursor.getColumnIndex(Constant.CITY_TIME));
                     String name = cursor.getString(cursor.getColumnIndex(Constant.CITY_NAME));
@@ -69,8 +69,8 @@ public class DBManger {
                     city.setCode(code);
 
                     list.add((T) city);
-                    break;
-            }
+                }
+                break;
         }
         return list;
     }

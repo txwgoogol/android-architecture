@@ -27,8 +27,6 @@ import butterknife.ButterKnife;
  */
 public class SplashActivity extends AppCompatActivity {
 
-    private static final String TAG = "SplashActivity";
-
     @BindView(R.id.container)
     RelativeLayout container;
 
@@ -225,7 +223,7 @@ public class SplashActivity extends AppCompatActivity {
                  */
 
             } else {
-                Logger.d(TAG, "定位失败，loc is null");
+                Logger.d( "定位失败，loc is null");
             }
         }
     };

@@ -72,6 +72,7 @@ public class WeatherPresenter implements WeatherContact.Presenter {
             } else {//网络获取数据
                 if (!isCallBack) {
                     mLAL = mWeatherView.getLocation();
+                    Logger.d(mLAL);
                     //mLAL = mWeatherView.getLocationId();
                 }
                 searchWeather(mLAL);
@@ -110,11 +111,14 @@ public class WeatherPresenter implements WeatherContact.Presenter {
     @Override
     public void searchWeather(String q) {
 
+        Logger.d(q);
+
         disposable = WeatherResponse.getWeather(q)
                 .compose(RxScheduler.normalSchedulersTransformer())
                 .subscribe(
                         weather -> {
                             mWeatherView.showWeather(weather);
+                            Logger.d(weather.getNow().getText());
                         },
                         throwable -> {
                         }

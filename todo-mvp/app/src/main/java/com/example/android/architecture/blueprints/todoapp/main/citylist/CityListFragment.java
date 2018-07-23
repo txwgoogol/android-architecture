@@ -20,7 +20,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.android.architecture.blueprints.searchview.MaterialSearchView;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
@@ -28,7 +31,12 @@ import com.example.android.architecture.blueprints.todoapp.common.Constant;
 import com.example.android.architecture.blueprints.todoapp.data.city.City;
 import com.example.android.architecture.blueprints.todoapp.data.db.sqlite.DBUtils;
 import com.example.android.architecture.blueprints.todoapp.data.search.Search;
+import com.example.android.architecture.blueprints.todoapp.util.TimeConvert;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +69,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     private List<City> newCityList = new ArrayList<>();
     //数据库获取的数据集合
     private List<City> dbCityList;
+    private City mCity;
 
     //hashMap代替ArrayList去重操作
     //private Map<String,City> map = new HashMap<>();
@@ -70,15 +79,23 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     /**
      * 接收上个视图传过来的数据
      *
-     * @param str
+     * @param cityEvent
      * @return 返回CityListFragment类
      */
-    public static CityListFragment newInstance(String str) {
+    public static CityListFragment newInstance(City cityEvent) {
+        Logger.d(cityEvent.toString());
         CityListFragment cityListFragment = new CityListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("str", str);
+        bundle.putParcelable("city", cityEvent);
         cityListFragment.setArguments(bundle);
         return cityListFragment;
+    }
+
+    /**
+     * @return 返回CityListFragment类
+     */
+    public static CityListFragment newInstance() {
+        return new CityListFragment();
     }
 
     @Override
@@ -89,6 +106,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mCity = getArguments().getParcelable("city");
         View viewRoot = inflater.inflate(R.layout.fragment_city, container, false);
         unbinder = ButterKnife.bind(this, viewRoot);
 
@@ -117,9 +135,36 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     @Override
     public void initCityListAdapter(List<City> list) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mCityAdapter = new CityListAdapter(list);
+        mCityAdapter = new CityListAdapter(R.layout.item_city, list);
         recyclerView.setAdapter(mCityAdapter);
 
+        //添加头部
+        mCityAdapter.setHeaderView(getHeaderView(1, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        }));
+
+        mCityAdapter.setOnItemClickListener((BaseQuickAdapter adapter, View view, int position) -> setResult(RESULT_OK, position));
+
+        mCityAdapter.setOnItemLongClickListener((BaseQuickAdapter adapter, View view, int position) -> {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("删除该城市")
+                    .setMessage("确认删除该城市")
+                    .setNegativeButton("取消", (DialogInterface dialog, int which) -> {
+                    })
+                    .setPositiveButton("确定", (DialogInterface dialog, int which) -> {
+                        //DBUtils.getInstance(getActivity()).delete(newCityList.get(position).getId());
+                        DBUtils.getInstance(getActivity()).deleteCityAndWeather(newCityList.get(position).getId());
+                        newCityList.remove(position);
+                        mCityAdapter.notifyDataSetChanged();
+                    })
+                    .create().show();
+            return true;
+        });
+
+        /*
         mCityAdapter.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
             setResult(RESULT_OK, position);
         });
@@ -138,6 +183,30 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
                     .create().show();
             return true;
         });
+        */
+    }
+
+    /**
+     * 添加头部
+     *
+     * @param type     类型
+     * @param listener 监听器
+     * @return 返回视图
+     */
+    private View getHeaderView(int type, View.OnClickListener listener) {
+        View view = getLayoutInflater().inflate(R.layout.item_city, (ViewGroup) recyclerView.getParent(), false);
+        if (type == 1) {
+            ImageView locationCity = view.findViewById(R.id.ic_weather_location_city);
+            locationCity.setVisibility(View.VISIBLE);
+            TextView cityName = view.findViewById(R.id.city_name);
+            cityName.setText(mCity.getName());
+            TextView cityTime = view.findViewById(R.id.city_time);
+            cityTime.setText(TimeConvert.stampToTime(String.valueOf(System.currentTimeMillis())));
+            TextView cityTemplate = view.findViewById(R.id.city_template);
+            cityTemplate.setText(mCity.getTemperature() + "°");
+        }
+        view.setOnClickListener(listener);
+        return view;
     }
 
     @Override
@@ -308,6 +377,7 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
         dbCityList = DBUtils.getInstance(getActivity()).query(Constant.TABLE_CITY);
         if (dbCityList.size() > 0) {
             newCityList.addAll(dbCityList);
+            Logger.d(newCityList.size());
             mCityAdapter.notifyDataSetChanged();
             return true;
         }

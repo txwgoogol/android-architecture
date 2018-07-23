@@ -73,6 +73,8 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     //circle layout
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    //eventbus
+    implementation 'org.greenrobot:eventbus:3.1.1'
     //rxjava permission jar
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
     //refresh layout
@@ -87,4 +89,6 @@ dependencies {
     implementation project(':searchview')
     implementation 'org.jetbrains:annotations:15.0'
     implementation 'com.orhanobut:logger:2.2.0'
+    //ui recyclerview adapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
 }

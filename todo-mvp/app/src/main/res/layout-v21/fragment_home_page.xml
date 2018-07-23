@@ -21,7 +21,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_card_bg"
             android:descendantFocusability="blocksDescendants"
-            android:elevation="3dp">
+            android:elevation="@dimen/dp_3">
 
             <com.example.android.architecture.blueprints.widget.TitleView
                 android:id="@+id/forecast_title"

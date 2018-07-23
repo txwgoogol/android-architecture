@@ -1,9 +1,12 @@
 package com.example.android.architecture.blueprints.todoapp.data.city;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * 城市列表实体类
  */
-public class City {
+public class City implements Parcelable {
 
     private String id; //城市ID
     private String time; //当前时间
@@ -73,4 +76,37 @@ public class City {
                 '}';
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.time);
+        dest.writeString(this.name);
+        dest.writeString(this.code);
+        dest.writeString(this.temperature);
+    }
+
+    protected City(Parcel in) {
+        this.id = in.readString();
+        this.time = in.readString();
+        this.name = in.readString();
+        this.code = in.readString();
+        this.temperature = in.readString();
+    }
+
+    public static final Parcelable.Creator<City> CREATOR = new Parcelable.Creator<City>() {
+        @Override
+        public City createFromParcel(Parcel source) {
+            return new City(source);
+        }
+
+        @Override
+        public City[] newArray(int size) {
+            return new City[size];
+        }
+    };
 }

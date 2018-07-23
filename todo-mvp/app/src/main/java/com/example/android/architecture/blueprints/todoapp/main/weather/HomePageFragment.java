@@ -18,7 +18,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.base.BaseFragment;
@@ -35,6 +37,8 @@ import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,10 +75,13 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     private WeatherContact.Presenter mPresenter;
     private WeatherPresenter mWeatherPresenter;
 
+    private FrameLayout frameLayout;
     private SmartRefreshLayout smartRefreshLayout;
     private ImageView parallax;
+    private LinearLayout linearLayout;
     //回调得到的城市ID Or 初始定位得到的经纬度
-    public String mIdOrLL = "31.29:120.58";
+
+    private City city;
 
     public static HomePageFragment newInstance(String str) {
         HomePageFragment homePageFragment = new HomePageFragment();
@@ -140,8 +147,11 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         lifeIndexRecyclerView.setItemAnimator(new DefaultItemAnimator());
         lifeIndexRecyclerView.setAdapter(lifeIndexAdapter);
 
+        frameLayout = getActivity().findViewById(R.id.frame_layout);
         smartRefreshLayout = getActivity().findViewById(R.id.refresh_layout);
         parallax = getActivity().findViewById(R.id.parallax);
+        linearLayout = getActivity().findViewById(R.id.loading_progress_ll);
+
         smartRefreshLayout.setEnableLoadMore(false);//禁用上拉刷新
         smartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
             @Override
@@ -208,6 +218,10 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     @Override
     public void showWeather(Weather weather) {
 
+        linearLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        linearLayout.setVisibility(View.GONE);
+        frameLayout.setVisibility(View.VISIBLE);
+
         Logger.d(" "
                 + weather.getLocation()
                 + weather.getNow()
@@ -231,23 +245,20 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
         smartRefreshLayout.finishRefresh();
 
-        //添加到城市列表
-        //Logger.d(DBUtils.getInstance(getActivity()).insert(new City(weather.getId(),weather.getLast_update(),weather.getLocation().getName(),weather.getNow().getCode(),weather.getNow().getTemperature())));
-        //添加到天气列表
-        Logger.d(DBUtils.getInstance(getActivity()).insert(weather));
-
-        /**/
-        City city = new City();
+        city = new City();
         city.setId(weather.getLocation().getId());
-        city.setTime(weather.getLast_update());
         city.setName(weather.getLocation().getName());
         city.setCode(weather.getNow().getCode());
         city.setTemperature(weather.getNow().getTemperature());
-
         Logger.d(city.toString());
 
         //添加到城市列表
-        Logger.d(DBUtils.getInstance(getActivity()).insert(city));
+        Logger.d(DBUtils.getInstance(getActivity()).insert(new City(weather.getLocation().getId(),weather.getLast_update(),weather.getLocation().getName(),weather.getNow().getCode(),weather.getNow().getTemperature())));
+        //添加到天气列表
+        Logger.d(DBUtils.getInstance(getActivity()).insert(weather));
+
+        //添加到城市列表
+        //Logger.d(DBUtils.getInstance(getActivity()).insert(city));
 
         //写入或更新数据
         //DBUtils.getInstance(getActivity()).insert(weather);
@@ -302,7 +313,14 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.hamburger_menu:
-                startActivityForResult(new Intent(getContext(), CityListActivity.class), CityListActivity.REQUEST_CITY_LIST);
+                /**/
+                Intent intent = new Intent(getContext(), CityListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("city", city);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, CityListActivity.REQUEST_CITY_LIST);
+
+                //startActivityForResult(new Intent(getActivity(),CityListActivity.class), CityListActivity.REQUEST_CITY_LIST);
                 break;
         }
         return true;
