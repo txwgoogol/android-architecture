@@ -4,7 +4,7 @@ apply plugin: 'org.greenrobot.greendao' // apply plugin
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.android.architecture.blueprints.todomvp"
+        applicationId "com.txwgoogol.top.weather.todomvp"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
@@ -83,17 +83,17 @@ dependencies {
     //json analysis
     implementation 'com.google.code.gson:gson:2.8.5'
     //image load
-    implementation 'com.github.bumptech.glide:glide:4.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    //implementation 'com.github.bumptech.glide:glide:4.6.1'
+    //annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     //annotation
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //greenrobot
-    implementation 'org.greenrobot:greendao:3.2.2'
+    //implementation 'org.greenrobot:greendao:3.2.2'
     //circle layout
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    //implementation 'de.hdodenhof:circleimageview:2.2.0'
     //eventbus
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    //implementation 'org.greenrobot:eventbus:3.1.1'
     //rxjava permission jar
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
     //refresh layout
@@ -110,4 +110,9 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
     //ui recyclerview adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    //leakcanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
 }

@@ -5,7 +5,7 @@
     android:id="@+id/nested_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.architecture.blueprints.todoapp.main.weather.HomePageFragment"
+    tools:context=".main.weather.HomePageFragment"
     tools:ignore="RtlHardcoded">
 
     <LinearLayout
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:descendantFocusability="blocksDescendants">
 
-                <com.example.android.architecture.blueprints.widget.TitleView
+                <com.txwgoogol.top.weather.blueprints.widget.TitleView
                     android:id="@+id/forecast_title"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_42"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:descendantFocusability="blocksDescendants">
 
-                <com.example.android.architecture.blueprints.widget.TitleView
+                <com.txwgoogol.top.weather.blueprints.widget.TitleView
                     android:id="@+id/index_title"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_42"

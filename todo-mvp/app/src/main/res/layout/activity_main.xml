@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        tools:context="com.example.android.architecture.blueprints.todoapp.main.MainActivity">
+        tools:context=".main.MainActivity">
 
         <ImageView
             android:id="@+id/parallax"
@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    tools:context="com.example.android.architecture.blueprints.todoapp.main.MainActivity">
+                    tools:context=".main.MainActivity">
 
                     <android.support.design.widget.AppBarLayout
                         android:id="@+id/appbar"

@@ -9,7 +9,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary" />
 
-    <com.example.android.architecture.blueprints.searchview.MaterialSearchView
+    <com.txwgoogol.top.weather.blueprints.searchview.MaterialSearchView
         android:id="@+id/search_view"
         style="@style/MaterialSearchViewStyle"
         android:layout_width="match_parent"

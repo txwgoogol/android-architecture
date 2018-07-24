@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.architecture.blueprints.todoapp">
+    package="com.txwgoogol.top.weather.todoapp">
 
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -44,7 +44,7 @@
 
         <!-- 主页面 程序入口 -->
         <activity
-            android:name="com.example.android.architecture.blueprints.todoapp.main.start.SplashActivity"
+            android:name=".main.start.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +55,7 @@
 
         <!-- 主页面 -->
         <activity
-            android:name="com.example.android.architecture.blueprints.todoapp.main.MainActivity"
+            android:name=".main.MainActivity"
             android:screenOrientation="portrait" />
 
         <!-- 城市列表 -->
