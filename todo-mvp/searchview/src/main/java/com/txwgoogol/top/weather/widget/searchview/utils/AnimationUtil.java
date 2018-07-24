@@ -1,4 +1,4 @@
-package com.txwgoogol.android.architecture.blueprints.searchview.utils;
+package com.txwgoogol.top.weather.blueprints.searchview.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

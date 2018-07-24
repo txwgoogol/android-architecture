@@ -1,4 +1,4 @@
-package com.txwgoogol.android.architecture.blueprints.searchview;
+package com.txwgoogol.top.weather.blueprints.searchview;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

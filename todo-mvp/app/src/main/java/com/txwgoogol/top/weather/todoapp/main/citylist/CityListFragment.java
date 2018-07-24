@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.txwgoogol.top.weather.blueprints.searchview.MaterialSearchView;
+import com.txwgoogol.top.weather.widget.searchview.MaterialSearchView;
 import com.txwgoogol.top.weather.todoapp.R;
 import com.txwgoogol.top.weather.todoapp.base.BaseFragment;
 import com.txwgoogol.top.weather.todoapp.common.Constant;

@@ -32,7 +32,7 @@ import com.txwgoogol.top.weather.todoapp.data.source.local.sqlite.DBUtils;
 import com.txwgoogol.top.weather.todoapp.main.citylist.CityListActivity;
 import com.txwgoogol.top.weather.todoapp.util.TimeConvert;
 import com.txwgoogol.top.weather.todoapp.util.Utils;
-import com.txwgoogol.top.weather.blueprints.widget.TitleView;
+import com.txwgoogol.top.weather.widget.TitleView;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

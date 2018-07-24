@@ -23,7 +23,7 @@
             android:descendantFocusability="blocksDescendants"
             android:elevation="@dimen/dp_3">
 
-            <com.txwgoogol.top.weather.blueprints.widget.TitleView
+            <com.txwgoogol.top.weather.widget.TitleView
                 android:id="@+id/forecast_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:descendantFocusability="blocksDescendants"
             android:elevation="@dimen/dp_3">
 
-            <com.txwgoogol.top.weather.blueprints.widget.TitleView
+            <com.txwgoogol.top.weather.widget.TitleView
                 android:id="@+id/index_title"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_42"

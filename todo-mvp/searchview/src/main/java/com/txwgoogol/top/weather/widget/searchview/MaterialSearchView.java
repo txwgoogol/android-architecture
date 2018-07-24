@@ -1,4 +1,4 @@
-package com.txwgoogol.android.architecture.blueprints.searchview;
+package com.txwgoogol.top.weather.blueprints.searchview;
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,7 +34,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.txwgoogol.android.architecture.blueprints.searchview.utils.AnimationUtil;
+import com.txwgoogol.top.weather.blueprints.searchview.utils.AnimationUtil;
 
 import java.lang.reflect.Field;
 import java.util.List;
