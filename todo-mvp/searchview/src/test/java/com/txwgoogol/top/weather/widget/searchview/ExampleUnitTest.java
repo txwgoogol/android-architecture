@@ -1,4 +1,4 @@
-package com.txwgoogol.top.weather.blueprints.searchview;
+package com.txwgoogol.top.weather.widget.searchview;
 
 import org.junit.Test;
 

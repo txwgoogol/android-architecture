@@ -1,4 +1,4 @@
-package com.txwgoogol.android.architecture.blueprints.widget;
+package com.txwgoogol.top.weather.widget;
 
 public interface IndicatorValueChangeListener {
 

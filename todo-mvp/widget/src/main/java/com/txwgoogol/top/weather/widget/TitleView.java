@@ -1,4 +1,4 @@
-package com.txwgoogol.android.architecture.blueprints.widget;
+package com.txwgoogol.top.weather.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.txwgoogol.android.architecture.blueprints.widget.R;
 
 public class TitleView extends LinearLayout {
 

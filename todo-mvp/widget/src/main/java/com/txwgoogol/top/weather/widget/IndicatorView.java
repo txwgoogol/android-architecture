@@ -1,4 +1,4 @@
-package com.txwgoogol.android.architecture.blueprints.widget;
+package com.txwgoogol.top.weather.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
