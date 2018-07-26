@@ -256,8 +256,8 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
 
         //添加到城市列表
         Logger.d(DBUtils.getInstance(getActivity()).insert(new City(weather.getLocation().getId(), weather.getLast_update(), weather.getLocation().getName(), weather.getNow().getCode(), weather.getNow().getTemperature())));
-        //添加到天气列表
-        Logger.d(DBUtils.getInstance(getActivity()).insert(weather));
+        //添加到天气列表 ！！！！！！！！ :) ！！！！！！！！
+        //Logger.d(DBUtils.getInstance(getActivity()).insert(weather));
 
         //添加到城市列表
         //Logger.d(DBUtils.getInstance(getActivity()).insert(city));

@@ -14,7 +14,7 @@ android {
         applicationId "com.txwgoogol.top.weather.todomvp" //应用包名
 
         //最小sdk版本，如果设备小于这个版本或者大于maxSdkVersion(一般不用)将无法安装这个应用
-        minSdkVersion 15
+        minSdkVersion 16
 
         //目标sdk版本，如果设备等于这个版本那么android平台就不进行兼容性检查，运行效率会高一点
         targetSdkVersion 27
@@ -127,11 +127,18 @@ android {
     productFlavors {
         //在这里你可以设置你的产品发布的一些东西，比如你现在的软件需要发布到不同渠道，且不同渠道中的包名不同，那么可以在此进行配置；
         //甚至可以设置不同的 AndroidManifest.xml 文件。
-        guanwang {}
-        yingyongbao {}
-        wandoujia {}
-        xiaomi {}
-        googleplay {}
+        googleplay {} //Google Play 商店
+        yingyongbao {} //腾讯 应用宝
+        qh360{} //360手机助手
+        xiaomi {} //小米应用商店
+        huawei{} //华为应用市场
+        baidu{} //百度手机助手
+        ali{} //阿里应用分发开放平台
+        zs91{} //智度公司公司 91助手
+        wandoujia{} //北京卓易讯畅科技有限公司 豌豆荚
+        anzhi{} //北京力天无限网络技术有限公司 安智应用商店
+        liqu{} //北京历趣科技有限公司 历趣应用商店
+        wo{} //小沃科技有限公司 沃应用商店
     }
 
     productFlavors.all {

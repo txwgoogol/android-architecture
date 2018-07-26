@@ -20,131 +20,86 @@ public class CCTable {
      */
     public static int WpCode(String code) {
 
-        int code_img = R.mipmap.ic_launcher;
+        int code_img = R.drawable.ic_weather_sunny;
 
         switch (code) {
             case "0":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "1":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "2":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "3":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_sunny;
                 break;
             case "4":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_cloudy;
                 break;
             case "5":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "6":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "7":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "8":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_partly_cloudy;
                 break;
             case "9":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_cloudy;
                 break;
             case "10":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "11":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "12":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_hail;
                 break;
             case "13":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_rainy;
                 break;
             case "14":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "15":
-                code_img = R.mipmap.ic_launcher;
                 break;
             case "16":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "17":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "18":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_lightning_rainy;
                 break;
             case "19":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_snowy_rainy;
                 break;
             case "20":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "21":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "22":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "23":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "24":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "25":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_snowy;
                 break;
             case "26":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "27":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "28":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "29":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "30":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "31":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_fog;
                 break;
             case "32":
-                code_img = R.mipmap.ic_launcher;
-                break;
             case "33":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_windy;
                 break;
             case "34":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_windy_variant_with_cloud;
                 break;
             case "35":
                 code_img = R.mipmap.ic_launcher;
                 break;
             case "36":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_windy;
                 break;
             case "37":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_windy;
                 break;
             case "38":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_windy;
                 break;
             case "99":
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_sunny;
                 break;
             default:
-                code_img = R.mipmap.ic_launcher;
+                code_img = R.drawable.ic_weather_sunny;
                 break;
         }
         return code_img;

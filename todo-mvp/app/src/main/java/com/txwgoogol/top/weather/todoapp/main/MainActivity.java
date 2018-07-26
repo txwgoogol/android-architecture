@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
     public void updatePageTitle(String location, String text, String code, String temperature, String last_update) {
         toolbar.setTitle(location);//位置
         collapsingToolbar.setTitle(location);//位置
-        weatherIconImageView.setImageResource(CCTable.WpCode(code));//天气情况图片
+        //weatherIconImageView.setImageResource(CCTable.WpCode(code));//天气情况图片
         weatherTextView.setText(text); //天气情况文字
         tempTextView.setText(temperature); //温度
         publishTimeTextView.setText(last_update); //最近更新时间
