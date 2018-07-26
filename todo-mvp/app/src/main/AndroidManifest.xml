@@ -42,6 +42,14 @@
             android:name="com.amap.api.v2.apikey"
             android:value="@string/api_key" />
 
+        <!-- 老版本的UMENG SDK 在这里配置参数 新版本的在application中配置-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="@string/umeng_key" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
         <!-- 主页面 程序入口 -->
         <activity
             android:name=".main.start.SplashActivity"

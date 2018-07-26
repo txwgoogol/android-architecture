@@ -20,6 +20,7 @@ import com.txwgoogol.top.weather.todoapp.service.AutoUpdateService;
 import com.txwgoogol.top.weather.todoapp.util.AmapUtils;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,12 +81,14 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         forward(canJump);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        MobclickAgent.onPause(this);
         canJump = false;
     }
 

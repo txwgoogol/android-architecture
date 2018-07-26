@@ -18,6 +18,7 @@ import com.txwgoogol.top.weather.todoapp.base.BaseActivity;
 import com.txwgoogol.top.weather.todoapp.main.weather.HomePageFragment;
 import com.txwgoogol.top.weather.todoapp.util.ActivityUtils;
 import com.txwgoogol.top.weather.todoapp.util.CCTable;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,4 +81,15 @@ public class MainActivity extends BaseActivity implements HomePageFragment.Inter
         publishTimeTextView.setText(last_update); //最近更新时间
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

@@ -3,6 +3,7 @@
 
     <!--高德地图key-->
     <string name="api_key">c7921070afd0a0f339bf9f1ccd24308a</string>
+    <string name="umeng_key">5b56c659a40fa358e7000160</string>
 
     <string name="action_settings">Settings</string>
     <string name="content_description_default">Image description</string>

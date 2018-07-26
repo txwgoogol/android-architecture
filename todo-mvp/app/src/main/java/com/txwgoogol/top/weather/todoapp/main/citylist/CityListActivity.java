@@ -8,6 +8,7 @@ import com.txwgoogol.top.weather.todoapp.R;
 import com.txwgoogol.top.weather.todoapp.data.bean.city.City;
 import com.txwgoogol.top.weather.todoapp.util.ActivityUtils;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 
 public class CityListActivity extends AppCompatActivity {
 
@@ -27,6 +28,18 @@ public class CityListActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), cityListFragment, R.id.frame_layout);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }

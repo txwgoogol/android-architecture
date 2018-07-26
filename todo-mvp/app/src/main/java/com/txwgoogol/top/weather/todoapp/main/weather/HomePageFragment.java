@@ -37,6 +37,7 @@ import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
+//import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
