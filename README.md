@@ -56,7 +56,7 @@ Android Architecture Blueprints项目演示了帮助解决或避免这些常见�
 
 克隆存储库：
 ```
-git clone git@github.com:txwgoogol/android-architecture-weather.git
+git clone git@github.com:txwgoogol/android-architecture.git
 ```
 检出todo-mvp示例：
 ```
