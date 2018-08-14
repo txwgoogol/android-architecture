@@ -254,8 +254,14 @@ public class HomePageFragment extends BaseFragment implements WeatherContact.Vie
         city.setTemperature(weather.getNow().getTemperature());
         Logger.d(city.toString());
 
-        //添加到城市列表
-        Logger.d(DBUtils.getInstance(getActivity()).insert(new City(weather.getLocation().getId(), weather.getLast_update(), weather.getLocation().getName(), weather.getNow().getCode(), weather.getNow().getTemperature())));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //添加到城市列表
+                Logger.d(DBUtils.getInstance(getActivity().getApplicationContext()).insert(new City(weather.getLocation().getId(), weather.getLast_update(), weather.getLocation().getName(), weather.getNow().getCode(), weather.getNow().getTemperature())));
+            }
+        }).start();
+
         //添加到天气列表 ！！！！！！！！ :) ！！！！！！！！
         //Logger.d(DBUtils.getInstance(getActivity()).insert(weather));
 
