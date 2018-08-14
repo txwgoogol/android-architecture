@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Android Architecture Blueprints
 
 <img src="https://github.com/googlesamples/android-architecture/wiki/images/aab-logo.png" alt="Android Architecture Blueprints"/>
@@ -67,3 +68,6 @@ git checkout todo-mvp
 最后在Android Studio中打开`todoapp /`目录。
 
 仿照googlesamples android-architecture 开发一个天气应用
+=======
+当前分支演示了一个基本的 Model‑View‑Presenter (MVP) 体系结构并为其他示例提供基础。
+>>>>>>> todo-mvp

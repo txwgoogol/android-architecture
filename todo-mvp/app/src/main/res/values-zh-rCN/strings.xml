@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">小丫天气</string>
+
+    <string name="action_settings">设置</string>
+    <string name="content_description_default">图片描述</string>
+    <string name="title_forecast_module">预报</string>
+    <string name="title_index_module">生活指数</string>
+    <string name="city_list">城市列表</string>
+    <string name="delete">删除</string>
+    <string name="loading">加载中...</string>
+
+</resources>
