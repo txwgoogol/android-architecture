@@ -11,6 +11,7 @@ Android Architecture Blueprints项目演示了帮助解决或避免这些常见�
 ## 搜索样品
 
 该项目将每个示例应用程序托管在单独的存储库分支中 有关更多信息，请参阅每个分支中的`README.md`文件。
+[//]:# (跟上Google步伐逐步实现)
 
 ### Stable samples - Java
 | 样品 | 描述 |
