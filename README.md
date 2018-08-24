@@ -15,7 +15,7 @@ Android Architecture Blueprints项目演示了帮助解决或避免这些常见�
 ### Stable samples - Java
 | 样品 | 描述 |
 | ------------- | ------------- |
-| [todo‑mvp](https://github.com/googlesamples/android-architecture/tree/todo-mvp/) | 演示了一个基本的 [Model‑View‑Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) (MVP) 体系结构并为其他示例提供了基础。这个样本也可以作为比较和对照本项目其他样本的参考点。 |
+| [todo‑mvp](https://github.com/txwgoogol/android-architecture/tree/todo-mvp) | 演示了一个基本的 [Model‑View‑Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) (MVP) 体系结构并为其他示例提供了基础。这个样本也可以作为比较和对照本项目其他样本的参考点。 |
 | [todo‑mvp‑clean](https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/) | 使用 [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)的概念。|
 | [todo‑mvp‑dagger](https://github.com/googlesamples/android-architecture/tree/todo-mvp-dagger/) | 使用 [Dagger 2](https://google.github.io/dagger/) 添加对 [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection)的支持。|
 | [todo‑mvp‑rxjava](https://github.com/googlesamples/android-architecture/tree/todo-mvp-rxjava/) | 使用 [RxJava 2](https://github.com/ReactiveX/RxJava) 来实现并发性，并抽象数据层。|
