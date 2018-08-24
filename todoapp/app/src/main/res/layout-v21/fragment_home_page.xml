@@ -1,0 +1,70 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:titleView="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/nested_scroll_view"
+    android:layout_height="match_parent"
+    tools:context=".main.weather.HomePageFragment"
+    tools:ignore="RtlHardcoded">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_card_bg"
+            android:descendantFocusability="blocksDescendants"
+            android:elevation="@dimen/dp_3">
+
+            <com.txwgoogol.top.weather.widget.TitleView
+                android:id="@+id/forecast_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                titleView:titleViewText="@string/title_forecast_module" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/forecast_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/forecast_title"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginTop="@dimen/dp_12"
+                tools:listitem="@layout/item_forecast" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_4"
+            android:background="@drawable/shape_card_bg"
+            android:descendantFocusability="blocksDescendants"
+            android:elevation="@dimen/dp_3">
+
+            <com.txwgoogol.top.weather.widget.TitleView
+                android:id="@+id/index_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_42"
+                titleView:titleViewText="@string/title_index_module" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/life_index_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/index_title"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginTop="@dimen/dp_12"
+                tools:listitem="@layout/item_life_index" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
