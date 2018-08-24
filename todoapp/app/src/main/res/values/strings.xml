@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">MyGirlWeather</string>
+    <string name="app_name">Weather</string>
 
-    <!--高德地图key-->
+    <!-- amap key -->
     <string name="api_key">c7921070afd0a0f339bf9f1ccd24308a</string>
+    <!-- umeng key -->
     <string name="umeng_key">5b56c659a40fa358e7000160</string>
 
     <string name="action_settings">Settings</string>
