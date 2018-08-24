@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">小丫天气</string>
+    <string name="app_name">天气</string>
 
     <string name="action_settings">设置</string>
     <string name="content_description_default">图片描述</string>
