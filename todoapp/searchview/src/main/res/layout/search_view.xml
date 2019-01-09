@@ -43,21 +43,21 @@
                 android:id="@+id/action_up_btn"
                 style="@style/MSV_ImageButton"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_navigation_arrow_back"/>
+                android:src="@drawable/ic_action_arrow_back"/>
 
             <ImageButton
                 android:id="@+id/action_voice_btn"
                 style="@style/MSV_ImageButton"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_action_voice_search"/>
+                android:src="@drawable/ic_action_search"/>
 
             <ImageButton
                 android:id="@+id/action_empty_btn"
                 style="@style/MSV_ImageButton"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_action_navigation_close"
+                android:src="@drawable/ic_action_close"
                 android:visibility="gone"/>
 
             <View

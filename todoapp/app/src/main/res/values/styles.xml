@@ -31,7 +31,7 @@
         <item name="searchVoiceIcon">@drawable/ic_action_voice</item>
 
         <!-- Change clear text icon-->
-        <item name="searchCloseIcon">@drawable/ic_action_clear</item>
+        <item name="searchCloseIcon">@drawable/ic_action_close</item>
 
         <!-- Change up icon-->
         <item name="searchBackIcon">@drawable/ic_action_arrow_back</item>
