@@ -62,6 +62,7 @@ git clone git@github.com:txwgoogol/android-architecture.git
 查看远程分枝
 ```
 git branch -a
+```
 
 检出todo-mvp示例：
 ```
