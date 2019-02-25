@@ -59,9 +59,13 @@ Android Architecture Blueprints项目演示了帮助解决或避免这些常见�
 ```
 git clone git@github.com:txwgoogol/android-architecture.git
 ```
+查看远程分枝
+```
+git branch -a
+
 检出todo-mvp示例：
 ```
-git checkout todo-mvp
+git checkout -b todo-mvp origin/todo-mvp
 ```
 **Note:** 要查看不同的样品，请用您想要检出的样品名称替换“todo-mvp”。
 
