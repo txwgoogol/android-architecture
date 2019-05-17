@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_delete_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_100"
+    android:orientation="horizontal">
+
+    <!--
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_cardBackgroundColor
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_cardCornerRadius
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_cardElevation
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_cardMaxElevation
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_cardUseCompatPadding
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_cardPreventCornerOverlap
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPadding
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingLeft
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingTop
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingRight
+    * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingBottom
+    -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:cardElevation="@dimen/dp_2"
+        app:contentPadding="@dimen/dp_8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/city_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:42"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/city_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="苏州"
+                android:textSize="@dimen/sp_30"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_time" />
+
+            <ImageView
+                android:id="@+id/ic_weather_location_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/city_name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                app:srcCompat="@drawable/ic_weather_location_city" />
+
+            <TextView
+                android:id="@+id/city_template"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="32°"
+                android:textSize="@dimen/sp_50"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:background="@android:color/holo_red_light"
+        android:gravity="center"
+        android:text="@string/delete"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_18" />
+
+</LinearLayout>
