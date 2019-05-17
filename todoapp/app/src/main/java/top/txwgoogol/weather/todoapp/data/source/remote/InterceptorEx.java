@@ -37,7 +37,7 @@ public class InterceptorEx implements Interceptor {
         Request request;
         HttpUrl modifiedUrl = original.url().newBuilder()
                 // Provide your custom parameter here
-                .addQueryParameter("key", "52zpuzgswyulc0w6")//WeatherJNI.weatherKey()
+                .addQueryParameter("key", "xhh3kqcmbqibdysj")//WeatherJNI.weatherKey()
                 .build();
         request = original.newBuilder().url(modifiedUrl).build();
 

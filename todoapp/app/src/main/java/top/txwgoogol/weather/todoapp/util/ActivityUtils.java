@@ -38,4 +38,5 @@ public final class ActivityUtils {
         transaction.add(frameId, fragment);
         transaction.commit();
     }
+
 }
