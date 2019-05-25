@@ -14,7 +14,7 @@ android {
         applicationId "top.txwgoogol.weather.todomvp" //应用包名
 
         //最小sdk版本，如果设备小于这个版本或者大于maxSdkVersion(一般不用)将无法安装这个应用
-        minSdkVersion 18
+        minSdkVersion 21
 
         //目标sdk版本，如果设备等于这个版本那么android平台就不进行兼容性检查，运行效率会高一点
         targetSdkVersion 28
@@ -168,22 +168,22 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //android support
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    implementation 'androidx.vectordrawable:vectordrawable:1.0.0-alpha1'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0-alpha1'
-    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
-    implementation 'androidx.cardview:cardview:1.0.0-alpha1'
-    implementation 'com.google.android.material:material:1.0.0-alpha1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0-beta01'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha05'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0-alpha06'
     //test
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
-    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0-alpha3'
+    testImplementation 'junit:junit:4.13-beta-3'
+    androidTestImplementation 'androidx.test:runner:1.2.0-beta01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-beta01'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     //square
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0-alpha01'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     //reactivex
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
@@ -209,7 +209,7 @@ dependencies {
     //search view
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     //Amap location
-    implementation 'com.amap.api:location:latest.integration'
+    implementation 'com.amap.api:location:4.6.0'
     //module
     implementation project(':widget')
     implementation project(':searchview')
@@ -218,13 +218,13 @@ dependencies {
     //ui recyclerview adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
     //leakcanary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     // Optional, if you use support library fragments:
-    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
     //umeng
-    implementation 'com.umeng.sdk:common:1.5.0'
-    implementation 'com.umeng.sdk:analytics:7.5.0'
+    implementation 'com.umeng.sdk:common:1.5.3'
+    implementation 'com.umeng.sdk:analytics:7.5.3'
 }
 
 //gradle打包参考 https://blog.csdn.net/baidu_31093133/article/details/51860637
