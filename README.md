@@ -1,2 +1,1 @@
-# Android架构项目实践
-	
+# Android架构实践  
