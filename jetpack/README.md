@@ -1,6 +1,7 @@
 ###### Jet pack 说明
 
-(android-architecture-components)[https://github.com/googlesamples/android-architecture-components]
+
+[android-architecture-components](https://github.com/googlesamples/android-architecture-components)
 
 
 >
