@@ -6,7 +6,7 @@ android {
     buildToolsVersion = build_versions.build_tools
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
@@ -20,6 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
@@ -28,15 +29,79 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
     //kotlin
-    implementation deps.support.core_ktx
-    implementation deps.kotlin.stdlib
+    api deps.support.core_ktx
+    api deps.kotlin.stdlib
     //support
-    implementation deps.support.app_compat
-    implementation deps.constraint_layout
+    api deps.support.app_compat
+    api deps.constraint_layout
     //auto size
-    implementation deps.ui.autosize
+    api deps.ui.autosize
+    // ################################ jet-pack ################################
+    // ViewModel and LiveData
+    api deps.lifecycle.extensions
+    // alternatively - just ViewModel
+    api deps.lifecycle.viewmodel_ktx
+    // For Kotlin use lifecycle-viewmodel-ktx
+    // alternatively - just LiveData
+    api deps.lifecycle.livedata
+    // alternatively - Lifecycles only (no ViewModel or LiveData). Some UI
+    // AndroidX libraries use this lightweight import for Lifecycle
+    api deps.lifecycle.runtime
+    annotationProcessor deps.lifecycle.compiler
+    // For Kotlin use kapt instead of annotationProcessor
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    api deps.lifecycle.java8
+    // optional - ReactiveStreams support for LiveData
+    api deps.lifecycle.reactivestreams
+    // For Kotlin use lifecycle-reactivestreams-ktx
+    // optional - Test helpers for LiveData
+    testImplementation deps.arch_core.testing //"androidx.arch.core:core-testing:$lifecycle_version"
+
+
+    def futures_version = "1.0.0-beta01"
+    api "androidx.concurrent:concurrent-futures:$futures_version"
+    api "androidx.concurrent:concurrent-listenablefuture:$futures_version"
+    api "androidx.concurrent:concurrent-listenablefuture-callback:$futures_version"
+
+
+    api deps.navigation.fragment_ktx// For Kotlin use navigation-fragment-ktx
+    api deps.navigation.ui_ktx// For Kotlin use navigation-ui-ktx
+
+
+    //def paging_version = "2.1.0"
+    api deps.paging_ktx // For Kotlin use paging-runtime-ktx
+    // alternatively - without Android dependencies for testing
+    testImplementation deps.paging_common // For Kotlin use paging-common-ktx
+    // optional - RxJava support
+    api deps.paging_rxjava2 // For Kotlin use paging-rxjava2-ktx
+
+
+    //def room_version = "2.1.0-rc01"
+    api deps.room.runtime//"androidx.room:room-runtime:$room_version"
+    annotationProcessor deps.room.compiler//"androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
+    // optional - Kotlin Extensions and Coroutines support for Room
+    api deps.room.room_ktx //"androidx.room:room-ktx:$room_version"
+    // optional - RxJava support for Room
+    api deps.room.rxjava2//"androidx.room:room-rxjava2:$room_version"
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    api deps.room.guava //"androidx.room:room-guava:$room_version"
+    // Test helpers
+    testImplementation deps.room.testing //"androidx.room:room-testing:$room_version"
+
+
+    //def work_version = '2.1.0-alpha03'
+    // (Java only)
+    api deps.work.runtime//"androidx.work:work-runtime:$work_version"
+    // Kotlin + coroutines
+    api deps.work.runtime_ktx //"androidx.work:work-runtime-ktx:$work_version"
+    // optional - RxJava2 support
+    api deps.work.runtime_ktx//"androidx.work:work-rxjava2:$work_version"
+    // optional - Test helpers
+    androidTestImplementation deps.work.testing //"androidx.work:work-testing:$work_version"
+    // ################################ jet-pack ################################
     //test
     testImplementation deps.atsl.ext_junit
     androidTestImplementation deps.atsl.runner

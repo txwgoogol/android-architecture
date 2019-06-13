@@ -1,12 +1,11 @@
 package com.example.jetpack
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 
-class App : Application() {
+class App : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
     }
 
 }
