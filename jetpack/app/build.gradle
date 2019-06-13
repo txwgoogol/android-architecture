@@ -6,20 +6,20 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion = '28.0.3'
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion = build_versions.build_tools
 
     defaultConfig {
         applicationId "com.example.jetpack"
 
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        multiDexEnabled true
+        //multiDexEnabled true
     }
 
     buildTypes {
@@ -34,6 +34,7 @@ android {
         targetCompatibility = '1.8'
     }
 
+    //disable 'GoogleAppIndexingWarning' //忽略AndroidManifest警告
 }
 
 dependencies {
