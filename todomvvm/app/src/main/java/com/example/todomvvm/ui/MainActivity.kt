@@ -31,40 +31,6 @@ class MainActivity : AppCompatActivity() {
         weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 
 
-        //无锡 101190201
-        //苏州
-        /*
-        ApiStore.create().loadDataByRetrofit("101190201").enqueue(object : Callback<Weather> {
-
-            override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
-                Log.d("TAG", "成功=获取到的信息=========" + Gson().toJson(response.body()))
-
-                val s = response.body() as Weather
-                weather_info.text =
-                    "城市ID：" + s.weatherInfo.cityid + "\n" + "城市：" + s.weatherInfo.city + "\n" + "时间：" + s.weatherInfo.time + "\n" + "温度：" + s.weatherInfo.temp + "\n"
-            }
-
-            override fun onFailure(call: Call<Weather>, t: Throwable) {
-                Log.d("TAG", "失败=========" + t.localizedMessage)
-            }
-
-        })*/
-
-
-        /*
-        ApiStore.create().loadDataByRetrofitRes("101190201").enqueue(object : Callback<WeatherBeannnn> {
-            override fun onResponse(call: Call<WeatherBeannnn>, response: Response<WeatherBeannnn>) {
-                Log.d("TAG", "成功=获取到的信息=========" + Gson().toJson(response.body()))
-                //val s = response.body() as Weather
-                //weather_info.text = "城市ID：" + s.weatherInfo.cityid + "\n" + "城市：" + s.weatherInfo.city + "\n" + "时间：" + s.weatherInfo.time + "\n" + "温度：" + s.weatherInfo.temp + "\n"
-            }
-            override fun onFailure(call: Call<WeatherBeannnn>, t: Throwable) {
-                Log.d("TAG", "失败=========" + t.localizedMessage)
-            }
-        })
-        */
-
-
         ApiStore.create().loadDataByRetrofitRess("101190201").enqueue(object : Callback<Weather> {
             override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
                 Log.d("TAG", "成功=获取到的信息=========" + Gson().toJson(response.body()))
