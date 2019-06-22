@@ -37,6 +37,7 @@ dependencies {
 
     implementation deps.support.core_ktx
     implementation deps.paging_ktx
+    implementation deps.paging_rxjava2
     implementation deps.support.v4
     implementation deps.support.design
     implementation deps.support.cardview
