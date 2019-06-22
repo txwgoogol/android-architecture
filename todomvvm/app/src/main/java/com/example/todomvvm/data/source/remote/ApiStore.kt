@@ -13,14 +13,7 @@ import retrofit2.http.Path
 
 interface ApiStore {
 
-
-	//加载天气
-	@GET("adat/sk/{cityId}.html")
-	fun loadDataByRetrofit(@Path("cityId") cityId: String): Call<BaseResponse<WeatherInfo>>
-
-	@GET("adat/sk/{cityId}.html")
-	fun loadDataByRetrofitRes(@Path("cityId") cityId: String): Call<WeatherBeannnn>
-
+	//获取天气信息
 	@GET("adat/sk/{cityId}.html")
 	fun loadDataByRetrofitRess(@Path("cityId") cityId: String): Call<Weather>
 

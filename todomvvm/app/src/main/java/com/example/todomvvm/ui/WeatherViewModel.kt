@@ -1,7 +1,6 @@
 package com.example.todomvvm.ui
 
 import androidx.lifecycle.ViewModel
-import com.example.todomvvm.data.entity.WeatherInfo
 import com.example.todomvvm.data.entity.Weatherinfoo
 import com.example.todomvvm.data.source.local.WeatherDao
 import io.reactivex.Completable
