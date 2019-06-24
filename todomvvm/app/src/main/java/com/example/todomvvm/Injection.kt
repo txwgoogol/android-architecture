@@ -3,7 +3,7 @@ package com.example.todomvvm
 import android.content.Context
 import com.example.todomvvm.data.source.WeatherDataBase
 import com.example.todomvvm.data.source.local.WeatherDao
-import com.example.todomvvm.ui.ViewModelFactory
+import com.example.todomvvm.data.source.local.ViewModelFactory
 
 object Injection {
 

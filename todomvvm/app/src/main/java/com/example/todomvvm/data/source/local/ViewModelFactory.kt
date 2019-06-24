@@ -1,8 +1,7 @@
-package com.example.todomvvm.ui
+package com.example.todomvvm.data.source.local
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.todomvvm.data.source.local.WeatherDao
 
 class ViewModelFactory(private val weatherDao: WeatherDao) : ViewModelProvider.Factory {
 

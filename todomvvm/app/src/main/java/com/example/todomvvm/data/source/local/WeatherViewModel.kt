@@ -1,4 +1,4 @@
-package com.example.todomvvm.ui
+package com.example.todomvvm.data.source.local
 
 import androidx.lifecycle.ViewModel
 import com.example.todomvvm.data.entity.Weatherinfoo

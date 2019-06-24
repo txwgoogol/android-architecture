@@ -6,14 +6,49 @@
 	android:layout_height="match_parent"
 	tools:context=".ui.MainActivity">
 	
-	<TextView
-		android:id="@+id/weather_info"
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/kt_toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="?attr/actionBarSize"
+		app:layout_constraintTop_toTopOf="parent">
+		
+		<TextView
+			android:id="@+id/kt_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:gravity="center"
+			android:text="TITLE"
+			android:textSize="18sp" />
+	
+	</androidx.appcompat.widget.Toolbar>
+	
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/swipe_refresh"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_constraintTop_toBottomOf="@+id/kt_toolbar">
+		
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/rv_city"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+		
+		</androidx.recyclerview.widget.RecyclerView>
+	
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/float_menu"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Hello World!"
+		android:layout_margin="16dp"
+		android:backgroundTint="@android:color/white"
+		android:src="@android:drawable/ic_input_add"
+		app:backgroundTint="@android:color/white"
+		app:borderWidth="1dp"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:rippleColor="@android:color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
