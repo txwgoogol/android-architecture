@@ -53,6 +53,8 @@ dependencies {
     implementation deps.lifecycle.extensions
     kapt deps.lifecycle.compiler
 
+    //https://www.jianshu.com/p/ebbd8b0a8e18
+    //https://www.cnblogs.com/mengdd/p/deep-explore-kotlin-coroutines.html
     implementation deps.kotlin.coroutines_android
     implementation deps.kotlin.coroutines_core
 
