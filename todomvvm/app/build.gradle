@@ -53,6 +53,9 @@ dependencies {
     implementation deps.lifecycle.extensions
     kapt deps.lifecycle.compiler
 
+    implementation deps.kotlin.coroutines_android
+    implementation deps.kotlin.coroutines_core
+
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
     implementation deps.retrofit.adapter_rxjava2
