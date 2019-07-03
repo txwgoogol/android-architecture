@@ -7,7 +7,7 @@ import com.example.todomvvm.data.source.local.ViewModelFactory
 
 object Injection {
 
-    fun provideWeatherDataSource(context: Context): WeatherDao {
+    private fun provideWeatherDataSource(context: Context): WeatherDao {
         val database = WeatherDataBase.getInstance(context)
         return database.weatherDao()
     }
