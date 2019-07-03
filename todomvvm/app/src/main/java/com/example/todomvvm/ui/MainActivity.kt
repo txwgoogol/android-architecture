@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import com.example.todomvvm.Injection
+import com.example.todomvvm.utils.Injection
 import com.example.todomvvm.R
 import com.example.todomvvm.data.entity.Weather
 import com.example.todomvvm.data.entity.Weatherinfoo

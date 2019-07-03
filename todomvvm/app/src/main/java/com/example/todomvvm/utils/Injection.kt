@@ -1,4 +1,4 @@
-package com.example.todomvvm
+package com.example.todomvvm.utils
 
 import android.content.Context
 import com.example.todomvvm.data.source.WeatherDataBase
