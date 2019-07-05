@@ -1,5 +1,6 @@
 package com.example.todomvvm.utils
 
+import android.app.Activity
 import android.content.Context
 import com.example.todomvvm.data.source.WeatherDataBase
 import com.example.todomvvm.data.source.local.WeatherDao
@@ -12,8 +13,8 @@ object Injection {
         return database.weatherDao()
     }
 
-    fun provideViewModelFactory(context: Context): ViewModelFactory {
-        val dataSource = provideWeatherDataSource(context)
+    fun provideViewModelFactory(activity: Activity): ViewModelFactory {
+        val dataSource = provideWeatherDataSource(activity)
         return ViewModelFactory(dataSource)
     }
 

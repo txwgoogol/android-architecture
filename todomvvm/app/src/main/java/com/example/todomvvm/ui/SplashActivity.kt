@@ -2,18 +2,23 @@ package com.example.todomvvm.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Handler
 import com.example.todomvvm.R
+import me.listenzz.navigation.AwesomeActivity
 
-class SplashActivity : AppCompatActivity() {
+/**
+ * 启动页
+ */
+class SplashActivity : AwesomeActivity() {
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_splash)
-
-//		val intent = Intent(this, MainActivity::class.java)
-//		startActivity(intent)
-//		this.finish()
+//		setContentView(R.layout.activity_splash)
+		
+		Handler().postDelayed({
+			startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+			overridePendingTransition(R.anim.nav_fade_in, R.anim.nav_fade_out)
+		}, 1500)
 		
 	}
 	
