@@ -66,6 +66,10 @@ dependencies {
     implementation deps.glide.runtime
     kapt deps.glide.compiler
 
+    //tools
+    implementation deps.navigationEx
+    implementation deps.autosize
+
     //test
     testImplementation deps.junit
     androidTestImplementation deps.atsl.runner

@@ -154,6 +154,11 @@ deps.paging_ktx = "androidx.paging:paging-runtime-ktx:$versions.paging"
 deps.paging_rxjava2 = "android.arch.paging:rxjava2:1.0.0-rc1"
 
 
+deps.navigationEx = "me.listenzz:navigation:3.0.0"
+deps.autosize = "me.jessyan:autosize:1.1.2"
+
+
+
 def glide = [:]
 glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
 glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
@@ -172,7 +177,7 @@ ext.deps = deps
 
 
 def build_versions = [:]
-build_versions.min_sdk = 14
+build_versions.min_sdk = 21
 build_versions.target_sdk = 29
 build_versions.build_tools = "29.0.0"
 ext.build_versions = build_versions

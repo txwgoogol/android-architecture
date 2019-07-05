@@ -44,7 +44,7 @@
 		android:layout_height="wrap_content"
 		android:layout_margin="16dp"
 		android:backgroundTint="@android:color/white"
-		android:src="@android:drawable/ic_input_add"
+		android:src="@drawable/ic_add_black_24dp"
 		app:backgroundTint="@android:color/white"
 		app:borderWidth="1dp"
 		app:layout_constraintBottom_toBottomOf="parent"
