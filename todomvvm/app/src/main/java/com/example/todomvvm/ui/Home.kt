@@ -78,7 +78,7 @@ class Home : BaseFragment() {
 	}
 	
 	override fun preferredStatusBarColor(): Int {
-		return activity!!.resources.getColor(R.color.colorAccent)
+		return Color.TRANSPARENT
 	}
 	
 	override fun preferredStatusBarStyle(): BarStyle {
@@ -88,7 +88,6 @@ class Home : BaseFragment() {
 	override fun preferredStatusBarHidden(): Boolean {
 		return false
 	}
-	
 	
 	override fun onStart() {
 		super.onStart()
