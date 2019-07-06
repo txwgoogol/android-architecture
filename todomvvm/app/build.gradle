@@ -69,6 +69,7 @@ dependencies {
     //tools
     implementation deps.navigationEx
     implementation deps.autosize
+    implementation deps.lottie
 
     //test
     testImplementation deps.junit
