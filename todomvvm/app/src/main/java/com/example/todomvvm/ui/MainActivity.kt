@@ -2,6 +2,7 @@ package com.example.todomvvm.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import me.listenzz.navigation.AppUtils
 import me.listenzz.navigation.AwesomeActivity
 import me.listenzz.navigation.Style
@@ -10,10 +11,18 @@ class MainActivity : AwesomeActivity() {
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		AppUtils.setStatusBarTranslucent(window, true)
+		
+		isStatusBarTranslucent = true
+		
 		if (savedInstanceState == null) {
 			setActivityRootFragment(Home())
 		}
+		
+	}
+	
+	override fun onAttachedToWindow() {
+		super.onAttachedToWindow()
+		Log.i(AwesomeActivity.TAG, "onAttachedToWindow 是否刘海眉：" + AppUtils.isCutout(this))
 	}
 	
 	override fun onCustomStyle(style: Style) {

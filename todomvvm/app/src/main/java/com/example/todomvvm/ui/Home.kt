@@ -1,6 +1,7 @@
 package com.example.todomvvm.ui
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import me.listenzz.navigation.AwesomeToolbar
+import me.listenzz.navigation.BarStyle
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,6 +54,7 @@ class Home : BaseFragment() {
 		super.onActivityCreated(savedInstanceState)
 		
 		isStatusBarTranslucent = true //设置透明
+		window!!.decorView.requestLayout() //重绘
 		appendStatusBarPadding(kt_toolbar, toolbarHeight)
 		setNeedsStatusBarAppearanceUpdate()
 		
@@ -73,6 +76,19 @@ class Home : BaseFragment() {
 		})
 		
 	}
+	
+	override fun preferredStatusBarColor(): Int {
+		return activity!!.resources.getColor(R.color.colorAccent)
+	}
+	
+	override fun preferredStatusBarStyle(): BarStyle {
+		return BarStyle.LightContent
+	}
+	
+	override fun preferredStatusBarHidden(): Boolean {
+		return false
+	}
+	
 	
 	override fun onStart() {
 		super.onStart()
