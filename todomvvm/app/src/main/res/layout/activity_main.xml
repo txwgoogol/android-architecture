@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context=".ui.MainActivity">
 	
+	<TextureView
+		android:id="@+id/tv"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
+	
 	<FrameLayout
+		android:visibility="gone"
 		android:id="@+id/fl_toolbar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -32,6 +38,7 @@
 	
 	</FrameLayout>
 	
+	<!--
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 		android:id="@+id/swipe_refresh"
 		android:layout_width="match_parent"
@@ -47,20 +54,6 @@
 		</androidx.recyclerview.widget.RecyclerView>
 	
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	-->
 	
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/float_menu"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentBottom="true"
-		android:layout_margin="16dp"
-		android:backgroundTint="@android:color/white"
-		android:src="@drawable/ic_add_black_24dp"
-		app:backgroundTint="@android:color/white"
-		app:borderWidth="1dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:rippleColor="@android:color/white" />
-
-</RelativeLayout>
+</FrameLayout>
