@@ -52,12 +52,8 @@ class Home : BaseFragment() {
 	
 	override fun onActivityCreated(savedInstanceState: Bundle?) {
 		super.onActivityCreated(savedInstanceState)
-		
-		isStatusBarTranslucent = true //设置透明
-		window!!.decorView.requestLayout() //重绘
 		appendStatusBarPadding(kt_toolbar, toolbarHeight)
-		setNeedsStatusBarAppearanceUpdate()
-		
+
 		viewModelFactory = Injection.provideViewModelFactory(ctx)
 		weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 		
