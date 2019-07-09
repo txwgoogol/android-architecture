@@ -5,13 +5,19 @@ import android.app.Application
 /**
  * 自定义Application在应用启动的时候初始化
  *
- * @author colin tam
+ * @author COLIN TAM
  */
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
         //各种初始化
+        init()
+    }
+
+    //各种初始化
+    private fun init() {
+
     }
 
     //调用companion object 里面的方法或变量

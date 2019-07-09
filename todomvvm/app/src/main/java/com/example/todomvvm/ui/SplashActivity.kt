@@ -8,6 +8,7 @@ import me.listenzz.navigation.AwesomeActivity
 
 /**
  * 启动页
+ * @author COLIN TAM
  */
 class SplashActivity : AwesomeActivity() {
 	
@@ -18,6 +19,7 @@ class SplashActivity : AwesomeActivity() {
 		Handler().postDelayed({
 			startActivity(Intent(this@SplashActivity, MainActivity::class.java))
 			overridePendingTransition(R.anim.nav_fade_in, R.anim.nav_fade_out)
+			finish()
 		}, 1500)
 		
 	}
