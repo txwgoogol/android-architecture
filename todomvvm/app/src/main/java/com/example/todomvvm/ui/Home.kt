@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.example.todomvvm.R
 import com.example.todomvvm.base.BaseFragment
-import com.example.todomvvm.data.entity.Weather
-import com.example.todomvvm.data.entity.Weatherinfoo
+import com.example.todomvvm.data.entity.Now
+import com.example.todomvvm.data.entity.NowX
 import com.example.todomvvm.data.source.local.ViewModelFactory
 import com.example.todomvvm.data.source.local.WeatherViewModel
 import com.example.todomvvm.data.source.remote.ApiStore
@@ -58,15 +58,15 @@ class Home : BaseFragment() {
 		weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 		
 		
-		ApiStore.create().loadDataByRetrofitRess("101190201").enqueue(object : Callback<Weather> {
-			override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
+		ApiStore.create().now("吴中,苏州").enqueue(object : Callback<Now> {
+			override fun onResponse(call: Call<Now>, response: Response<Now>) {
 				Log.d("TAG", "成功=获取到的信息=========" + Gson().toJson(response.body()))
 				//val s = response.body() as Weather
 				//weather_info.text = "城市ID：" + s.weatherInfo.cityid + "\n" + "城市：" + s.weatherInfo.city + "\n" + "时间：" + s.weatherInfo.time + "\n" + "温度：" + s.weatherInfo.temp + "\n"
-				insertWeather(response.body()!!.weatherinfo)
+				insertWeather(response.body()!!)
 			}
 			
-			override fun onFailure(call: Call<Weather>, t: Throwable) {
+			override fun onFailure(call: Call<Now>, t: Throwable) {
 				Log.d("TAG", "失败=========" + t.localizedMessage)
 			}
 		})
@@ -92,9 +92,9 @@ class Home : BaseFragment() {
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(
 				{
-					Log.d("TAG", "city_id：" + it.cityid + " city_name：" + it.city + " city_temp：" + it.temp)
+					//Log.d("TAG", "city_id：" + it.cityid + " city_name：" + it.city + " city_temp：" + it.temp)
 					
-					this.kt_title.text = "城市ID：" + it.cityid + "  城市：" + it.city + "  温度：" + it.temp
+					//this.kt_title.text = "城市ID：" + it.cityid + "  城市：" + it.city + "  温度：" + it.temp
 					
 					//insertWeather(it)
 					
@@ -108,9 +108,9 @@ class Home : BaseFragment() {
 		disposable.clear()
 	}
 	
-	private fun insertWeather(weather: Weatherinfoo) {
+	private fun insertWeather(now: Now) {
 		disposable.add(
-			weatherViewModel.updateWeather(weather)
+			weatherViewModel.updateWeather(now)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(

@@ -1,6 +1,8 @@
 package com.example.todomvvm.app
 
 import android.app.Application
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
 
 /**
  * 自定义Application在应用启动的时候初始化
@@ -17,6 +19,7 @@ class App : Application() {
 
     //各种初始化
     private fun init() {
+        Logger.addLogAdapter(AndroidLogAdapter())
 
     }
 

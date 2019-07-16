@@ -71,6 +71,7 @@ dependencies {
     implementation deps.navigationEx
     implementation deps.autosize
     implementation deps.lottie
+    implementation deps.logger
 
     //test
     testImplementation deps.junit

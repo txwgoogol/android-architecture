@@ -157,6 +157,7 @@ deps.paging_rxjava2 = "android.arch.paging:rxjava2:1.0.0-rc1"
 deps.navigationEx = "me.listenzz:navigation:3.0.0"
 deps.autosize = "me.jessyan:autosize:1.1.2"
 deps.lottie = "com.airbnb.android:lottie:3.0.7"
+deps.logger = "com.orhanobut:logger:2.2.0"
 
 
 def glide = [:]
