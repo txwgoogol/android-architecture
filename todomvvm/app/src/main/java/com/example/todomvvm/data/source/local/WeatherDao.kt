@@ -15,7 +15,7 @@ interface WeatherDao {
     /**
      * 从数据库查询
      */
-    @Query("SELECT * FROM now WHERE now.HeWeather6.basic.cid = :cid")
+    @Query("SELECT * FROM now WHERE HeWeather6 = :cid")
     fun weather(cid: String): Flowable<Now>
 
 
