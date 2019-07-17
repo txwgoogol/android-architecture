@@ -1,10 +1,14 @@
 package com.example.todomvvm.data.entity
 
+import android.view.autofill.AutofillId
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 //基础类
 @Entity(tableName = "basic")
-class Basic(
+data class Basic(
+    @PrimaryKey
+    var id: AutofillId,
     val admin_area: String,
     val cid: String,
     val cnty: String,

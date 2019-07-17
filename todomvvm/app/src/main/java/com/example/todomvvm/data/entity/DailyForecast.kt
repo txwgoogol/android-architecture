@@ -1,10 +1,14 @@
 package com.example.todomvvm.data.entity
 
+import android.view.autofill.AutofillId
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 //3-10天预报
 @Entity(tableName = "daily_forecast")
 data class DailyForecast(
+    @PrimaryKey
+    var id: AutofillId,
     val cond_code_d: String,
     val cond_code_n: String,
     val cond_txt_d: String,
