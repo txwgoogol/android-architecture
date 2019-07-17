@@ -60,8 +60,8 @@ class Home : BaseFragment() {
                 Log.d("TAG", "成功=获取到的信息=========" + Gson().toJson(response.body()))
                 val s = response.body() as WeatherNow
                 kt_title.text = "城市ID：" + s.heWeather6[0].basic.cid +
-                        "\n城市：" + s.heWeather6[0].basic.admin_area + " " + s.heWeather6[0].basic.parent_city + " " + s.heWeather6[0].basic.location +
-                        "\n 温度：" + s.heWeather6[0].now.tmp
+                        " 城市：" + s.heWeather6[0].basic.admin_area + " " + s.heWeather6[0].basic.parent_city + " " + s.heWeather6[0].basic.location +
+                        " 温度：" + s.heWeather6[0].now.tmp
                 //insertWeather(response.body()!!)
             }
 
