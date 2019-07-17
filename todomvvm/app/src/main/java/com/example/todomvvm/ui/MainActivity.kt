@@ -7,10 +7,7 @@ import me.listenzz.navigation.AppUtils
 import me.listenzz.navigation.AwesomeActivity
 import me.listenzz.navigation.Style
 
-/**
- * 主活动页 作为整个app的宿主
- * @author COLIN TAM
- */
+//主活动页 作为整个app的宿主
 class MainActivity : AwesomeActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -3,6 +3,7 @@ package com.example.todomvvm.data.source.local
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+//
 class ViewModelFactory(private val weatherDao: WeatherDao) : ViewModelProvider.Factory {
 
     @Suppress(names = ["UNCHECKED_CAST"])

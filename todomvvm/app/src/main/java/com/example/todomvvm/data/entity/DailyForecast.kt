@@ -2,6 +2,7 @@ package com.example.todomvvm.data.entity
 
 import androidx.room.Entity
 
+//3-10天预报
 @Entity(tableName = "daily_forecast")
 data class DailyForecast(
     val cond_code_d: String,

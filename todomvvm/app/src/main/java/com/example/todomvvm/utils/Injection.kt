@@ -6,6 +6,7 @@ import com.example.todomvvm.data.source.WeatherDataBase
 import com.example.todomvvm.data.source.local.WeatherDao
 import com.example.todomvvm.data.source.local.ViewModelFactory
 
+//注入
 object Injection {
 
     private fun provideWeatherDataSource(context: Context): WeatherDao {

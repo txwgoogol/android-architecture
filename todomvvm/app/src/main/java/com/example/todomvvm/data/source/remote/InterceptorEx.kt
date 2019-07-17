@@ -2,13 +2,10 @@ package com.example.todomvvm.data.source.remote
 
 import com.orhanobut.logger.Logger
 import okhttp3.Interceptor
-import okhttp3.Response
-import okhttp3.HttpUrl
 import okhttp3.Request
+import okhttp3.Response
 
-/**
- * @author colin
- */
+//拦截器
 class InterceptorEx : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

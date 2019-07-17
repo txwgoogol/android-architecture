@@ -1,5 +1,9 @@
 package com.example.todomvvm.data.entity
 
+import androidx.room.Entity
+
+//基础类
+@Entity(tableName = "basic")
 class Basic(
     val admin_area: String,
     val cid: String,

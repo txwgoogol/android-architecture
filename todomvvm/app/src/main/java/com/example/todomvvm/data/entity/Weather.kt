@@ -2,9 +2,9 @@ package com.example.todomvvm.data.entity
 
 import androidx.room.Entity
 
-//实况天气
-@Entity(tableName = "now")
-data class Now(
+// now/hourly = 实况天气／逐小时预报
+@Entity(tableName = "weather")
+data class Weather(
     val cloud: String,
     val cond_code: String,
     val cond_txt: String,
