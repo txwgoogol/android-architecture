@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.example.todomvvm.R
 import com.example.todomvvm.base.BaseFragment
+import com.example.todomvvm.data.bean.WeatherNow
+import com.example.todomvvm.data.entity.HeWeather6
 import com.example.todomvvm.data.entity.Weather
 import com.example.todomvvm.data.source.local.ViewModelFactory
 import com.example.todomvvm.data.source.local.WeatherViewModel
@@ -53,15 +55,17 @@ class Home : BaseFragment() {
         weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 
 
-        ApiStore.create().now("吴中,苏州").enqueue(object : Callback<Weather> {
-            override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
+        ApiStore.create().now("wuzhong,suzhou").enqueue(object : Callback<WeatherNow> {
+            override fun onResponse(call: Call<WeatherNow>, response: Response<WeatherNow>) {
                 Log.d("TAG", "成功=获取到的信息=========" + Gson().toJson(response.body()))
-                //val s = response.body() as Weather
-                //weather_info.text = "城市ID：" + s.weatherInfo.cityid + "\n" + "城市：" + s.weatherInfo.city + "\n" + "时间：" + s.weatherInfo.time + "\n" + "温度：" + s.weatherInfo.temp + "\n"
-                insertWeather(response.body()!!)
+                val s = response.body() as WeatherNow
+                kt_title.text = "城市ID：" + s.heWeather6[0].basic.cid +
+                        "\n城市：" + s.heWeather6[0].basic.admin_area + " " + s.heWeather6[0].basic.parent_city + " " + s.heWeather6[0].basic.location +
+                        "\n 温度：" + s.heWeather6[0].now.tmp
+                //insertWeather(response.body()!!)
             }
 
-            override fun onFailure(call: Call<Weather>, t: Throwable) {
+            override fun onFailure(call: Call<WeatherNow>, t: Throwable) {
                 Log.d("TAG", "失败=========" + t.localizedMessage)
             }
         })
@@ -82,20 +86,20 @@ class Home : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        disposable.add(weatherViewModel.getWeather("101190201")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    //Log.d("TAG", "city_id：" + it.cityid + " city_name：" + it.city + " city_temp：" + it.temp)
-
-                    //this.kt_title.text = "城市ID：" + it.cityid + "  城市：" + it.city + "  温度：" + it.temp
-
-                    //insertWeather(it)
-
-                },
-                { error -> Log.e("TAG", "Unable to get city", error) }
-            ))
+//        disposable.add(weatherViewModel.getWeather("wuzhong,suzhou")
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(
+//                {
+//                    Log.d("TAG", "城市ID：" + it.basic.cid + "  城市：" + it.basic.location + "  温度：" + it.t.tmp)
+//
+//                    this.kt_title.text = "城市ID：" + it.basic.cid + "  城市：" + it.basic.location + "  温度：" + it.t.tmp
+//
+//                    insertWeather(it)
+//
+//                },
+//                { error -> Log.e("TAG", "Unable to get city", error) }
+//            ))
     }
 
     override fun onStop() {
@@ -103,9 +107,9 @@ class Home : BaseFragment() {
         disposable.clear()
     }
 
-    private fun insertWeather(now: Weather) {
+    private fun insertWeather(heWeather6: HeWeather6) {
         disposable.add(
-            weatherViewModel.updateWeather(now)
+            weatherViewModel.updateWeather(heWeather6)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
