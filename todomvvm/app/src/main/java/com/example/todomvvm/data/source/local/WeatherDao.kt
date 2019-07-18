@@ -9,8 +9,8 @@ import com.example.todomvvm.data.entity.Weather
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-//数据库操作
 @Dao
+//数据库操作
 interface WeatherDao {
 
     //从数据库查询数据

@@ -9,9 +9,9 @@ import androidx.room.*
 )
 data class Update(
     @PrimaryKey(autoGenerate = true)
-    var id: Long,
+    var id: Long, //主键
     @ColumnInfo(name = "he_id")
-    var he_id: Long,
-    val loc: String,
-    val utc: String
+    var he_id: Long, //外键 关联 he_weather 表
+    val loc: String, //当地时间，24小时制，格式yyyy-MM-dd HH:mm - 2017-10-25 12:34
+    val utc: String //UTC时间，24小时制，格式yyyy-MM-dd HH:mm - 2017-10-25 04:34
 )

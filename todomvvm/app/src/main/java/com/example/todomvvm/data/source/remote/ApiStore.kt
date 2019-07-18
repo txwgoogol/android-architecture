@@ -29,6 +29,7 @@ interface ApiStore {
             val client = OkHttpClient.Builder()
                 .addInterceptor(InterceptorEx())
                 .build()
+
             return Retrofit.Builder()
                 .baseUrl(httpUrl)
                 .client(client)

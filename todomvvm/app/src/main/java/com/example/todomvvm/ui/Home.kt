@@ -37,7 +37,6 @@ class Home : BaseFragment() {
     private lateinit var viewModelFactory: ViewModelFactory
     private val disposable = CompositeDisposable()
 
-
     override fun onCreateAwesomeToolbar(parent: View?): AwesomeToolbar? {
         return null
     }
@@ -53,7 +52,6 @@ class Home : BaseFragment() {
 
         viewModelFactory = Injection.provideViewModelFactory(ctx)
         weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
-
 
         ApiStore.create().now("wuzhong,suzhou").enqueue(object : Callback<WeatherNow> {
             override fun onResponse(call: Call<WeatherNow>, response: Response<WeatherNow>) {
