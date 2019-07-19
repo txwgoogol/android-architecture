@@ -4,20 +4,20 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 	
+	<!-- 整体背景显示 -->
 	<ImageView
 		android:id="@+id/iv_weather_bg"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@android:color/transparent"
-		android:scaleType="fitXY" />
+		android:background="@android:color/transparent" />
 	
+	<!-- 动画处理 各种阴雨晴天气状况动画-->
 	<ImageView
 		android:id="@+id/iv_weather"
 		android:layout_width="match_parent"
 		android:layout_height="300dp"
 		android:scaleType="centerCrop"
 		android:src="@mipmap/cloud" />
-	
 	
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/kt_toolbar"
@@ -58,14 +58,20 @@
 	<TextView
 		android:id="@+id/tmp"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="100dp"
 		android:layout_marginTop="100dp"
 		android:layout_marginBottom="100dp"
 		android:gravity="center"
 		android:text="30 ℃"
 		android:textColor="@android:color/white"
 		android:textSize="80sp" />
-
+	
+	<androidx.recyclerview.widget.RecyclerView
+		android:layout_marginTop="300dp"
+		android:id="@+id/rv_"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+	
 </FrameLayout>
 <!--
 <androidx.coordinatorlayout.widget.CoordinatorLayout
