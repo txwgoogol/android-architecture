@@ -28,6 +28,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 //主页
 class Home : BaseFragment() {
 
@@ -76,7 +77,21 @@ class Home : BaseFragment() {
                 Log.d("TAG", "失败=========" + t.localizedMessage)
             }
         })
-
+    
+        
+//        做配色
+//        Palette.from(BitmapFactory.decodeResource(resources, R.drawable.beauty))
+//            .generate(object : Palette.PaletteAsyncListener() {
+//                fun onGenerated(@NonNull palette: Palette) {
+//                    val color = palette.getVibrantColor(resources.getColor(R.color.colorAccent))
+//                    collapsingToolbarLayout.setContentScrimColor(color)
+//                    //因为我暂时没有找到比较好的透明状态栏来适配这一套效果布局。
+//                    //因此就直接替换掉StatusBar的颜色，这样其实也蛮好看的。
+//                    window!!.statusBarColor = color
+//                }
+//            })
+    
+    
     }
 
     override fun preferredStatusBarColor(): Int {
