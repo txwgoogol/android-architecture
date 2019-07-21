@@ -17,7 +17,7 @@ class SplashActivity : AwesomeActivity() {
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             overridePendingTransition(R.anim.nav_fade_in, R.anim.nav_fade_out)
             finish()
-        }, 1500)
+        }, 0)
 
     }
 

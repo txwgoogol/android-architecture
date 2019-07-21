@@ -29,7 +29,7 @@ versions.atsl_runner = "1.1.1"
 versions.atsl_junit = "1.1.0"
 versions.benchmark = "1.0.0-alpha02"
 versions.constraint_layout = "2.0.0-alpha2"
-versions.core_ktx = "1.0.0"
+versions.core_ktx = '1.0.0'
 versions.dagger = "2.16"
 versions.dexmaker = "2.2.0"
 versions.espresso = "3.1.1"
@@ -69,6 +69,7 @@ support.app_compat = "androidx.appcompat:appcompat:$versions.support"
 support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
 support.cardview = "androidx.cardview:cardview:$versions.support"
 support.design = "com.google.android.material:material:$versions.support"
+support.palette = "androidx.palette:palette:$versions.support"
 support.v4 = "androidx.legacy:legacy-support-v4:$versions.support"
 support.core_utils = "androidx.legacy:legacy-support-core-utils:$versions.support"
 support.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
@@ -154,10 +155,12 @@ deps.paging_ktx = "androidx.paging:paging-runtime-ktx:$versions.paging"
 deps.paging_rxjava2 = "android.arch.paging:rxjava2:1.0.0-rc1"
 
 
+//other
 deps.navigationEx = "me.listenzz:navigation:3.0.0"
 deps.autosize = "me.jessyan:autosize:1.1.2"
 deps.lottie = "com.airbnb.android:lottie:3.0.7"
 deps.logger = "com.orhanobut:logger:2.2.0"
+deps.utilcodex = "com.blankj:utilcodex:1.25.0"
 
 
 def glide = [:]
