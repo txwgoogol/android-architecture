@@ -1,6 +1,6 @@
 package com.example.todomvvm.data.source.remote
 
-import com.example.todomvvm.data.bean.WeatherNow
+import com.example.todomvvm.data.bean.*
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -14,7 +14,19 @@ interface ApiStore {
 
     //实况天气
     @GET("weather/now")
-    fun now(@Query("location") location: String): Call<WeatherNow>
+    fun now(@Query("location") location: String): Call<HeWeather6<WeatherNow>>
+
+    //逐小时预报
+    @GET("weather/hourly")
+    fun hourly(@Query("location") location: String): Call<HeWeather6<List<WeatherHourly>>>
+
+    //七天预报
+    @GET("weather/forecast")
+    fun forecast(@Query("location") location: String): Call<HeWeather6<List<WeatherForecast>>>
+
+    //生活指数
+    @GET("weather/lifestyle")
+    fun lifestyle(@Query("location") location: String): Call<HeWeather6<List<WeatherLifeStyle>>>
 
     companion object {
         private const val BASE_URL = "https://free-api.heweather.net/s6/"

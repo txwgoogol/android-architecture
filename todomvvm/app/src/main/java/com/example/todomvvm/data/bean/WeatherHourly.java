@@ -1,33 +1,35 @@
 package com.example.todomvvm.data.bean;
 
-//今天天气
-public class WeatherNow {
+import java.util.List;
+
+//逐小时天气
+public class WeatherHourly {
 
     /**
-     * cloud : 91
-     * cond_code : 104
-     * cond_txt : 阴
-     * fl : 29
-     * hum : 78
-     * pcpn : 0.0
-     * pres : 1002
-     * tmp : 29
-     * vis : 16
-     * wind_deg : 125
-     * wind_dir : 东南风
-     * wind_sc : 4
-     * wind_spd : 24
+     * cloud : 5
+     * cond_code : 100
+     * cond_txt : 晴
+     * dew : 26
+     * hum : 89
+     * pop : 2
+     * pres : 999
+     * time : 2019-07-21 22:00
+     * tmp : 28
+     * wind_deg : 99
+     * wind_dir : 东风
+     * wind_sc : 1-2
+     * wind_spd : 8
      */
 
     private String cloud;
     private String cond_code;
     private String cond_txt;
-    private String fl;
+    private String dew;
     private String hum;
-    private String pcpn;
+    private String pop;
     private String pres;
+    private String time;
     private String tmp;
-    private String vis;
     private String wind_deg;
     private String wind_dir;
     private String wind_sc;
@@ -57,12 +59,12 @@ public class WeatherNow {
         this.cond_txt = cond_txt;
     }
 
-    public String getFl() {
-        return fl;
+    public String getDew() {
+        return dew;
     }
 
-    public void setFl(String fl) {
-        this.fl = fl;
+    public void setDew(String dew) {
+        this.dew = dew;
     }
 
     public String getHum() {
@@ -73,12 +75,12 @@ public class WeatherNow {
         this.hum = hum;
     }
 
-    public String getPcpn() {
-        return pcpn;
+    public String getPop() {
+        return pop;
     }
 
-    public void setPcpn(String pcpn) {
-        this.pcpn = pcpn;
+    public void setPop(String pop) {
+        this.pop = pop;
     }
 
     public String getPres() {
@@ -89,20 +91,20 @@ public class WeatherNow {
         this.pres = pres;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public String getTmp() {
         return tmp;
     }
 
     public void setTmp(String tmp) {
         this.tmp = tmp;
-    }
-
-    public String getVis() {
-        return vis;
-    }
-
-    public void setVis(String vis) {
-        this.vis = vis;
     }
 
     public String getWind_deg() {
