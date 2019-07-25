@@ -1,7 +1,5 @@
 package com.example.todomvvm.data.bean;
 
-import java.util.List;
-
 //逐小时天气
 public class WeatherHourly {
 

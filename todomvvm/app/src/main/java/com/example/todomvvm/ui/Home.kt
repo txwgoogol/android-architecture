@@ -29,6 +29,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import me.listenzz.navigation.AwesomeToolbar
 import me.listenzz.navigation.BarStyle
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,6 +62,25 @@ class Home : BaseFragment() {
         weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 
 
+
+        ApiStore.create().nowStr("wuzhong,suzhou")
+            .enqueue(object : Callback<ResponseBody> {
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                    Log.d("TAG", "onResponse当天天气信息=========" +response.body()!!.string())
+
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.d("TAG", "onFailure当天天气信息=========")
+                }
+
+            })
+
+
+
+        /*
         ApiStore.create().now("wuzhong,suzhou")
             .enqueue(object : Callback<com.example.todomvvm.data.bean.HeWeather6<WeatherNow>> {
                 override fun onResponse(
@@ -205,6 +225,7 @@ class Home : BaseFragment() {
 
                 }
             })
+            */
 
 
         val animation = AnimationUtils.loadAnimation(ctx, R.anim.rotate)
@@ -225,6 +246,7 @@ class Home : BaseFragment() {
 
 
     //创建线性渐变背景色
+    //https://www.jianshu.com/p/d0c5402f1d2b
     private fun createLinearGradientBitmap(darkColor: Int, color: Int) {
         val bgColors = IntArray(2)
         bgColors[0] = darkColor

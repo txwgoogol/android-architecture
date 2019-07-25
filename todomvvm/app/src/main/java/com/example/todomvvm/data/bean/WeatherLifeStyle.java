@@ -1,7 +1,5 @@
 package com.example.todomvvm.data.bean;
 
-import java.util.List;
-
 //生活指数
 public class WeatherLifeStyle {
 
@@ -38,4 +36,5 @@ public class WeatherLifeStyle {
     public void setTxt(String txt) {
         this.txt = txt;
     }
+
 }
