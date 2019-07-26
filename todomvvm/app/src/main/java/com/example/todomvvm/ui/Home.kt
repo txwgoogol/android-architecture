@@ -13,10 +13,7 @@ import androidx.palette.graphics.Palette
 import com.blankj.utilcode.util.ScreenUtils
 import com.example.todomvvm.R
 import com.example.todomvvm.base.BaseFragment
-import com.example.todomvvm.data.bean.WeatherForecast
-import com.example.todomvvm.data.bean.WeatherHourly
-import com.example.todomvvm.data.bean.WeatherLifeStyle
-import com.example.todomvvm.data.bean.WeatherNow
+import com.example.todomvvm.data.bean.*
 import com.example.todomvvm.data.entity.HeWeather6
 import com.example.todomvvm.data.source.local.ViewModelFactory
 import com.example.todomvvm.data.source.local.WeatherViewModel
@@ -62,40 +59,38 @@ class Home : BaseFragment() {
         weatherViewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 
 
+//
+//        ApiStore.create().nowStr("wuzhong,suzhou")
+//            .enqueue(object : Callback<ResponseBody> {
+//
+//                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//
+//                    Log.d("TAG", "onResponse当天天气信息=========" +response.body()!!.string())
+//
+//                }
+//
+//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                    Log.d("TAG", "onFailure当天天气信息=========")
+//                }
+//
+//            })
 
-        ApiStore.create().nowStr("wuzhong,suzhou")
-            .enqueue(object : Callback<ResponseBody> {
 
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-
-                    Log.d("TAG", "onResponse当天天气信息=========" +response.body()!!.string())
-
-                }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Log.d("TAG", "onFailure当天天气信息=========")
-                }
-
-            })
-
-
-
-        /*
         ApiStore.create().now("wuzhong,suzhou")
-            .enqueue(object : Callback<com.example.todomvvm.data.bean.HeWeather6<WeatherNow>> {
+            .enqueue(object : Callback<WeatherNow> {
                 override fun onResponse(
-                    call: Call<com.example.todomvvm.data.bean.HeWeather6<WeatherNow>>,
-                    response: Response<com.example.todomvvm.data.bean.HeWeather6<WeatherNow>>
+                    call: Call<WeatherNow>,
+                    response: Response<WeatherNow>
                 ) {
                     Log.d("TAG", "当天天气信息=========" + Gson().toJson(response.body()))
-                    val s = response.body() as com.example.todomvvm.data.bean.HeWeather6<WeatherNow>
+                    val s = response.body() as WeatherNow
 
-                    kt_title.text = s.basic.location
-                    cond_txt.text = s.t.cond_txt
+                    kt_title.text = s.heWeather6[0].basic.location
+                    cond_txt.text = s.heWeather6[0].now.cond_txt
 
 
                     val sb = StringBuffer()
-                    sb.append(s.t.tmp)
+                    sb.append(s.heWeather6[0].now.tmp)
                     sb.append(resources.getString(R.string.tmp))
                     tmp.text = sb.toString()
 
@@ -109,7 +104,7 @@ class Home : BaseFragment() {
                 }
 
                 override fun onFailure(
-                    call: Call<com.example.todomvvm.data.bean.HeWeather6<WeatherNow>>,
+                    call: Call<WeatherNow>,
                     t: Throwable
                 ) {
                     Log.d("TAG", "失败=========" + t.localizedMessage)
@@ -117,6 +112,7 @@ class Home : BaseFragment() {
             })
 
 
+        /*
         ApiStore.create().hourly("wuzhong,suzhou")
             .enqueue(object : Callback<com.example.todomvvm.data.bean.HeWeather6<List<WeatherHourly>>> {
                 override fun onResponse(

@@ -16,23 +16,35 @@ interface ApiStore {
 
     //实况天气
     @GET("weather/now")
-    fun now(@Query("location") location: String): Call<HeWeather6<WeatherNow>>
+    fun now(@Query("location") location: String): Call<WeatherNow>
 
-    @GET("weather/now")
-    fun nowStr(@Query("location") location: String): Call<ResponseBody>
+    //实况天气 - 1
+//    @GET("weather/now")
+//    fun nowStr(@Query("location") location: String): Call<ResponseBody>
 
     //逐小时预报
     @GET("weather/hourly")
-    fun hourly(@Query("location") location: String): Call<HeWeather6<List<WeatherHourly>>>
+    fun hourly(@Query("location") location: String): Call<WeatherHourly>
+
+    //逐小时预报 - 1
+//    @GET("weather/hourly")
+//    fun hourlyStr(@Query("location") location: String): Call<ResponseBody>
 
     //七天预报
     @GET("weather/forecast")
-    fun forecast(@Query("location") location: String): Call<HeWeather6<List<WeatherForecast>>>
+    fun forecast(@Query("location") location: String): Call<WeatherForecast>
+
+    //七天预报 - 1
+//    @GET("weather/forecast")
+//    fun forecastStr(@Query("location") location: String): Call<ResponseBody>
 
     //生活指数
     @GET("weather/lifestyle")
-    fun lifestyle(@Query("location") location: String): Call<HeWeather6<List<WeatherLifeStyle>>>
+    fun lifestyle(@Query("location") location: String): Call<WeatherLifeStyle>
 
+    //生活指数 - 1
+//    @GET("weather/lifestyle")
+//    fun lifestyleStr(@Query("location") location: String): Call<ResponseBody>
 
     companion object {
         private const val BASE_URL = "https://free-api.heweather.net/s6/"

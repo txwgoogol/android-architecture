@@ -1,6 +1,6 @@
 package com.example.todomvvm.data.bean;
 
-public class HeWeather6<T> {
+public class HeWeatherV6<T> {
 
     private BasicBean basic;
     private UpdateBean update;
