@@ -375,19 +375,16 @@ public class CityListFragment extends BaseFragment implements CityListContact.Vi
     /**
      * 查询数据库是否有数据
      *
-     * @return true:有数据 false:没有数据
      */
     @Override
-    public boolean isDataMissing() {
+    public void isDataMissing() {
         //获取城市列表
         dbCityList = DBUtils.getInstance(getActivity()).query(Constant.TABLE_CITY);
         if (dbCityList.size() > 0) {
             newCityList.addAll(dbCityList);
             Logger.d(newCityList.size());
             mCityAdapter.notifyDataSetChanged();
-            return true;
         }
-        return false;
     }
 
     /**

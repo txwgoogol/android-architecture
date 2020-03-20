@@ -6,10 +6,13 @@ import android.os.Bundle;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.squareup.leakcanary.LeakCanary;
+import com.umeng.commonsdk.BuildConfig;
 import com.umeng.commonsdk.UMConfigure;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.reactivex.annotations.Nullable;
+import leakcanary.LeakCanary;
 
 /**
  * 自定义Application类
@@ -81,12 +84,12 @@ public class App extends Application {
         if (BuildConfig.DEBUG) {
 
             //============ LeakCanary 使用 start ============
-            if (LeakCanary.isInAnalyzerProcess(this)) {
+            //if (LeakCanary.isInAnalyzerProcess()) {
                 // This process is dedicated to LeakCanary for heap analysis.
                 // You should not init your app in this process.
-                return;
-            }
-            LeakCanary.install(this);
+             //   return;
+            //}
+            //LeakCanary.install(this);
             // Normal app init code...
             //============ LeakCanary 使用 end ============
 
@@ -117,36 +120,36 @@ public class App extends Application {
         //是否在后台运行
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            public void onActivityCreated(@NotNull Activity activity, Bundle savedInstanceState) {
             }
 
             @Override
-            public void onActivityStarted(Activity activity) {
+            public void onActivityStarted(@NotNull Activity activity) {
                 count++;
             }
 
             @Override
-            public void onActivityResumed(Activity activity) {
+            public void onActivityResumed(@NotNull Activity activity) {
             }
 
             @Override
-            public void onActivityPaused(Activity activity) {
+            public void onActivityPaused(@NotNull Activity activity) {
             }
 
             @Override
-            public void onActivityStopped(Activity activity) {
+            public void onActivityStopped(@NotNull Activity activity) {
                 if (count > 0) {
                     count--;
                 }
             }
 
             @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+            public void onActivitySaveInstanceState(@NotNull Activity activity, @NotNull Bundle outState) {
 
             }
 
             @Override
-            public void onActivityDestroyed(Activity activity) {
+            public void onActivityDestroyed(@NotNull Activity activity) {
             }
         });
 

@@ -23,10 +23,8 @@ public class HandleBack {
      * @see #handleBackPress(Fragment)
      * @see #handleBackPress(FragmentActivity)
      */
-    public static boolean handleBackPress(FragmentManager fragmentManager) {
+    private static boolean handleBackPress(FragmentManager fragmentManager) {
         List<Fragment> fragments = fragmentManager.getFragments();
-
-        if (fragments == null) return false;
 
         for (int i = fragments.size() - 1; i >= 0; i--) {
             Fragment child = fragments.get(i);
@@ -55,7 +53,7 @@ public class HandleBack {
      *
      * @return 如果处理了back键则返回 <b>true</b>
      */
-    public static boolean isFragmentBackHandled(Fragment fragment) {
+    private static boolean isFragmentBackHandled(Fragment fragment) {
         return fragment != null
                 && fragment.isVisible()
                 && fragment.getUserVisibleHint() //for ViewPager

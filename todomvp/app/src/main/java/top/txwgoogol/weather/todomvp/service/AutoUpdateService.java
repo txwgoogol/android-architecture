@@ -3,7 +3,7 @@ package top.txwgoogol.weather.todomvp.service;
 import android.app.IntentService;
 import android.content.Intent;
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+//import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.orhanobut.logger.Logger;
 
@@ -19,7 +19,7 @@ import com.orhanobut.logger.Logger;
 public class AutoUpdateService extends IntentService {
 
     //本地广播管理类 用于注册和发送内容到相关类中
-    private LocalBroadcastManager mLocalBroadcastManager;
+    //private LocalBroadcastManager mLocalBroadcastManager;
 
     /**
      * 必须重写
@@ -40,7 +40,7 @@ public class AutoUpdateService extends IntentService {
         super.onCreate();
         Logger.d("开始创建");
         //创建服务管理类
-        mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
+        //mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
     }
 
     /**

@@ -113,7 +113,7 @@ public class CCTable {
      * @return
      */
     public static Drawable getIndexDrawable(Context context, String indexName) {
-        int colorResourceId = R.drawable.ic_index_sunscreen;
+        int colorResourceId = 0;
         if (indexName.contains("洗车")) {
             colorResourceId = R.drawable.ic_index_car_wash;
         } else if (indexName.contains("穿衣")) {

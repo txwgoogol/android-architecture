@@ -64,18 +64,18 @@ public class AmapUtils {
             sb.append("区            : " + location.getDistrict() + "\n");
             sb.append("区域 码   : " + location.getAdCode() + "\n");
             sb.append("地    址    : " + location.getAddress() + "\n");
-            sb.append("兴趣点    : " + location.getPoiName() + "\n");
+            sb.append("兴趣点    : ").append(location.getPoiName()).append("\n");
             //定位完成的时间
-            sb.append("定位时间: " + formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
+            sb.append("定位时间: ").append(formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss")).append("\n");
         } else {
             //定位失败
             sb.append("定位失败" + "\n");
-            sb.append("错误码:" + location.getErrorCode() + "\n");
-            sb.append("错误信息:" + location.getErrorInfo() + "\n");
-            sb.append("错误描述:" + location.getLocationDetail() + "\n");
+            sb.append("错误码:").append(location.getErrorCode()).append("\n");
+            sb.append("错误信息:").append(location.getErrorInfo()).append("\n");
+            sb.append("错误描述:").append(location.getLocationDetail()).append("\n");
         }
         //定位之后的回调时间
-        sb.append("回调时间: " + formatUTC(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss") + "\n");
+        sb.append("回调时间: ").append(formatUTC(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss")).append("\n");
         return sb.toString();
     }
 
@@ -88,7 +88,7 @@ public class AmapUtils {
         if (sdf == null) {
             try {
                 sdf = new SimpleDateFormat(strPattern, Locale.CHINA);
-            } catch (Throwable e) {
+            } catch (Throwable ignored) {
             }
         } else {
             sdf.applyPattern(strPattern);

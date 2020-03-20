@@ -7,6 +7,9 @@ import com.umeng.analytics.MobclickAgent;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Objects;
+
 import top.txwgoogol.weather.todomvp.R;
 import top.txwgoogol.weather.todomvp.data.bean.city.City;
 import top.txwgoogol.weather.todomvp.util.ActivityUtils;
@@ -27,11 +30,11 @@ public class CityListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frame_layout);
 
-        Logger.d(getIntent().getParcelableExtra("city").toString());
+        Logger.d(Objects.requireNonNull(getIntent().getParcelableExtra("city")).toString());
 
         CityListFragment cityListFragment = (CityListFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout);
         if (cityListFragment == null) {
-            cityListFragment = CityListFragment.newInstance(getIntent().getParcelableExtra("city"));
+            cityListFragment = CityListFragment.newInstance(Objects.requireNonNull(getIntent().getParcelableExtra("city")));
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), cityListFragment, R.id.frame_layout);
         }
 

@@ -169,18 +169,18 @@ public class SplashActivity extends AppCompatActivity {
         public void onLocationChanged(AMapLocation location) {
             if (null != location) {
 
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
                 if (location.getErrorCode() == 0) {
                     sb.append("定位成功" + "\n");
-                    sb.append("定位类型: " + location.getLocationType() + "\n");
-                    sb.append("经    度    : " + location.getLongitude() + "\n");
-                    sb.append("纬    度    : " + location.getLatitude() + "\n");
-                    sb.append("精    度    : " + location.getAccuracy() + "米" + "\n");
-                    sb.append("提供者    : " + location.getProvider() + "\n");
+                    sb.append("定位类型: ").append(location.getLocationType()).append("\n");
+                    sb.append("经    度    : ").append(location.getLongitude()).append("\n");
+                    sb.append("纬    度    : ").append(location.getLatitude()).append("\n");
+                    sb.append("精    度    : ").append(location.getAccuracy()).append("米").append("\n");
+                    sb.append("提供者    : ").append(location.getProvider()).append("\n");
 
-                    sb.append("速    度    : " + location.getSpeed() + "米/秒" + "\n");
-                    sb.append("角    度    : " + location.getBearing() + "\n");
+                    sb.append("速    度    : ").append(location.getSpeed()).append("米/秒").append("\n");
+                    sb.append("角    度    : ").append(location.getBearing()).append("\n");
                     // 获取当前提供定位服务的卫星个数
                     sb.append("星    数    : " + location.getSatellites() + "\n");
                     sb.append("国    家    : " + location.getCountry() + "\n");
@@ -188,27 +188,27 @@ public class SplashActivity extends AppCompatActivity {
                     sb.append("市            : " + location.getCity() + "\n");
                     sb.append("城市编码 : " + location.getCityCode() + "\n");
                     sb.append("区            : " + location.getDistrict() + "\n");
-                    sb.append("区域 码   : " + location.getAdCode() + "\n");
-                    sb.append("地    址    : " + location.getAddress() + "\n");
-                    sb.append("兴趣点    : " + location.getPoiName() + "\n");
+                    sb.append("区域 码   : ").append(location.getAdCode()).append("\n");
+                    sb.append("地    址    : ").append(location.getAddress()).append("\n");
+                    sb.append("兴趣点    : ").append(location.getPoiName()).append("\n");
                     //定位完成的时间
-                    sb.append("定位时间: " + AmapUtils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
+                    sb.append("定位时间: ").append(AmapUtils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss")).append("\n");
                 } else {
                     //定位失败
                     sb.append("定位失败" + "\n");
-                    sb.append("错误码:" + location.getErrorCode() + "\n");
-                    sb.append("错误信息:" + location.getErrorInfo() + "\n");
-                    sb.append("错误描述:" + location.getLocationDetail() + "\n");
+                    sb.append("错误码:").append(location.getErrorCode()).append("\n");
+                    sb.append("错误信息:").append(location.getErrorInfo()).append("\n");
+                    sb.append("错误描述:").append(location.getLocationDetail()).append("\n");
                 }
                 sb.append("***定位质量报告***").append("\n");
                 sb.append("* WIFI开关：").append(location.getLocationQualityReport().isWifiAble() ? "开启" : "关闭").append("\n");
                 sb.append("* GPS状态：").append(getGPSStatusString(location.getLocationQualityReport().getGPSStatus())).append("\n");
                 sb.append("* GPS星数：").append(location.getLocationQualityReport().getGPSSatellites()).append("\n");
-                sb.append("* 网络类型：" + location.getLocationQualityReport().getNetworkType()).append("\n");
-                sb.append("* 网络耗时：" + location.getLocationQualityReport().getNetUseTime()).append("\n");
+                sb.append("* 网络类型：").append(location.getLocationQualityReport().getNetworkType()).append("\n");
+                sb.append("* 网络耗时：").append(location.getLocationQualityReport().getNetUseTime()).append("\n");
                 sb.append("****************").append("\n");
                 //定位之后的回调时间
-                sb.append("回调时间: " + AmapUtils.formatUTC(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss") + "\n");
+                sb.append("回调时间: ").append(AmapUtils.formatUTC(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss")).append("\n");
 
                 //解析定位结果，
                 String result = sb.toString();
@@ -291,7 +291,7 @@ public class SplashActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(strInterval)) {
             try {
                 // 设置发送定位请求的时间间隔,最小值为1000，如果小于1000，按照1000算
-                locationOption.setInterval(Long.valueOf(strInterval));
+                locationOption.setInterval(Long.parseLong(strInterval));
             } catch (Throwable e) {
                 e.printStackTrace();
             }
@@ -301,7 +301,7 @@ public class SplashActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(strTimeout)) {
             try {
                 // 设置网络请求超时时间
-                locationOption.setHttpTimeOut(Long.valueOf(strTimeout));
+                locationOption.setHttpTimeOut(Long.parseLong(strTimeout));
             } catch (Throwable e) {
                 e.printStackTrace();
             }

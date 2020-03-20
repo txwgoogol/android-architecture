@@ -14,7 +14,7 @@ import top.txwgoogol.weather.todomvp.data.bean.search.Search;
  * @author txw
  * @// TODO: 04/12/18
  */
-public class CityListContact {
+class CityListContact {
 
     interface View extends BaseView<Presenter> {
 
@@ -43,7 +43,7 @@ public class CityListContact {
         boolean isActive();
 
         //判断数据库有没有数据
-        boolean isDataMissing();
+        void isDataMissing();
 
     }
 
@@ -60,9 +60,8 @@ public class CityListContact {
          * 根据城市ID进行该城市的天气情况搜索
          *
          * @param cityId 城市ID
-         * @return 返回城市对象
          */
-        City searchWeather(String cityId);
+        void searchWeather(String cityId);
 
     }
 

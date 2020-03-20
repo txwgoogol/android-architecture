@@ -1,5 +1,7 @@
 package top.txwgoogol.weather.todomvp.util;
 
+import android.annotation.SuppressLint;
+
 import com.orhanobut.logger.Logger;
 
 import java.text.ParseException;
@@ -16,8 +18,9 @@ public class TimeConvert {
      */
     public static String dateToStamp(String s) throws ParseException {
         String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = simpleDateFormat.parse(s);
+        assert date != null;
         long ts = date.getTime();
         res = String.valueOf(ts);
         return res;
@@ -28,8 +31,8 @@ public class TimeConvert {
      */
     public static String stampToDate(String s) {
         String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        long lt = new Long(s);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long lt = Long.parseLong(s);
         Date date = new Date(lt);
         res = simpleDateFormat.format(date);
         return res;
@@ -40,8 +43,8 @@ public class TimeConvert {
      */
     public static String stampToTime(String s) {
         String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        long lt = new Long(s);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        long lt = Long.parseLong(s);
         Date date = new Date(lt);
         res = simpleDateFormat.format(date);
         return res;
@@ -55,10 +58,11 @@ public class TimeConvert {
      */
     public static String formatUTC(String s) {
         String str = "";
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             Date date = sdf1.parse(s);//拿到Date对象
+            assert date != null;
             str = sdf2.format(date);//输出格式：2017-01-22 09:28
         } catch (Exception e) {
             e.printStackTrace();

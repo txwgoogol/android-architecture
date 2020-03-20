@@ -29,9 +29,9 @@ public class CityListPresenter implements CityListContact.Presenter {
     //订阅
     private Disposable disposable;
 
-    ApiStores apiStores = ApiClient.getInstance().create(ApiStores.class);
+    private ApiStores apiStores = ApiClient.getInstance().create(ApiStores.class);
 
-    public CityListPresenter(CityListContact.View view) {
+    CityListPresenter(CityListContact.View view) {
         this.mCityView = view;
         mCityView.setPresenter(this);
         this.compositeDisposable = new CompositeDisposable();
@@ -63,7 +63,7 @@ public class CityListPresenter implements CityListContact.Presenter {
     }
 
     @Override
-    public City searchWeather(String id) {
+    public void searchWeather(String id) {
         City city = new City();
         Map nowMap = new HashMap();
         nowMap.put("location", id);
@@ -87,7 +87,6 @@ public class CityListPresenter implements CityListContact.Presenter {
                     }
                 });
         compositeDisposable.add(disposable);
-        return city;
     }
 
     @Override

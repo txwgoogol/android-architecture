@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Objects;
+
 import top.txwgoogol.weather.todomvp.util.HandleBack;
 
 /**
@@ -54,10 +56,8 @@ public class BaseFragment extends Fragment implements HandleBackInterface {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                getActivity().finish();
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            Objects.requireNonNull(getActivity()).finish();
         }
         return true;
     }

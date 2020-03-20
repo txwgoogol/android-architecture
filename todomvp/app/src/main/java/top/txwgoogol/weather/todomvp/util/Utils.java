@@ -24,8 +24,10 @@ public class Utils {
     public static int getNetWorkState(Context context) {
         int state = -1;
         ConnectivityManager connectionManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+        assert connectionManager != null;
         NetworkInfo networkInfo = connectionManager.getActiveNetworkInfo();
-        if (networkInfo.isAvailable() && networkInfo != null) {
+        assert networkInfo != null;
+        if (networkInfo.isAvailable()) {
             switch (networkInfo.getType()) {
                 case TYPE_MOBILE:
                     state = TYPE_MOBILE;
@@ -51,8 +53,10 @@ public class Utils {
      */
     public static boolean getNetWorkAvailable(Context context) {
         ConnectivityManager connectionManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+        assert connectionManager != null;
         NetworkInfo networkInfo = connectionManager.getActiveNetworkInfo();
-        if (networkInfo.isAvailable() && networkInfo != null) {
+        assert networkInfo != null;
+        if (networkInfo.isAvailable()) {
             return true;
         } else {
             return false;

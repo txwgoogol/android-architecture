@@ -10,6 +10,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.jetbrains.annotations.NotNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import top.txwgoogol.weather.todomvp.R;
@@ -29,11 +32,12 @@ public class LifeIndexAdapter extends BaseRecyclerViewAdapter<LifeIndexAdapter.V
     private Context context;
     private List<LifeIndex> lifeIndexList;
 
-    public LifeIndexAdapter(Context context, List<LifeIndex> lifeIndexList) {
+    LifeIndexAdapter(Context context, List<LifeIndex> lifeIndexList) {
         this.context = context;
         this.lifeIndexList = lifeIndexList;
     }
 
+    @NotNull
     @Override
     public LifeIndexAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_life_index, parent, false);

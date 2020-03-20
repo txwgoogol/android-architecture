@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.Objects;
+
 public class AutoUpdateReceiver extends BroadcastReceiver {
 
     /**
@@ -14,10 +16,7 @@ public class AutoUpdateReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        switch (intent.getAction()) {
-            case "":
-                break;
-        }
+        Objects.requireNonNull(intent.getAction());
     }
 
 }

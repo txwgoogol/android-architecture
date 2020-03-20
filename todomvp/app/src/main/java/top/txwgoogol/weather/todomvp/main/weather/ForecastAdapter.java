@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,10 +27,11 @@ public class ForecastAdapter extends BaseRecyclerViewAdapter<ForecastAdapter.Vie
 
     private List<Daily.ResultsBean.DailyBean> weatherForecasts;
 
-    public ForecastAdapter(List<Daily.ResultsBean.DailyBean> dailyBeans) {
+    ForecastAdapter(List<Daily.ResultsBean.DailyBean> dailyBeans) {
         this.weatherForecasts = dailyBeans;
     }
 
+    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_forecast, parent, false);

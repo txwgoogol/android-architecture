@@ -14,9 +14,9 @@ import android.widget.AdapterView;
 public abstract class BaseRecyclerViewAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 
     //点击事件
-    protected AdapterView.OnItemClickListener onItemClickListener;
+    private AdapterView.OnItemClickListener onItemClickListener;
     //长按事件
-    protected AdapterView.OnItemLongClickListener onItemLongClickListener;
+    private AdapterView.OnItemLongClickListener onItemLongClickListener;
 
     /**
      * item 单击事件

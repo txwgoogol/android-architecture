@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application' //声明是Android程序
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
 
     compileSdkVersion 29 //编译sdk的版本，也就是API Level，例如API-15、API-20、API-27等等。
-    buildToolsVersion = '28.0.3' //编译版本
+    buildToolsVersion = '29.0.3' //编译版本
 
     //关闭Android Studio的PNG合法性检查的
     //aaptOptions.cruncherEnabled = false
@@ -135,16 +136,16 @@ android {
         //甚至可以设置不同的 AndroidManifest.xml 文件。
         googleplay {} //Google Play 商店
         yingyongbao {} //腾讯 应用宝
-        qh360{} //360手机助手
+        qh360 {} //360手机助手
         xiaomi {} //小米应用商店
-        huawei{} //华为应用市场
-        baidu{} //百度手机助手
-        ali{} //阿里应用分发开放平台
-        zs91{} //智度公司公司 91助手
-        wandoujia{} //北京卓易讯畅科技有限公司 豌豆荚
-        anzhi{} //北京力天无限网络技术有限公司 安智应用商店
-        liqu{} //北京历趣科技有限公司 历趣应用商店
-        wo{} //小沃科技有限公司 沃应用商店
+        huawei {} //华为应用市场
+        baidu {} //百度手机助手
+        ali {} //阿里应用分发开放平台
+        zs91 {} //智度公司公司 91助手
+        wandoujia {} //北京卓易讯畅科技有限公司 豌豆荚
+        anzhi {} //北京力天无限网络技术有限公司 安智应用商店
+        liqu {} //北京历趣科技有限公司 历趣应用商店
+        wo {} //小沃科技有限公司 沃应用商店
     }
 
     productFlavors.all {
@@ -174,12 +175,12 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //android support
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
-    implementation 'androidx.vectordrawable:vectordrawable:1.1.0-beta02'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha06'
-    implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
     //test
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'androidx.test:runner:1.2.0'
@@ -187,20 +188,20 @@ dependencies {
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     //square
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0-alpha02'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     //reactivex
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.18'
     //json analysis
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
     //image load
     //implementation 'com.github.bumptech.glide:glide:4.6.1'
     //annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     //annotation
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     //greenrobot
     //implementation 'org.greenrobot:greendao:3.2.2'
     //circle layout
@@ -215,7 +216,7 @@ dependencies {
     //search view
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     //Amap location
-    implementation 'com.amap.api:location:4.6.0'
+    implementation 'com.amap.api:location:4.7.0'
     //module
     implementation project(':widget')
     implementation project(':searchview')
@@ -224,7 +225,7 @@ dependencies {
     //ui recyclerview adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
     //leakcanary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'

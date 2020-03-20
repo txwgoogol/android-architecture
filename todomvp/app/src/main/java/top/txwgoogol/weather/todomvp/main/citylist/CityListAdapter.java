@@ -16,7 +16,7 @@ import top.txwgoogol.weather.todomvp.util.TimeConvert;
  */
 public class CityListAdapter extends BaseQuickAdapter<City, BaseViewHolder> {
 
-    public CityListAdapter() {
+    CityListAdapter() {
         super(R.layout.item_city, null);
     }
 
